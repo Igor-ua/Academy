@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="page">
+<head>
+    <title>Person</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
+    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{../../js/jquery.validate.min.js}"></script>
+    <script th:src="@{../../js/additional-methods.min.js}"></script>
+    <script th:src="@{../../js/site.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: page">Header section</div>
+
+<div id="div-edit-person">
+    <div class="container" id="root-container">
+            <div class="row">
+                <div th:switch="${#httpServletRequest.isUserInRole('ADMIN')}">
+                    <div th:case="true">
+                        <!--Admin - True-->
+                        <div class="col-md-3 brd">
+                            <br/>
+                            <a id="printAllPersons-href" href="javascript:void(0);" class="btn btn-primary">Print all
+                                persons</a><br/><br/>
+                            <a id="findPersonById-href" href="javascript:void(0);" class="btn btn-primary">Find person
+                                by id</a><br/><br/>
+                            <a id="findPersonByAny-href" href="javascript:void(0);" class="btn btn-primary">Find person
+                                by any</a><br/><br/>
+                            <a id="savePerson-href" href="javascript:void(0);" class="btn btn-warning">Save/Update
+                                person</a><br/><br/>
+                            <a id="deletePerson-href" href="javascript:void(0);" class="btn btn-danger">Delete
+                                person</a><br/><br/>
+                        </div>
+                        <div class="col-md-9 text-center brd">
+                            <div id="person-result">result</div>
+                        </div>
+                    </div>
+
+                    <div th:case="false">
+                        <!--Admin - False-->
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: page">Footer section</div>
+
+</body>
+</html>

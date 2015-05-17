@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="page">
+<head>
+    <title>db</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
+    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{../../js/jquery.validate.min.js}"></script>
+    <script th:src="@{../../js/site.js}"></script>
+</head>
+
+<body>
+<div th:replace="fragments/header :: page">Header section</div>
+<div id="div-db">
+    <div class="container" th:if="(${#httpServletRequest.getRemoteUser()} != null )">
+        <div class="row">
+
+            <a id="hrefAdmin" href="javascript:void(0);">
+                <div class="col-md-4 brd body-admin">
+                    <div class="text-center">
+                        <span><strong>Admin</strong></span>
+
+                        <div id="div-admin" class="col-md-12">
+                            <img th:src="@{../../img/admin-512-2.png}" src="../../img/admin-512-2.png" width="200"
+                                 height="200"/>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/teacher">
+                <div class="col-md-4 brd body-teacher">
+                    <div class="text-center">
+                        <span><strong>Teacher</strong></span>
+
+                        <div id="div-teacher" class="col-md-12">
+                            <img th:src="@{../../img/46139.png}" src="../../img/46139.png" width="200" height="200"/>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/student">
+                <div class="col-md-4 brd body-student">
+                    <div class="text-center">
+                        <span><strong>Student</strong></span>
+
+                        <div id="div-student" class="col-md-12">
+                            <img th:src="@{../../img/multy-user.png}" src="../../img/multy-user.png" width="200"
+                                 height="200"/>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: page">Footer section</div>
+</body>
+</html>

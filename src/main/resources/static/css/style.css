@@ -1,0 +1,117 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+}
+
+.brd {
+    border: 1px solid; /* Параметры границы */
+    background: #ffffff; /* Цвет фона */
+}
+
+.body-admin {
+    background-color: #ffb97c;
+    color: #000000;
+}
+
+.body-admin:hover {
+    background-color: #c98c65;
+}
+
+.body-teacher {
+    background-color: #00ccff;
+    color: #000000;
+}
+
+.body-teacher:hover {
+    background-color: #00a1d4;
+}
+
+.body-student {
+    background-color: #57ff6e;
+    color: #000000;
+}
+
+.body-student:hover {
+    background-color: #4aae57;
+}
+
+.user {
+    background-color: #315070;
+}
+
+.table-title {
+    background-color: #5294d0;
+    color: #000000;
+}
+
+#a-row {
+    background-color: #d4d4d4;
+    color: #000000;
+}
+
+#b-row {
+    background-color: #cacaca;
+    color: #000000;
+}
+
+/* unvisited link grey */
+#enter-db-header-href a:link {
+    color: #b90200;
+    text-decoration: none;
+}
+
+/* visited link grey */
+#enter-db-header-href a:visited {
+    color: #b90200;
+    text-decoration: none;
+}
+
+/* mouse over link blue */
+#enter-db-header-href a:hover {
+    color: #ff0200;
+    text-decoration: none;
+}
+
+/* selected link blue */
+#enter-db-header-href a:active {
+    color: #ff0200;
+    text-decoration: none;
+}
+
+.news-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    /*color: #000000;*/
+}
+
+.col-md-12 form {
+    display: inline-block;
+}
+
+.btn {
+    margin-left: 10px;
+    margin-right: 10px;
+    /*margin-top: 5px;*/
+    /*margin-bottom: 5px;*/
+}
+
+label.error {
+    display: none !important;
+}

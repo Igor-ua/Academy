@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="page">
+<head>
+    <title>News</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
+    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{../../js/jquery.validate.min.js}"></script>
+    <script th:src="@{../../js/site.js}"></script>
+</head>
+
+<body>
+
+<div id="div-news">
+    <div class="container">
+
+        <div class="row col-md-12">
+            <div class="text-right">Login/password: admin/123, user/123</div>
+            <div class=" text-center">
+                <div class="news-title"><h2>News placeholder</h2></div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="row">
+            <div class="col-md-3 ">
+                <div class="text-center">
+                    <div class="col-md-12">
+                        <img th:src="@{../img/spring-boot-project-logo.png}"
+                             src="../img/spring-boot-project-logo.png" width="220" height="220"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 ">
+                <span>
+                    <div class="news-title"><h2>Spring Boot</h2></div>
+                    <div class="spring-description">
+                        Takes an opinionated view of building production-ready Spring applications. Spring Boot favors
+                        convention over configuration and is designed to get you up and running as quickly as possible.
+                        <br/>
+                        Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that
+                        you can "just run". We take an opinionated view of the Spring platform and third-party libraries
+                        so you can get started with minimum fuss. Most Spring Boot applications need very little Spring
+                        configuration.
+                        <br/>
+                    </div>
+
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 ">
+                <h2>Features</h2>
+                <ul>
+                    <li>Create stand-alone Spring applications</li>
+                    <li>Embed Tomcat, Jetty or Undertow directly (no need to deploy WAR files)</li>
+                    <li>Provide opinionated 'starter' POMs to simplify your Maven configuration</li>
+                    <li>Automatically configure Spring whenever possible</li>
+                    <li>Provide production-ready features such as metrics, health checks and externalized
+                        configuration
+                    </li>
+                    <li>Absolutely <strong>no code generation</strong> and <strong>no requirement for XML</strong>
+                        configuration
+                    </li>
+                </ul>
+                <h2 id="quick-start">Quick Start</h2>
+
+                <p>Spring Boot ships with a command line tool that can be used if you want to quickly prototype with
+                    Spring. It allows you to run Groovy scripts, which means that you have a familiar Java-like syntax,
+                    without so much boilerplate code. Follow the instructions in our main documentation if you want to
+                    <a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#getting-started-installing-the-cli">install
+                        the Spring Boot CLI</a>.</p>
+
+                <p>If you are Java developer you can use <a href="http://start.spring.io/">start.spring.io</a> to
+                    generate a basic project, follow the "Quick Start" example below, or read the reference
+                    documentation <a
+                            href="http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started">getting
+                        started</a> guide.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

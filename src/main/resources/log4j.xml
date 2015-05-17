@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+    <!--   ______________________________________________________________________________________________    -->
+
+    <!--   LEVELS: DEBUG, INFO, WARN, ERROR, FATAL, ALL, OFF    -->
+    <appender name="info-error-out" class="org.apache.log4j.FileAppender">
+        <param name="File" value="logs/logfile.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%p] %d{yyyy.MM.dd HH:mm:ss.SSS} [thread:%t] - %C{1}:%M:%L - %m%n"/>
+        </layout>
+
+        <filter class="org.apache.log4j.varia.LevelMatchFilter">
+            <param name="LevelToMatch" value="WARN"/>
+            <param name="AcceptOnMatch" value="false"/>
+        </filter>
+
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+        <param name="LevelMax" value="error"/>
+        <param name="LevelMin" value="info"/>
+        <param name="AcceptOnMatch" value="true"/>
+        </filter>
+
+        <filter class="org.apache.log4j.varia.DenyAllFilter" />
+
+    </appender>
+    <!--   ______________________________________________________________________________________________    -->
+    <appender name="debug-out" class="org.apache.log4j.FileAppender">
+        <param name="File" value="logs/debug-log.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%p] %d{yyyy.MM.dd HH:mm:ss.SSS} [thread:%t] - %C{1}:%M:%L - %m%n"/>
+        </layout>
+
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMax" value="debug"/>
+            <param name="LevelMin" value="debug"/>
+            <param name="AcceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+    <!--   ______________________________________________________________________________________________    -->
+
+    <logger name="org.hibernate">
+        <level value="INFO" />
+    </logger>
+
+    <logger name="org.apache">
+        <level value="OFF" />
+    </logger>
+
+    <logger name="org.crsh">
+        <level value="OFF" />
+    </logger>
+
+    <root>
+        <level value="debug"/>
+        <appender-ref ref="info-error-out"/>
+        <appender-ref ref="debug-out"/>
+    </root>
+    <!--   ______________________________________________________________________________________________    -->
+</log4j:configuration>

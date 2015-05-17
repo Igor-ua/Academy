@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{index.title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div th:replace="fragments/header :: page">Header section</div>
+<div th:replace="fragments/body :: page">Body section</div>
+<div th:replace="fragments/footer :: page">Footer section</div>
+
+</body>
+</html>
