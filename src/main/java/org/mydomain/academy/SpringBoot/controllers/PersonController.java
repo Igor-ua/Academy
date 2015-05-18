@@ -1,8 +1,6 @@
 package org.mydomain.academy.SpringBoot.controllers;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import org.mydomain.academy.SpringBoot.utils.PageWrapper;
-import org.mydomain.academy.SpringBoot.view.View;
 import org.mydomain.academy.db.entities.Person;
 import org.mydomain.academy.db.utils.formatters.BasicStringDateFormatter;
 import org.mydomain.academy.db.utils.formatters.StringDateFormatter;
@@ -19,6 +17,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 @Controller
+@RequestMapping("/db/person")
 public class PersonController {
 
 	private JPAPersonService jpaPersonService;
@@ -34,33 +33,33 @@ public class PersonController {
 		this.jpaPersonService = jpaPersonService;
 	}
 
-	@RequestMapping("/db/person")
+	@RequestMapping(value = {"", "/"})
 	public String person(ModelMap modelMap) {
 		return "/fragments/entities/person/person";
 	}
 
 	@RequestMapping(
-			value = "/db/person/find",
+			value = "/find",
 			method = RequestMethod.GET)
 	public String findPersonById(ModelMap modelMap) {
 		return "/fragments/entities/person/find_person";
 	}
 
-	@RequestMapping(value = "/db/person/show",
+	@RequestMapping(value = "/show",
 			params = {"id"}, method = RequestMethod.POST)
 	public String findOne(@RequestParam(value = "id") long id, Model model) {
 		model.addAttribute("person", jpaPersonService.findPersonByIdService(id));
 		return "/fragments/entities/person/personlist";
 	}
 
-	@RequestMapping(value = "/db/person/save", method = RequestMethod.GET)
+	@RequestMapping(value = "/save", method = RequestMethod.GET)
 	public String savePersonMapping(ModelMap modelMap) {
 		return "/fragments/entities/person/save_person";
 	}
 
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
-			value = "/db/person/save",
+			value = "/save",
 			params = {"name", "birthday", "passport"},
 			method = RequestMethod.POST)
 	@ResponseBody
@@ -79,7 +78,7 @@ public class PersonController {
 		return jpaPersonService.savePersonService(person);
 	}
 
-	@RequestMapping(value = "/db/person/show_all", method = RequestMethod.GET)
+	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
 	public String findAll(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<Person> page = new PageWrapper<>(
 				jpaPersonService.findAllPersonsService(pageable), "/db/person/show_all");
@@ -88,7 +87,7 @@ public class PersonController {
 	}
 
 	@RequestMapping(
-			value = "/db/person/find",
+			value = "/find",
 			params = {"name", "birthday", "passport"},
 			method = RequestMethod.GET)
 	public String findByAny(@RequestParam(value = "name") String name,
@@ -111,7 +110,7 @@ public class PersonController {
 
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
-			value = "/db/person/delete",
+			value = "/delete",
 			params = {"id"},
 			method = RequestMethod.POST)
 	@ResponseBody
