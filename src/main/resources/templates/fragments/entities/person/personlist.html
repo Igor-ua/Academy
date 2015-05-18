@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-md-12 text-center">
                     <div class='pagination pagination-centered'>
-                        <ul class="pagination">
+                        <ul class="pagination" id="pagination">
                             <li th:class="${page.firstPage}? 'disabled' : ''">
                                 <span th:if="${page.firstPage}">← First</span>
                                 <a th:if='${not page.firstPage}'

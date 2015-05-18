@@ -18,19 +18,27 @@ var Module = (function () {
     };
 
     var privatePaginationHrefs = function () {
-        $('#div-personlist').find('a').each(function (e) {
+        $('#pagination').find('a').each(function (e) {
             var hrf = $(this).attr('href');
             $(this).attr('href', 'javascript:void(0);');
             $(this).click(function () {
                 $('#inside-container').load(hrf + ' #inside-container > *', function () {
                     privatePaginationHrefs();
                 });
-                //$('#inside-container').load(hrf, function() {
-                //    $(this).children(':first').unwrap();
-                //    privatePaginationHrefs();
-                //});
             });
         });
+
+        $('#body').find('a').each(function (e) {
+            var hrf = $(this).attr('href');
+            $(this).attr('href', 'javascript:void(0);');
+            $(this).click(function () {
+                $('#inside-container').load(hrf + ' #inside-container > *', function () {
+                    privatePaginationHrefs();
+                });
+            });
+        });
+
+
     };
 
     var privateForms = function () {
@@ -91,11 +99,11 @@ var Module = (function () {
                         console.log("ajax success");
                         if (response == true) {
                             $('#person-result').html('<span class="text-success">' +
-                            '<strong>New person was saved successfully</strong></span>');
+                                '<strong>New person was saved successfully</strong></span>');
                         }
                         if (response == false) {
                             $('#person-result').html('<span class="text-danger">' +
-                            '<strong>Error saving new person. Check your data.</strong></span>');
+                                '<strong>Error saving new person. Check your data.</strong></span>');
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -188,7 +196,9 @@ var Module = (function () {
         //--------------------------------------------------------------
 
         $('#hrefAdmin').click(function () {
-            $("#div-db").load('/admin');
+            $("#div-db").load('/admin', function() {
+                privateBindHrefs();
+            });
         });
 
         $('#printAllPersons-href').click(function () {
@@ -220,10 +230,12 @@ var Module = (function () {
         });
 
         $('#deletePerson-href').click(function () {
-            $("#person-result").load('/db/person/delete #inside-container-2', function () {
-                privateForms();
+            $("#person-result").load('/db/person/delete #inside-container', function () {
+                privatePaginationHrefs();
             });
         });
+
+        $('#edit-person-href').attr('href','/db/person');
     };
 
     myModule.publicFunction = function () {

@@ -15,7 +15,7 @@
 <div id="div-admin">
     <div class="container">
         <div th:if="${#httpServletRequest.isUserInRole('ADMIN')}">
-            <a id="edit-person-href" href="/db/person" class="btn btn-primary">Edit persons</a>
+            <a id="edit-person-href" href="javascript:void(0);" class="btn btn-primary">Edit persons</a>
         </div>
         <div class="text-center" th:unless="${#httpServletRequest.isUserInRole('ADMIN')}">
             You can not enter this page. Please contact your administrator.

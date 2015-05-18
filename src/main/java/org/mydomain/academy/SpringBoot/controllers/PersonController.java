@@ -38,6 +38,18 @@ public class PersonController {
 		return "/fragments/entities/person/person";
 	}
 
+	@RequestMapping(value = "/fill", params = {"count"}, method = RequestMethod.GET)
+	@ResponseBody
+	public boolean fillWithData(@RequestParam(value = "count") short count) {
+		if (count > 0) {
+			for (short i = 0; i < count; i++) {
+				jpaPersonService.savePersonService(new Person("Jack", new Date(), "FF223344"));
+			}
+			return true;
+		}
+		return false;
+	}
+
 	@RequestMapping(
 			value = "/find",
 			method = RequestMethod.GET)
@@ -109,13 +121,23 @@ public class PersonController {
 	}
 
 	@RequestMapping(
-			produces = MediaType.APPLICATION_JSON_VALUE,
 			value = "/delete",
 			params = {"id"},
-			method = RequestMethod.POST)
-	@ResponseBody
-	public boolean deletePerson(@RequestParam(value = "id") long id,
-							  ModelMap modelMap) {
-		return jpaPersonService.deletePersonService(jpaPersonService.findPersonByIdService(id));
+			method = RequestMethod.GET)
+	public String deletePerson(@RequestParam(value = "id") long id,
+							   ModelMap modelMap, Pageable pageable) {
+		jpaPersonService.deletePersonService(jpaPersonService.findPersonByIdService(id));
+		PageWrapper<Person> page = new PageWrapper<>(
+				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+		modelMap.addAttribute("page", page);
+		return "/fragments/entities/person/delete_person";
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String deletePerson(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Person> page = new PageWrapper<>(
+				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+		modelMap.addAttribute("page", page);
+		return "/fragments/entities/person/delete_person";
 	}
 }

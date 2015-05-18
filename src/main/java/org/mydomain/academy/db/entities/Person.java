@@ -28,11 +28,11 @@ public class Person {
 	@JsonView(View.Summary.class)
 	private String passport;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "person_id")
 	private Set<Student> studentSet;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "person_id")
 	private Set<Teacher> teacherSet;
 
