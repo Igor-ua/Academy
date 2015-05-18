@@ -38,12 +38,19 @@ public class PersonController {
 		return "/fragments/entities/person/person";
 	}
 
-	@RequestMapping(value = "/fill", params = {"count"}, method = RequestMethod.GET)
+	@RequestMapping(
+			value = "/fill",
+			params = {"count"},
+			method = RequestMethod.GET)
 	@ResponseBody
 	public boolean fillWithData(@RequestParam(value = "count") short count) {
 		if (count > 0) {
 			for (short i = 0; i < count; i++) {
-				jpaPersonService.savePersonService(new Person("Jack", new Date(), "FF223344"));
+				if (i % 2 == 0) {
+					jpaPersonService.savePersonService(new Person("Jack", new Date(), "FF223344"));
+				} else {
+					jpaPersonService.savePersonService(new Person("Mike", new Date(), "AB000111"));
+				}
 			}
 			return true;
 		}
@@ -57,29 +64,41 @@ public class PersonController {
 		return "/fragments/entities/person/find_person";
 	}
 
-	@RequestMapping(value = "/show",
-			params = {"id"}, method = RequestMethod.POST)
+	@RequestMapping(
+			value = "/show",
+			params = {"id"},
+			method = RequestMethod.POST)
 	public String findOne(@RequestParam(value = "id") long id, Model model) {
 		model.addAttribute("person", jpaPersonService.findPersonByIdService(id));
 		return "/fragments/entities/person/personlist";
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public String savePersonMapping(ModelMap modelMap) {
+	@RequestMapping(
+			value = "/save",
+			params = {"id"},
+			method = RequestMethod.GET)
+	public String savePersonMapping(@RequestParam(value = "id") String id,
+									ModelMap modelMap) {
+		modelMap.addAttribute("id", id);
 		return "/fragments/entities/person/save_person";
 	}
 
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value = "/save",
-			params = {"name", "birthday", "passport"},
+			params = {"id", "name", "birthday", "passport"},
 			method = RequestMethod.POST)
 	@ResponseBody
-	public boolean savePerson(@RequestParam(value = "name") String name,
+	public boolean savePerson(@RequestParam(value = "id") String id,
+							  @RequestParam(value = "name") String name,
 							  @RequestParam(value = "birthday") String birthday,
 							  @RequestParam(value = "passport") String passport,
 							  ModelMap modelMap) {
+		System.out.println("id=" + id + "name: " + name + " ,birthday: " + birthday + " ,passport: " + passport);
 		Person person = new Person();
+		if (!id.equals("")) {
+			person.setId(Long.parseLong(id));
+		}
 		person.setName(name);
 		person.setPassport(passport);
 		try {
@@ -143,7 +162,9 @@ public class PersonController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updatePerson(ModelMap modelMap, Pageable pageable) {
-
-		return "";
+		PageWrapper<Person> page = new PageWrapper<>(
+				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
+		modelMap.addAttribute("page", page);
+		return "/fragments/entities/person/update_person";
 	}
 }

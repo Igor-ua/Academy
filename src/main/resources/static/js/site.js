@@ -28,12 +28,23 @@ var Module = (function () {
             });
         });
 
-        $('#body').find('a').each(function (e) {
+        $('#delete-body').find('a').each(function (e) {
             var hrf = $(this).attr('href');
             $(this).attr('href', 'javascript:void(0);');
             $(this).click(function () {
                 $('#inside-container').load(hrf + ' #inside-container > *', function () {
                     privatePaginationHrefs();
+                });
+            });
+        });
+
+        $('#update-body').find('a').each(function (e) {
+            var hrf = $(this).attr('href');
+            $(this).attr('href', 'javascript:void(0);');
+            $(this).click(function () {
+                $('#inside-container').load(hrf + ' #inside-container > *', function () {
+                    privatePaginationHrefs();
+                    privateForms();
                 });
             });
         });
@@ -218,14 +229,14 @@ var Module = (function () {
         });
 
         $('#savePerson-href').click(function () {
-            $("#person-result").load('/db/person/save #inside-container', function () {
+            $("#person-result").load('/db/person/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#updatePerson-href').click(function () {
             $("#person-result").load('/db/person/update #inside-container', function () {
-                privateForms();
+                privatePaginationHrefs();
             });
         });
 
