@@ -223,6 +223,12 @@ var Module = (function () {
             });
         });
 
+        $('#updatePerson-href').click(function () {
+            $("#person-result").load('/db/person/update #inside-container', function () {
+                privateForms();
+            });
+        });
+
         $('#findPersonByAny-href').click(function () {
             $("#person-result").load('/db/person/find #inside-container-2', function () {
                 privateForms();

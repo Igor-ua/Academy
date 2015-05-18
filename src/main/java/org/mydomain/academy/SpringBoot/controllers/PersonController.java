@@ -140,4 +140,10 @@ public class PersonController {
 		modelMap.addAttribute("page", page);
 		return "/fragments/entities/person/delete_person";
 	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updatePerson(ModelMap modelMap, Pageable pageable) {
+
+		return "";
+	}
 }
