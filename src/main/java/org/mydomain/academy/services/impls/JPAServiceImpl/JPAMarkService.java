@@ -6,6 +6,8 @@ import org.mydomain.academy.db.DAO.JPAInterface.JPAMarkDAO;
 import org.mydomain.academy.db.entities.*;
 import org.mydomain.academy.services.ServiceInterface.MarkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -39,6 +41,10 @@ public class JPAMarkService implements MarkService {
 	@Override
 	public List<Mark> findAllMarksService() {
 		return jpaMarkDAO.findAll();
+	}
+
+	public Page<Mark> findAllMarksService(Pageable pageable) {
+		return jpaMarkDAO.findAll(pageable);
 	}
 
 	@Override
@@ -118,9 +124,9 @@ public class JPAMarkService implements MarkService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<Mark> findByAny(Date date, MarkType markType, Teacher teacher, Student student,
-								Group group, Subject subject, Form form) {
+	public Page<Mark> findByAny(Date date, MarkType markType, Teacher teacher, Student student,
+								Group group, Subject subject, Form form, Pageable pageable) {
 		return jpaMarkDAO.findByDateOrMarkTypeOrTeacherOrStudentOrGroupOrSubjectOrForm(
-				date, markType, teacher, student, group, subject, form);
+				date, markType, teacher, student, group, subject, form, pageable);
 	}
 }

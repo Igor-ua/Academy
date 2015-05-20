@@ -17,6 +17,7 @@ public class Subject {
 	private String name;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Specialization specialization;
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -158,9 +159,6 @@ public class Subject {
 		int result = (int) (id ^ (id >>> 32));
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (specialization != null ? specialization.hashCode() : 0);
-		result = 31 * result + (markSet != null ? markSet.hashCode() : 0);
-		result = 31 * result + (scheduleSet != null ? scheduleSet.hashCode() : 0);
-		result = 31 * result + (teacherSet != null ? teacherSet.hashCode() : 0);
 		return result;
 	}
 

@@ -80,7 +80,6 @@ public class MarkType {
 	public int hashCode() {
 		int result = (int) (id ^ (id >>> 32));
 		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (markSet != null ? markSet.hashCode() : 0);
 		return result;
 	}
 

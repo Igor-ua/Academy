@@ -6,6 +6,8 @@ import org.mydomain.academy.db.DAO.JPAInterface.JPASpecializationDAO;
 import org.mydomain.academy.db.entities.Specialization;
 import org.mydomain.academy.services.ServiceInterface.SpecializationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -38,6 +40,10 @@ public class JPASpecializationService implements SpecializationService {
 	@Override
 	public List<Specialization> findAllSpecializationsService() {
 		return jpaSpecializationDAO.findAll();
+	}
+
+	public Page<Specialization> findAllSpecializationsService(Pageable pageable) {
+		return jpaSpecializationDAO.findAll(pageable);
 	}
 
 	@Override
@@ -81,7 +87,7 @@ public class JPASpecializationService implements SpecializationService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<Specialization> findByAny(String name) {
-		return jpaSpecializationDAO.findByName(name);
+	public Page<Specialization> findByAny(String name, Pageable pageable) {
+		return jpaSpecializationDAO.findByName(name, pageable);
 	}
 }

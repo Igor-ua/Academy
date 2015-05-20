@@ -6,6 +6,8 @@ import org.mydomain.academy.db.DAO.JPAInterface.JPAMarkTypeDAO;
 import org.mydomain.academy.db.entities.MarkType;
 import org.mydomain.academy.services.ServiceInterface.MarkTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -38,6 +40,10 @@ public class JPAMarkTypeService implements MarkTypeService{
 	@Override
 	public List<MarkType> findAllMarkTypesService() {
 		return jpaMarkTypeDAO.findAll();
+	}
+
+	public Page<MarkType> findAllMarkTypesService(Pageable pageable) {
+		return jpaMarkTypeDAO.findAll(pageable);
 	}
 
 	@Override
@@ -81,7 +87,7 @@ public class JPAMarkTypeService implements MarkTypeService{
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<MarkType> findByAny(String name) {
-		return jpaMarkTypeDAO.findByName(name);
+	public Page<MarkType> findByAny(String name, Pageable pageable) {
+		return jpaMarkTypeDAO.findByName(name, pageable);
 	}
 }

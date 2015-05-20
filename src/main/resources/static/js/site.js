@@ -74,7 +74,9 @@ var Module = (function () {
                 }
             });
         });
-        //################################################################
+        //############################################################################################
+        //Forms save block
+        //############################################################################################
         $('#savePersonForm').validate({
             rules: {
                 name: {
@@ -123,29 +125,48 @@ var Module = (function () {
                 });
             }
         });
-        //################################################################
-        //$('#savePersonForm').submit(function (event) {
-        //    event.preventDefault();
-        //    $.ajax({
-        //        url: '/db/person/save',
-        //        type: 'post',
-        //        data: $('#savePersonForm').serialize(),
-        //        success: function (response, textStatus, jqXHR) {
-        //            $('#result').html(response.toString());
-        //            console.log("ajax success");
-        //            if (response == true) {
-        //                console.log("It's true!");
-        //            }
-        //            if (response == false) {
-        //                console.log("It's false!");
-        //            }
-        //        },
-        //        error: function (jqXHR, textStatus, errorThrown) {
-        //            console.log('error(s):' + textStatus, errorThrown);
-        //        }
-        //    });
-        //});
-        //################################################################
+
+        $('#saveTeacherForm').validate({
+            rules: {
+                start: {
+                    required: true,
+                    date: true
+                },
+                finish: {
+                    required: true,
+                    date: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/teacher/save',
+                    type: 'post',
+                    data: $('#saveTeacherForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#teacher-result').html('<span class="text-success">' +
+                                '<strong>New teacher was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#teacher-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new teacher. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+        //############################################################################################
         $('#findPersonForm').validate({
             rules: {
                 name: {
@@ -207,52 +228,88 @@ var Module = (function () {
         //--------------------------------------------------------------
 
         $('#hrefAdmin').click(function () {
-            $("#div-db").load('/admin', function() {
+            $("#div-db").load('/admin', function () {
                 privateBindHrefs();
             });
         });
 
-        $('#printAllPersons-href').click(function () {
+        //############################################################################################
+        //Print-all block
+        //############################################################################################
+        $('#print-all-persons-btn').click(function () {
             $("#person-result").load('/db/person/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
+        $('#print-all-teachers-btn').click(function () {
+            $("#teacher-result").load('/db/teacher/show_all #inside-container', function () {
+                privatePaginationHrefs();
+            });
+        });
+        //############################################################################################
+
+
         $('#get-into-db-href').click(function () {
             $("#div-body").load('/db #div-db');
         });
 
-        $('#findPersonById-href').click(function () {
+        $('#find-person-by-id-btn').click(function () {
             $("#person-result").load('/db/person/find #inside-container', function () {
                 privateForms();
             });
         });
 
-        $('#savePerson-href').click(function () {
+        //############################################################################################
+        //Buttons save block
+        //############################################################################################
+        $('#save-person-btn').click(function () {
             $("#person-result").load('/db/person/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
-        $('#updatePerson-href').click(function () {
+        $('#save-teacher-btn').click(function () {
+            $("#teacher-result").load('/db/teacher/save?id= #inside-container', function () {
+                privateForms();
+            });
+        });
+        //############################################################################################
+
+        $('#update-person-btn').click(function () {
             $("#person-result").load('/db/person/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
-        $('#findPersonByAny-href').click(function () {
+        $('#find-persons-by-any-btn').click(function () {
             $("#person-result").load('/db/person/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
-        $('#deletePerson-href').click(function () {
+        $('#delete-person-btn').click(function () {
             $("#person-result").load('/db/person/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
-        $('#edit-person-href').attr('href','/db/person');
+        //############################################################################################
+        //DB buttons block
+        //############################################################################################
+        $('#person-btn').attr('href', '/db/person');
+        $('#teacher-btn').attr('href', '/db/teacher');
+        $('#student-btn').attr('href', '/db/student');
+        $('#group-btn').attr('href', '/db/group');
+        $('#form-btn').attr('href', '/db/form');
+        $('#mark-btn').attr('href', '/db/mark');
+        $('#mark-type-btn').attr('href', '/db/marktype');
+        $('#schedule-btn').attr('href', '/db/schedule');
+        $('#spec-btn').attr('href', '/db/specialization');
+        $('#subject-btn').attr('href', '/db/subject');
+        $('#authentication-btn').attr('href', '/db/authentication');
+        //############################################################################################
+
     };
 
     myModule.publicFunction = function () {

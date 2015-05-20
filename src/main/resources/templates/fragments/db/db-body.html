@@ -17,43 +17,41 @@
     <div class="container" th:if="(${#httpServletRequest.getRemoteUser()} != null )">
         <div class="row">
 
-            <a id="hrefAdmin" href="javascript:void(0);">
-                <div class="col-md-4 brd body-admin">
-                    <div class="text-center">
-                        <span><strong>Admin</strong></span>
+            <div class="col-md-12">
+                <a id="person-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Persons</a>
+            </div>
+            <div class="col-md-12">
+                <a id="teacher-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Teachers</a>
+            </div>
+            <div class="col-md-12">
+                <a id="student-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Students</a>
+            </div>
+            <div class="col-md-12">
+                <a id="form-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Forms</a>
+            </div>
+            <div class="col-md-12">
+                <a id="group-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Groups</a>
+            </div>
+            <div class="col-md-12">
+                <a id="mark-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Marks</a>
+            </div>
+            <div class="col-md-12">
+                <a id="mark-type-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Mark types</a>
+            </div>
+            <div class="col-md-12">
+                <a id="schedule-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Schedules</a>
+            </div>
+            <div class="col-md-12">
+                <a id="spec-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Specializations</a>
+            </div>
+            <div class="col-md-12">
+                <a id="subject-btn" href="javascript:void(0);" class="btn btn-primary btn-mrg-top">Subjects</a>
+            </div>
+            <div class="col-md-12">
+                <a id="authentication-btn" href="javascript:void(0);"
+                   class="btn btn-warning btn-mrg-top">Authentication</a>
+            </div>
 
-                        <div id="div-admin" class="col-md-12">
-                            <img th:src="@{../../img/admin-512-2.png}" src="../../img/admin-512-2.png" width="200"
-                                 height="200"/>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="/teacher">
-                <div class="col-md-4 brd body-teacher">
-                    <div class="text-center">
-                        <span><strong>Teacher</strong></span>
-
-                        <div id="div-teacher" class="col-md-12">
-                            <img th:src="@{../../img/46139.png}" src="../../img/46139.png" width="200" height="200"/>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="/student">
-                <div class="col-md-4 brd body-student">
-                    <div class="text-center">
-                        <span><strong>Student</strong></span>
-
-                        <div id="div-student" class="col-md-12">
-                            <img th:src="@{../../img/multy-user.png}" src="../../img/multy-user.png" width="200"
-                                 height="200"/>
-                        </div>
-                    </div>
-                </div>
-            </a>
         </div>
     </div>
 </div>

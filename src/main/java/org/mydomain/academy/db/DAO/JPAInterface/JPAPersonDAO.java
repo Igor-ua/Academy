@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Date;
 import java.util.List;
 
-
 public interface JPAPersonDAO extends JpaRepository<Person, Long> {
 
 	Page<Person> findByNameOrBirthdayOrPassport(String name, Date birthday, String passport, Pageable pageable);

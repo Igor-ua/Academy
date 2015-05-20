@@ -8,6 +8,8 @@ import org.mydomain.academy.db.entities.Person;
 import org.mydomain.academy.db.entities.Student;
 import org.mydomain.academy.services.ServiceInterface.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -41,6 +43,10 @@ public class JPAStudentService implements StudentService{
 	@Override
 	public List<Student> findAllStudentsService() {
 		return jpaStudentDAO.findAll();
+	}
+
+	public Page<Student> findAllStudentsService(Pageable pageable) {
+		return jpaStudentDAO.findAll(pageable);
 	}
 
 	@Override
@@ -102,7 +108,7 @@ public class JPAStudentService implements StudentService{
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<Student> findByAny(Person person, Group group, Date start, Date finish) {
-		return jpaStudentDAO.findByPersonOrGroupOrStartOrFinish(person, group, start, finish);
+	public Page<Student> findByAny(Person person, Group group, Date start, Date finish, Pageable pageable) {
+		return jpaStudentDAO.findByPersonOrGroupOrStartOrFinish(person, group, start, finish, pageable);
 	}
 }

@@ -9,6 +9,8 @@ import org.mydomain.academy.db.entities.Subject;
 import org.mydomain.academy.db.entities.Teacher;
 import org.mydomain.academy.services.ServiceInterface.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -45,6 +47,10 @@ public class JPAScheduleService implements ScheduleService {
 	@Override
 	public List<Schedule> findAllSchedulesService() {
 		return jpaScheduleDAO.findAll();
+	}
+
+	public Page<Schedule> findAllSchedulesService(Pageable pageable) {
+		return jpaScheduleDAO.findAll(pageable);
 	}
 
 	@Override
@@ -118,9 +124,9 @@ public class JPAScheduleService implements ScheduleService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<Schedule> findByAny(Subject subject, Teacher teacher, Group group,
-									String day, String chisZnam, Integer lenta) {
+	public Page<Schedule> findByAny(Subject subject, Teacher teacher, Group group,
+									String day, String chisZnam, Integer lenta, Pageable pageable) {
 		return jpaScheduleDAO.findBySubjectOrTeacherOrGroupOrDayOrChisZnamOrLenta(
-				subject, teacher, group, day, chisZnam, lenta);
+				subject, teacher, group, day, chisZnam, lenta, pageable);
 	}
 }

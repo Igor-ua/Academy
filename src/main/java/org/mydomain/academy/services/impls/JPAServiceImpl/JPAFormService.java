@@ -6,7 +6,9 @@ import org.mydomain.academy.db.DAO.JPAInterface.JPAFormDAO;
 import org.mydomain.academy.db.entities.Form;
 import org.mydomain.academy.services.ServiceInterface.FormService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -38,6 +40,10 @@ public class JPAFormService implements FormService {
 	@Override
 	public List<Form> findAllFormsService() {
 		return jpaFormDAO.findAll();
+	}
+
+	public Page<Form> findAllFormsService(Pageable pageable) {
+		return jpaFormDAO.findAll(pageable);
 	}
 
 	@Override
@@ -81,7 +87,7 @@ public class JPAFormService implements FormService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<Form> findByAny(String name) {
-		return jpaFormDAO.findByName(name);
+	public Page<Form> findByAny(String name, Pageable pageable) {
+		return jpaFormDAO.findByName(name, pageable);
 	}
 }

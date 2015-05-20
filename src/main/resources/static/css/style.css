@@ -112,6 +112,10 @@ body {
     /*margin-bottom: 5px;*/
 }
 
+.btn-mrg-top {
+    margin-top: 5px;
+}
+
 label.error {
     display: none !important;
 }

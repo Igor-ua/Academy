@@ -28,11 +28,11 @@ public class Person {
 	@JsonView(View.Summary.class)
 	private String passport;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "person_id")
 	private Set<Student> studentSet;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "person_id")
 	private Set<Teacher> teacherSet;
 
@@ -142,8 +142,6 @@ public class Person {
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
 		result = 31 * result + (passport != null ? passport.hashCode() : 0);
-		result = 31 * result + (studentSet != null ? studentSet.hashCode() : 0);
-		result = 31 * result + (teacherSet != null ? teacherSet.hashCode() : 0);
 		return result;
 	}
 

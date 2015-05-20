@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Person</title>
+    <title>Teacher</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -14,26 +14,26 @@
 <body>
 <div th:replace="fragments/header :: page">Header section</div>
 
-<div id="div-edit-person">
+<div id="div-edit-teacher">
     <div class="container" id="root-container">
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-persons-btn" href="javascript:void(0);" class="btn btn-primary">Print all
-                    persons</a><br/><br/>
-                <a id="find-person-by-id-btn" href="javascript:void(0);" class="btn btn-primary">Find person
+                <a id="print-all-teachers-btn" href="javascript:void(0);" class="btn btn-primary">Print all
+                    teachers</a><br/><br/>
+                <a id="find-teacher-by-id-btn" href="javascript:void(0);" class="btn btn-primary">Find teacher
                     by id</a><br/><br/>
-                <a id="find-persons-by-any-btn" href="javascript:void(0);" class="btn btn-primary">Find person
+                <a id="find-teachers-by-any-btn" href="javascript:void(0);" class="btn btn-primary">Find teachers
                     by any</a><br/><br/>
-                <a id="save-person-btn" href="javascript:void(0);" class="btn btn-warning">Save
-                    person</a><br/><br/>
-                <a id="update-person-btn" href="javascript:void(0);" class="btn btn-warning">Update
-                    person</a><br/><br/>
-                <a id="delete-person-btn" href="javascript:void(0);" class="btn btn-danger">Delete
-                    person</a><br/><br/>
+                <a id="save-teacher-btn" href="javascript:void(0);" class="btn btn-warning">Save
+                    teacher</a><br/><br/>
+                <a id="update-teacher-btn" href="javascript:void(0);" class="btn btn-warning">Update
+                    teacher</a><br/><br/>
+                <a id="delete-teacher-btn" href="javascript:void(0);" class="btn btn-danger">Delete
+                    teacher</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">
-                <div id="person-result">result</div>
+                <div id="teacher-result">result</div>
             </div>
         </div>
     </div>

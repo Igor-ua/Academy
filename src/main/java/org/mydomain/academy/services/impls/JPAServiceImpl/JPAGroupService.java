@@ -8,6 +8,8 @@ import org.mydomain.academy.db.entities.Group;
 import org.mydomain.academy.db.entities.Specialization;
 import org.mydomain.academy.services.ServiceInterface.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -40,6 +42,10 @@ public class JPAGroupService implements GroupService{
 	@Override
 	public List<Group> findAllGroupsService() {
 		return jpaGroupDAO.findAll();
+	}
+
+	public Page<Group> findAllGroupsService(Pageable pageable) {
+		return jpaGroupDAO.findAll(pageable);
 	}
 
 	@Override
@@ -95,7 +101,7 @@ public class JPAGroupService implements GroupService{
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<Group> findByAny(String name, Form form, Specialization specialization) {
-		return jpaGroupDAO.findByNameOrFormOrSpecialization(name, form, specialization);
+	public Page<Group> findByAny(String name, Form form, Specialization specialization, Pageable pageable) {
+		return jpaGroupDAO.findByNameOrFormOrSpecialization(name, form, specialization, pageable);
 	}
 }

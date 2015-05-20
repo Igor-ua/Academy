@@ -7,6 +7,8 @@ import org.mydomain.academy.db.entities.Person;
 import org.mydomain.academy.db.entities.Teacher;
 import org.mydomain.academy.services.ServiceInterface.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -40,6 +42,10 @@ public class JPATeacherService implements TeacherService {
 	@Override
 	public List<Teacher> findAllTeachersService() {
 		return jpaTeacherDAO.findAll();
+	}
+
+	public Page<Teacher> findAllTeachersService(Pageable pageable) {
+		return jpaTeacherDAO.findAll(pageable);
 	}
 
 	@Override
@@ -95,7 +101,7 @@ public class JPATeacherService implements TeacherService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<Teacher> findByAny(Person person, Date start, Date finish) {
-		return jpaTeacherDAO.findByPersonOrStartOrFinish(person, start, finish);
+	public Page<Teacher> findByAny(Person person, Date start, Date finish, Pageable pageable) {
+		return jpaTeacherDAO.findByPersonOrStartOrFinish(person, start, finish, pageable);
 	}
 }

@@ -17,21 +17,27 @@ public class Mark {
 	private Date date;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private MarkType markType;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Teacher teacher;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Student student;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Group group;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Subject subject;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Form form;
 
 	@Transient
@@ -182,6 +188,49 @@ public class Mark {
 
 	public void setForm_id(long form_id) {
 		this.form_id = form_id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Mark mark = (Mark) o;
+
+		if (id != mark.id) return false;
+		if (markTypeId != mark.markTypeId) return false;
+		if (teacher_id != mark.teacher_id) return false;
+		if (student_id != mark.student_id) return false;
+		if (group_id != mark.group_id) return false;
+		if (subject_id != mark.subject_id) return false;
+		if (form_id != mark.form_id) return false;
+		if (date != null ? !date.equals(mark.date) : mark.date != null) return false;
+		if (markType != null ? !markType.equals(mark.markType) : mark.markType != null) return false;
+		if (teacher != null ? !teacher.equals(mark.teacher) : mark.teacher != null) return false;
+		if (student != null ? !student.equals(mark.student) : mark.student != null) return false;
+		if (group != null ? !group.equals(mark.group) : mark.group != null) return false;
+		if (subject != null ? !subject.equals(mark.subject) : mark.subject != null) return false;
+		return !(form != null ? !form.equals(mark.form) : mark.form != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = (int) (id ^ (id >>> 32));
+		result = 31 * result + (date != null ? date.hashCode() : 0);
+		result = 31 * result + (markType != null ? markType.hashCode() : 0);
+		result = 31 * result + (teacher != null ? teacher.hashCode() : 0);
+		result = 31 * result + (student != null ? student.hashCode() : 0);
+		result = 31 * result + (group != null ? group.hashCode() : 0);
+		result = 31 * result + (subject != null ? subject.hashCode() : 0);
+		result = 31 * result + (form != null ? form.hashCode() : 0);
+		result = 31 * result + (int) (markTypeId ^ (markTypeId >>> 32));
+		result = 31 * result + (int) (teacher_id ^ (teacher_id >>> 32));
+		result = 31 * result + (int) (student_id ^ (student_id >>> 32));
+		result = 31 * result + (int) (group_id ^ (group_id >>> 32));
+		result = 31 * result + (int) (subject_id ^ (subject_id >>> 32));
+		result = 31 * result + (int) (form_id ^ (form_id >>> 32));
+		return result;
 	}
 
 	@Override

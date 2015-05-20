@@ -103,8 +103,6 @@ public class Specialization {
 	public int hashCode() {
 		int result = (int) (id ^ (id >>> 32));
 		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (groupSet != null ? groupSet.hashCode() : 0);
-		result = 31 * result + (subjectSet != null ? subjectSet.hashCode() : 0);
 		return result;
 	}
 

@@ -19,9 +19,11 @@ public class Student {
 	private long id;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Person person;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Group group;
 
 	private Date start;
@@ -157,7 +159,6 @@ public class Student {
 		result = 31 * result + (group != null ? group.hashCode() : 0);
 		result = 31 * result + (start != null ? start.hashCode() : 0);
 		result = 31 * result + (finish != null ? finish.hashCode() : 0);
-		result = 31 * result + (markSet != null ? markSet.hashCode() : 0);
 		return result;
 	}
 

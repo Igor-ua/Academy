@@ -22,6 +22,7 @@ public class Teacher {
 	private Date finish;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Person person;
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -174,9 +175,6 @@ public class Teacher {
 		result = 31 * result + (start != null ? start.hashCode() : 0);
 		result = 31 * result + (finish != null ? finish.hashCode() : 0);
 		result = 31 * result + (person != null ? person.hashCode() : 0);
-		result = 31 * result + (markSet != null ? markSet.hashCode() : 0);
-		result = 31 * result + (scheduleSet != null ? scheduleSet.hashCode() : 0);
-		result = 31 * result + (subjectSet != null ? subjectSet.hashCode() : 0);
 		return result;
 	}
 

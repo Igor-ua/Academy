@@ -16,12 +16,15 @@ public class Schedule {
 	private long id;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Subject subject;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Teacher teacher;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Group group;
 
 	private String day;
@@ -142,6 +145,41 @@ public class Schedule {
 
 	public void setGroup_id(long group_id) {
 		this.group_id = group_id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Schedule schedule = (Schedule) o;
+
+		if (id != schedule.id) return false;
+		if (lenta != schedule.lenta) return false;
+		if (subject_id != schedule.subject_id) return false;
+		if (teacher_id != schedule.teacher_id) return false;
+		if (group_id != schedule.group_id) return false;
+		if (subject != null ? !subject.equals(schedule.subject) : schedule.subject != null) return false;
+		if (teacher != null ? !teacher.equals(schedule.teacher) : schedule.teacher != null) return false;
+		if (group != null ? !group.equals(schedule.group) : schedule.group != null) return false;
+		if (day != null ? !day.equals(schedule.day) : schedule.day != null) return false;
+		return !(chisZnam != null ? !chisZnam.equals(schedule.chisZnam) : schedule.chisZnam != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = (int) (id ^ (id >>> 32));
+		result = 31 * result + (subject != null ? subject.hashCode() : 0);
+		result = 31 * result + (teacher != null ? teacher.hashCode() : 0);
+		result = 31 * result + (group != null ? group.hashCode() : 0);
+		result = 31 * result + (day != null ? day.hashCode() : 0);
+		result = 31 * result + (chisZnam != null ? chisZnam.hashCode() : 0);
+		result = 31 * result + lenta;
+		result = 31 * result + (int) (subject_id ^ (subject_id >>> 32));
+		result = 31 * result + (int) (teacher_id ^ (teacher_id >>> 32));
+		result = 31 * result + (int) (group_id ^ (group_id >>> 32));
+		return result;
 	}
 
 	@Override

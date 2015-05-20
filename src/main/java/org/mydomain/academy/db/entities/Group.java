@@ -18,9 +18,11 @@ public class Group {
 	private String name;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Form form;
 
 	@ManyToOne
+	@JoinColumn(nullable = false)
 	private Specialization specialization;
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -183,9 +185,6 @@ public class Group {
 	public int hashCode() {
 		int result = (int) (id ^ (id >>> 32));
 		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (scheduleSet != null ? scheduleSet.hashCode() : 0);
-		result = 31 * result + (markSet != null ? markSet.hashCode() : 0);
-		result = 31 * result + (studentSet != null ? studentSet.hashCode() : 0);
 		result = 31 * result + (form != null ? form.hashCode() : 0);
 		result = 31 * result + (specialization != null ? specialization.hashCode() : 0);
 		return result;

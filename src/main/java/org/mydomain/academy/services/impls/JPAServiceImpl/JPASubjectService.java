@@ -7,6 +7,8 @@ import org.mydomain.academy.db.entities.Specialization;
 import org.mydomain.academy.db.entities.Subject;
 import org.mydomain.academy.services.ServiceInterface.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -39,6 +41,10 @@ public class JPASubjectService implements SubjectService{
 	@Override
 	public List<Subject> findAllSubjectsService() {
 		return jpaSubjectDAO.findAll();
+	}
+
+	public Page<Subject> findAllSubjectsService(Pageable pageable) {
+		return jpaSubjectDAO.findAll(pageable);
 	}
 
 	@Override
@@ -88,7 +94,7 @@ public class JPASubjectService implements SubjectService{
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public List<Subject> findByAny(String name, Specialization specialization) {
-		return jpaSubjectDAO.findByNameOrSpecialization(name, specialization);
+	public Page<Subject> findByAny(String name, Specialization specialization, Pageable pageable) {
+		return jpaSubjectDAO.findByNameOrSpecialization(name, specialization, pageable);
 	}
 }
