@@ -5,7 +5,7 @@ import org.mydomain.academy.db.entities.Mark;
 import java.util.Date;
 import java.util.List;
 
-public interface MarkService {
+public interface MarkService extends RootService {
 
 	List<Mark> findAllMarksService();
 
@@ -24,10 +24,6 @@ public interface MarkService {
 	List<Mark> findMarkByFormIdService(long id);
 
 	List<Mark> findMarkByDateService(Date date);
-
-	boolean deleteMarkService(Mark mark);
-
-	boolean saveMarkService(Mark mark);
 
 	List<Mark> findByCriteriaService(int flags, Object... values);
 }

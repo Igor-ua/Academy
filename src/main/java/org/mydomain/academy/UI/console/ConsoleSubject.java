@@ -100,7 +100,7 @@ public class ConsoleSubject {
 			Subject subject = new Subject();
 			subject.setId(id);
 
-			if (subjectService.deleteSubjectService(subject)) {
+			if (subjectService.deleteService(subject)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -120,7 +120,7 @@ public class ConsoleSubject {
 			String subjectName = scanner.nextLine();
 
 			Subject subject = new Subject(subjectName, specializationId);
-			if (subjectService.saveSubjectService(subject)) {
+			if (subjectService.saveService(subject)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -146,7 +146,7 @@ public class ConsoleSubject {
 
 			Subject subject = new Subject(subjectName, specializationId);
 			subject.setId(subjectId);
-			if (subjectService.saveSubjectService(subject)) {
+			if (subjectService.saveService(subject)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {

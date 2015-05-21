@@ -131,7 +131,7 @@ public class ConsoleTeacher {
 			scanner.nextLine();
 			Teacher teacher = new Teacher();
 			teacher.setId(id);
-			if (teacherService.deleteTeacherService(teacher)) {
+			if (teacherService.deleteService(teacher)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -157,7 +157,7 @@ public class ConsoleTeacher {
 				Date finish = std.parseToDate(str);
 
 				Teacher teacher = new Teacher(personId, start, finish);
-				if (teacherService.saveTeacherService(teacher)) {
+				if (teacherService.saveService(teacher)) {
 					System.out.println(RS_OPERATION_SUCCESS);
 				} else System.out.println(RS_OPERATION_ERROR);
 
@@ -194,7 +194,7 @@ public class ConsoleTeacher {
 
 				Teacher teacher = new Teacher(personId, start, finish);
 				teacher.setId(teacherId);
-				if (teacherService.saveTeacherService(teacher)) {
+				if (teacherService.saveService(teacher)) {
 					System.out.println(RS_OPERATION_SUCCESS);
 				} else System.out.println(RS_OPERATION_ERROR);
 

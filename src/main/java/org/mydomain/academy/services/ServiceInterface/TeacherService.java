@@ -5,7 +5,7 @@ import org.mydomain.academy.db.entities.Teacher;
 import java.util.Date;
 import java.util.List;
 
-public interface TeacherService {
+public interface TeacherService extends RootService {
 
 	List<Teacher> findAllTeachersService();
 
@@ -16,10 +16,6 @@ public interface TeacherService {
 	List<Teacher> findTeacherByStartService(Date start);
 
 	List<Teacher> findTeacherByFinishService(Date finish);
-
-	boolean deleteTeacherService(Teacher teacher);
-
-	boolean saveTeacherService(Teacher teacher);
 
 	List<Teacher> findByCriteriaService(int flags, Object... values);
 }

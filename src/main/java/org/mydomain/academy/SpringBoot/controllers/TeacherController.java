@@ -61,11 +61,11 @@ public class TeacherController {
 				if (i % 2 == 0) {
 					Person p1 = new Person();
 					p1.setId(100L);
-					jpaTeacherService.saveTeacherService(new Teacher(p1, new Date(), new Date()));
+					jpaTeacherService.saveService(new Teacher(p1, new Date(), new Date()));
 				} else {
 					Person p2 = new Person();
 					p2.setId(101L);
-					jpaTeacherService.saveTeacherService(new Teacher(p2, new Date(), new Date()));
+					jpaTeacherService.saveService(new Teacher(p2, new Date(), new Date()));
 				}
 			}
 			return true;
@@ -124,7 +124,7 @@ public class TeacherController {
 		} catch (ParseException e) {
 			System.err.println("Parse error");
 		}
-		return jpaTeacherService.saveTeacherService(teacher);
+		return jpaTeacherService.saveService(teacher);
 	}
 
 	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
@@ -163,7 +163,7 @@ public class TeacherController {
 //			method = RequestMethod.GET)
 //	public String deletePerson(@RequestParam(value = "id") long id,
 //							   ModelMap modelMap, Pageable pageable) {
-//		jpaPersonService.deletePersonService(jpaPersonService.findPersonByIdService(id));
+//		jpaPersonService.deleteService(jpaPersonService.findPersonByIdService(id));
 //		PageWrapper<Person> page = new PageWrapper<>(
 //				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
 //		modelMap.addAttribute("page", page);

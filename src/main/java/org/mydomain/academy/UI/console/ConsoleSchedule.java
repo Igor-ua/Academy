@@ -244,7 +244,7 @@ public class ConsoleSchedule {
 			scanner.nextLine();
 			Schedule schedule = new Schedule();
 			schedule.setId(id);
-			if (scheduleService.deleteScheduleService(schedule)) {
+			if (scheduleService.deleteService(schedule)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -297,7 +297,7 @@ public class ConsoleSchedule {
 			scanner.nextLine();
 
 			Schedule schedule = new Schedule(subjectId, teacherId, groupId, day, chisZnam, lenta);
-			if (scheduleService.saveScheduleService(schedule)) {
+			if (scheduleService.saveService(schedule)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
@@ -356,7 +356,7 @@ public class ConsoleSchedule {
 
 			Schedule schedule = new Schedule(subjectId, teacherId, groupId, day, chisZnam, lenta);
 			schedule.setId(scheduleId);
-			if (scheduleService.saveScheduleService(schedule)) {
+			if (scheduleService.saveService(schedule)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {

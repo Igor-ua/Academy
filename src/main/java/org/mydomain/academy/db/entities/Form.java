@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Form_sql")
-public class Form {
+public class Form implements AcademyEntity {
 
 	@Id
 	@GeneratedValue

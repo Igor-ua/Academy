@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Mark_sql")
-public class Mark {
+public class Mark implements AcademyEntity {
 
 	@Id
 	@GeneratedValue
@@ -41,7 +41,7 @@ public class Mark {
 	private Form form;
 
 	@Transient
-	private long markTypeId;
+	private long markType_id;
 	@Transient
 	private long teacher_id;
 	@Transient
@@ -58,7 +58,7 @@ public class Mark {
 
 	public Mark(long markType_id, long teacher_id, long student_id,
 				long group_id, long subject_id, long form_id, Date date) {
-		this.markTypeId = markType_id;
+		this.markType_id = markType_id;
 		this.teacher_id = teacher_id;
 		this.student_id = student_id;
 		this.group_id = group_id;
@@ -76,6 +76,12 @@ public class Mark {
 		this.subject = subject;
 		this.form = form;
 		this.date = date;
+		this.markType_id = markType.getId();
+		this.teacher_id = teacher.getId();
+		this.student_id = student.getId();
+		this.group_id = group.getId();
+		this.subject_id = subject.getId();
+		this.form_id = form.getId();
 	}
 
 	public long getId() {
@@ -142,12 +148,12 @@ public class Mark {
 		this.date = date;
 	}
 
-	public long getMarkTypeId() {
-		return markTypeId;
+	public long getMarkType_id() {
+		return markType_id;
 	}
 
-	public void setMarkTypeId(long markTypeId) {
-		this.markTypeId = markTypeId;
+	public void setMarkType_id(long markType_id) {
+		this.markType_id = markType_id;
 	}
 
 	public long getTeacher_id() {
@@ -198,7 +204,7 @@ public class Mark {
 		Mark mark = (Mark) o;
 
 		if (id != mark.id) return false;
-		if (markTypeId != mark.markTypeId) return false;
+		if (markType_id != mark.markType_id) return false;
 		if (teacher_id != mark.teacher_id) return false;
 		if (student_id != mark.student_id) return false;
 		if (group_id != mark.group_id) return false;
@@ -224,7 +230,7 @@ public class Mark {
 		result = 31 * result + (group != null ? group.hashCode() : 0);
 		result = 31 * result + (subject != null ? subject.hashCode() : 0);
 		result = 31 * result + (form != null ? form.hashCode() : 0);
-		result = 31 * result + (int) (markTypeId ^ (markTypeId >>> 32));
+		result = 31 * result + (int) (markType_id ^ (markType_id >>> 32));
 		result = 31 * result + (int) (teacher_id ^ (teacher_id >>> 32));
 		result = 31 * result + (int) (student_id ^ (student_id >>> 32));
 		result = 31 * result + (int) (group_id ^ (group_id >>> 32));

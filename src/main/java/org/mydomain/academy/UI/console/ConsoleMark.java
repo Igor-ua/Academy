@@ -51,7 +51,7 @@ public class ConsoleMark {
 		while (itr.hasNext()) {
 			Mark mark = itr.next();
 			System.out.print(mark.getId() + ",\t");
-			System.out.print(mark.getMarkTypeId() + ",\t");
+			System.out.print(mark.getMarkType_id() + ",\t");
 			System.out.print(mark.getTeacher_id() + ",\t");
 			System.out.print(mark.getStudent_id() + ",\t");
 			System.out.print(mark.getGroup_id() + ",\t");
@@ -90,7 +90,7 @@ public class ConsoleMark {
 			while (itr.hasNext()) {
 				Mark mark = itr.next();
 				System.out.print(mark.getId() + ",\t");
-				System.out.print(mark.getMarkTypeId() + ",\t");
+				System.out.print(mark.getMarkType_id() + ",\t");
 				System.out.print(mark.getTeacher_id() + ",\t");
 				System.out.print(mark.getStudent_id() + ",\t");
 				System.out.print(mark.getGroup_id() + ",\t");
@@ -117,7 +117,7 @@ public class ConsoleMark {
 			while (itr.hasNext()) {
 				Mark mark = itr.next();
 				System.out.print(mark.getId() + ",\t");
-				System.out.print(mark.getMarkTypeId() + ",\t");
+				System.out.print(mark.getMarkType_id() + ",\t");
 				System.out.print(mark.getTeacher_id() + ",\t");
 				System.out.print(mark.getStudent_id() + ",\t");
 				System.out.print(mark.getGroup_id() + ",\t");
@@ -145,7 +145,7 @@ public class ConsoleMark {
 			while (itr.hasNext()) {
 				Mark mark = itr.next();
 				System.out.print(mark.getId() + ",\t");
-				System.out.print(mark.getMarkTypeId() + ",\t");
+				System.out.print(mark.getMarkType_id() + ",\t");
 				System.out.print(mark.getTeacher_id() + ",\t");
 				System.out.print(mark.getStudent_id() + ",\t");
 				System.out.print(mark.getGroup_id() + ",\t");
@@ -172,7 +172,7 @@ public class ConsoleMark {
 			while (itr.hasNext()) {
 				Mark mark = itr.next();
 				System.out.print(mark.getId() + ",\t");
-				System.out.print(mark.getMarkTypeId() + ",\t");
+				System.out.print(mark.getMarkType_id() + ",\t");
 				System.out.print(mark.getTeacher_id() + ",\t");
 				System.out.print(mark.getStudent_id() + ",\t");
 				System.out.print(mark.getGroup_id() + ",\t");
@@ -199,7 +199,7 @@ public class ConsoleMark {
 			while (itr.hasNext()) {
 				Mark mark = itr.next();
 				System.out.print(mark.getId() + ",\t");
-				System.out.print(mark.getMarkTypeId() + ",\t");
+				System.out.print(mark.getMarkType_id() + ",\t");
 				System.out.print(mark.getTeacher_id() + ",\t");
 				System.out.print(mark.getStudent_id() + ",\t");
 				System.out.print(mark.getGroup_id() + ",\t");
@@ -226,7 +226,7 @@ public class ConsoleMark {
 			while (itr.hasNext()) {
 				Mark mark = itr.next();
 				System.out.print(mark.getId() + ",\t");
-				System.out.print(mark.getMarkTypeId() + ",\t");
+				System.out.print(mark.getMarkType_id() + ",\t");
 				System.out.print(mark.getTeacher_id() + ",\t");
 				System.out.print(mark.getStudent_id() + ",\t");
 				System.out.print(mark.getGroup_id() + ",\t");
@@ -251,7 +251,7 @@ public class ConsoleMark {
 			while (itr.hasNext()) {
 				Mark mark = itr.next();
 				System.out.print(mark.getId() + ",\t");
-				System.out.print(mark.getMarkTypeId() + ",\t");
+				System.out.print(mark.getMarkType_id() + ",\t");
 				System.out.print(mark.getTeacher_id() + ",\t");
 				System.out.print(mark.getStudent_id() + ",\t");
 				System.out.print(mark.getGroup_id() + ",\t");
@@ -273,7 +273,7 @@ public class ConsoleMark {
 			scanner.nextLine();
 			Mark mark = new Mark();
 			mark.setId(markId);
-			if (markService.deleteMarkService(mark)) {
+			if (markService.deleteService(mark)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -327,7 +327,7 @@ public class ConsoleMark {
 				scanner.nextLine();
 
 				Mark mark = new Mark(markTypeId, teacherId, studentId, groupId, subjectId, formId, markDate);
-				if (markService.saveMarkService(mark)) {
+				if (markService.saveService(mark)) {
 					System.out.println(RS_OPERATION_SUCCESS);
 				} else System.out.println(RS_OPERATION_ERROR);
 			} catch (ParseException e) {
@@ -391,7 +391,7 @@ public class ConsoleMark {
 
 				Mark mark = new Mark(markTypeId, teacherId, studentId, groupId, subjectId, formId, markDate);
 				mark.setId(markId);
-				if (markService.saveMarkService(mark)) {
+				if (markService.saveService(mark)) {
 					System.out.println(RS_OPERATION_SUCCESS);
 				} else System.out.println(RS_OPERATION_ERROR);
 			} catch (ParseException e) {

@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Mark_Type_sql")
-public class MarkType {
+public class MarkType implements AcademyEntity {
 
 	@Id
 	@GeneratedValue

@@ -74,7 +74,7 @@ public class ConsoleForm {
 			scanner.nextLine();
 			Form form = new Form();
 			form.setId(id);
-			if (formService.deleteFormService(form)) {
+			if (formService.deleteService(form)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -86,7 +86,7 @@ public class ConsoleForm {
 		System.out.print(RS_FORM_NEW_NAME);
 		String formName = scanner.nextLine();
 		Form form = new Form(formName);
-		if (formService.saveFormService(form)) {
+		if (formService.saveService(form)) {
 			System.out.println(RS_OPERATION_SUCCESS);
 		} else System.out.println(RS_OPERATION_ERROR);
 	}
@@ -101,7 +101,7 @@ public class ConsoleForm {
 			String formName = scanner.nextLine();
 			Form form = new Form(formName);
 			form.setId(id);
-			if (formService.saveFormService(form)) {
+			if (formService.saveService(form)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {

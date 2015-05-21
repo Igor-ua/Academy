@@ -58,25 +58,29 @@ public class JPAFormService implements FormService {
 	}
 
 	@Override
-	public boolean deleteFormService(Form form) {
-		try {
-			jpaFormDAO.delete(form);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof Form) {
+			try {
+				jpaFormDAO.delete((Form) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean saveFormService(Form form) {
-		try {
-			if (validateForm(form)) {
-				jpaFormDAO.save(form);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof Form) {
+			try {
+				if (validateForm((Form) object)) {
+					jpaFormDAO.save((Form) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}

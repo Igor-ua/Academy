@@ -61,13 +61,13 @@ public class JDBCPersonService implements PersonService {
 	}
 
 	@Override
-	public boolean deletePersonService(Person person) {
-		return personDAO.deletePerson(person);
+	public boolean deleteService(Object object) {
+		return object instanceof Person && personDAO.deletePerson((Person) object);
 	}
 
 	@Override
-	public boolean savePersonService(Person person) {
-		return validatePerson(person) && personDAO.savePerson(person);
+	public boolean saveService(Object object) {
+		return object instanceof Person && validatePerson((Person) object) && personDAO.savePerson((Person) object);
 	}
 
 	@Override

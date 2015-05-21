@@ -42,13 +42,15 @@ public class JDBCMarkTypeService implements MarkTypeService {
 	}
 
 	@Override
-	public boolean deleteMarkTypeService(MarkType markType) {
-		return markTypeDAO.deleteMarkType(markType);
+	public boolean deleteService(Object object) {
+		return object instanceof MarkType &&
+				markTypeDAO.deleteMarkType((MarkType) object);
 	}
 
 	@Override
-	public boolean saveMarkTypeService(MarkType markType) {
-		return validateMarkType(markType) && markTypeDAO.saveMarkType(markType);
+	public boolean saveService(Object object) {
+		return object instanceof MarkType &&
+				validateMarkType((MarkType) object) && markTypeDAO.saveMarkType((MarkType) object);
 	}
 
 	@Override

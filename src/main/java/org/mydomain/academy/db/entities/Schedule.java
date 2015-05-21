@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Schedule_sql")
-public class Schedule {
+public class Schedule implements AcademyEntity {
 
 	@Id
 	@GeneratedValue
@@ -57,6 +57,9 @@ public class Schedule {
 		this.day = day;
 		this.chisZnam = chisZnam;
 		this.lenta = lenta;
+		this.subject_id = subject.getId();
+		this.teacher_id = teacher.getId();
+		this.group_id = group.getId();
 	}
 
 	public long getId() {

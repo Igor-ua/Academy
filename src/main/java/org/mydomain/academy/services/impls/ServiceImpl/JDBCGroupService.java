@@ -19,7 +19,7 @@ public class JDBCGroupService implements GroupService {
 	}
 
 	private boolean validateGroup(Group group) {
-		if (!group.getName().matches("[ A-Za-zР-пр-џ\\-]{0,}")) {
+		if (!group.getName().matches("[ A-Za-zР-пр-џ0-9\\-]{0,}")) {
 			log.error("Group validation error.");
 			return false;
 		}
@@ -52,13 +52,13 @@ public class JDBCGroupService implements GroupService {
 	}
 
 	@Override
-	public boolean deleteGroupService(Group group) {
-		return groupDAO.deleteGroup(group);
+	public boolean deleteService(Object object) {
+		return object instanceof Group && groupDAO.deleteGroup((Group) object);
 	}
 
 	@Override
-	public boolean saveGroupService(Group group) {
-		return validateGroup(group) && groupDAO.saveGroup(group);
+	public boolean saveService(Object object) {
+		return object instanceof Group && validateGroup((Group) object) && groupDAO.saveGroup((Group) object);
 	}
 
 	@Override

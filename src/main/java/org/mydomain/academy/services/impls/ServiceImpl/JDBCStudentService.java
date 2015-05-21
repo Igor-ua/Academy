@@ -58,13 +58,14 @@ public class JDBCStudentService implements StudentService {
 	}
 
 	@Override
-	public boolean deleteStudentService(Student student) {
-		return studentDAO.deleteStudent(student);
+	public boolean deleteService(Object object) {
+		return object instanceof Student && studentDAO.deleteStudent((Student) object);
 	}
 
 	@Override
-	public boolean saveStudentService(Student student) {
-		return validateStudent(student) && studentDAO.saveStudent(student);
+	public boolean saveService(Object object) {
+		return object instanceof Student &&
+				validateStudent((Student) object) && studentDAO.saveStudent((Student) object);
 	}
 
 	@Override

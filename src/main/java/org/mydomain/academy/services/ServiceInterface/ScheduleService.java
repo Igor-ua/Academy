@@ -4,7 +4,7 @@ import org.mydomain.academy.db.entities.Schedule;
 
 import java.util.List;
 
-public interface ScheduleService {
+public interface ScheduleService extends RootService {
 
 	List<Schedule> findAllSchedulesService();
 
@@ -21,10 +21,6 @@ public interface ScheduleService {
 	List<Schedule> findScheduleByChisZnamService(int chisZnam_id);
 
 	List<Schedule> findScheduleByLentaService(int lenta);
-
-	boolean deleteScheduleService(Schedule schedule);
-
-	boolean saveScheduleService(Schedule schedule);
 
 	List<Schedule> findByCriteriaService(int flags, Object... values);
 }

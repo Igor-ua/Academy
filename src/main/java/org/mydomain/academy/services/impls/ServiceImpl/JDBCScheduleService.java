@@ -72,13 +72,14 @@ public class JDBCScheduleService implements ScheduleService {
 	}
 
 	@Override
-	public boolean deleteScheduleService(Schedule schedule) {
-		return scheduleDAO.deleteSchedule(schedule);
+	public boolean deleteService(Object object) {
+		return object instanceof Schedule && scheduleDAO.deleteSchedule((Schedule) object);
 	}
 
 	@Override
-	public boolean saveScheduleService(Schedule schedule) {
-		return validateSchedule(schedule) && scheduleDAO.saveSchedule(schedule);
+	public boolean saveService(Object object) {
+		return object instanceof Schedule &&
+				validateSchedule((Schedule) object) && scheduleDAO.saveSchedule((Schedule) object);
 	}
 
 	@Override

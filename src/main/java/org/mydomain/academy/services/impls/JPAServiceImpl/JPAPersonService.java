@@ -16,7 +16,7 @@ import java.util.List;
 import static org.mydomain.academy.db.utils.LogMessages.LOG_NOT_IMPLEMENTED_IN_JPA;
 
 @Component
-public class JPAPersonService implements PersonService{
+public class JPAPersonService implements PersonService {
 
 	private static final Logger log = Logger.getLogger(JPAPersonService.class);
 
@@ -79,25 +79,29 @@ public class JPAPersonService implements PersonService{
 	}
 
 	@Override
-	public boolean deletePersonService(Person person) {
-		try {
-			jpaPersonDAO.delete(person);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof Person) {
+			try {
+				jpaPersonDAO.delete((Person) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean savePersonService(Person person) {
-		try {
-			if (validatePerson(person)) {
-				jpaPersonDAO.save(person);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof Person) {
+			try {
+				if (validatePerson((Person) object)) {
+					jpaPersonDAO.save((Person) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}

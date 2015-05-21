@@ -70,7 +70,7 @@ public class ConsoleSpecialization {
 			scanner.nextLine();
 			Specialization specialization = new Specialization();
 			specialization.setId(id);
-			if (specializationService.deleteSpecializationService(specialization)) {
+			if (specializationService.deleteService(specialization)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -83,7 +83,7 @@ public class ConsoleSpecialization {
 			System.out.print(RS_SPECIALIZATION_NEW_NAME);
 			String specializationName = scanner.nextLine();
 			Specialization specialization = new Specialization(specializationName);
-			if (specializationService.saveSpecializationService(specialization)) {
+			if (specializationService.saveService(specialization)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -103,7 +103,7 @@ public class ConsoleSpecialization {
 
 			Specialization specialization = new Specialization(specializationName);
 			specialization.setId(specializationId);
-			if (specializationService.saveSpecializationService(specialization)) {
+			if (specializationService.saveService(specialization)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {

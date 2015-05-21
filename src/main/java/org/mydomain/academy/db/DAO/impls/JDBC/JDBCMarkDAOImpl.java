@@ -236,7 +236,7 @@ public class JDBCMarkDAOImpl implements MarkDAO {
 			Connection c = connectionManager.getConnection();
 			PreparedStatement ps = c.prepareStatement
 					(query, update ? Statement.NO_GENERATED_KEYS : Statement.RETURN_GENERATED_KEYS);
-			ps.setLong(1, mark.getMarkTypeId());
+			ps.setLong(1, mark.getMarkType_id());
 			ps.setLong(2, mark.getTeacher_id());
 			ps.setLong(3, mark.getStudent_id());
 			ps.setLong(4, mark.getGroup_id());

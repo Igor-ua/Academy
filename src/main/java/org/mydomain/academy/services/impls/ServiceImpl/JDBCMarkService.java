@@ -74,13 +74,13 @@ public class JDBCMarkService implements MarkService {
 	}
 
 	@Override
-	public boolean deleteMarkService(Mark mark) {
-		return markDAO.deleteMark(mark);
+	public boolean deleteService(Object object) {
+		return object instanceof Mark && markDAO.deleteMark((Mark) object);
 	}
 
 	@Override
-	public boolean saveMarkService(Mark mark) {
-		return validateMark(mark) && markDAO.saveMark(mark);
+	public boolean saveService(Object object) {
+		return object instanceof Mark && validateMark((Mark) object) && markDAO.saveMark((Mark) object);
 	}
 
 	@Override

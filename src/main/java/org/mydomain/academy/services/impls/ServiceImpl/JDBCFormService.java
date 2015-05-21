@@ -42,13 +42,13 @@ public class JDBCFormService implements FormService {
 	}
 
 	@Override
-	public boolean deleteFormService(Form form) {
-		return formDAO.deleteForm(form);
+	public boolean deleteService(Object object) {
+		return object instanceof Form && formDAO.deleteForm((Form) object);
 	}
 
 	@Override
-	public boolean saveFormService(Form form) {
-		return validateForm(form) && formDAO.saveForm(form);
+	public boolean saveService(Object object) {
+		return object instanceof Form && validateForm((Form) object) && formDAO.saveForm((Form) object);
 	}
 
 	@Override

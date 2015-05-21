@@ -166,7 +166,7 @@ public class ConsoleStudent {
 			Student student = new Student();
 			student.setId(id);
 
-			if (studentService.deleteStudentService(student)) {
+			if (studentService.deleteService(student)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -198,7 +198,7 @@ public class ConsoleStudent {
 				Date finish = std.parseToDate(str);
 
 				Student student = new Student(personId, groupId, start, finish);
-				if (studentService.saveStudentService(student)) {
+				if (studentService.saveService(student)) {
 					System.out.println(RS_OPERATION_SUCCESS);
 				} else System.out.println(RS_OPERATION_ERROR);
 
@@ -242,7 +242,7 @@ public class ConsoleStudent {
 
 				Student student = new Student(personId, groupId, start, finish);
 				student.setId(studentId);
-				if (studentService.saveStudentService(student)) {
+				if (studentService.saveService(student)) {
 					System.out.println(RS_OPERATION_SUCCESS);
 				} else System.out.println(RS_OPERATION_ERROR);
 

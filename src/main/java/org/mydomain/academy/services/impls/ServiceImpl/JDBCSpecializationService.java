@@ -43,14 +43,15 @@ public class JDBCSpecializationService implements SpecializationService {
 	}
 
 	@Override
-	public boolean deleteSpecializationService(Specialization specialization) {
-		return specializationDAO.deleteSpecialization(specialization);
+	public boolean deleteService(Object object) {
+		return object instanceof Specialization &&
+				specializationDAO.deleteSpecialization((Specialization) object);
 	}
 
 	@Override
-	public boolean saveSpecializationService(Specialization specialization) {
-		return validateSpecialization(specialization)
-				&& specializationDAO.saveSpecialization(specialization);
+	public boolean saveService(Object object) {
+		return object instanceof Specialization && validateSpecialization((Specialization) object)
+				&& specializationDAO.saveSpecialization((Specialization) object);
 	}
 
 	@Override

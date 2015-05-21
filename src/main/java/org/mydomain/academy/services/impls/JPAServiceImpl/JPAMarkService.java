@@ -95,25 +95,29 @@ public class JPAMarkService implements MarkService {
 	}
 
 	@Override
-	public boolean deleteMarkService(Mark mark) {
-		try {
-			jpaMarkDAO.delete(mark);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof Mark) {
+			try {
+				jpaMarkDAO.delete((Mark) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean saveMarkService(Mark mark) {
-		try {
-			if (validateMark(mark)) {
-				jpaMarkDAO.save(mark);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof Mark) {
+			try {
+				if (validateMark((Mark) object)) {
+					jpaMarkDAO.save((Mark) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}

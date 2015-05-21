@@ -72,25 +72,29 @@ public class JPATeacherService implements TeacherService {
 	}
 
 	@Override
-	public boolean deleteTeacherService(Teacher teacher) {
-		try {
-			jpaTeacherDAO.delete(teacher);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof Teacher) {
+			try {
+				jpaTeacherDAO.delete((Teacher) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean saveTeacherService(Teacher teacher) {
-		try {
-			if (validateTeacher(teacher)) {
-				jpaTeacherDAO.save(teacher);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof Teacher) {
+			try {
+				if (validateTeacher((Teacher) object)) {
+					jpaTeacherDAO.save((Teacher) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}

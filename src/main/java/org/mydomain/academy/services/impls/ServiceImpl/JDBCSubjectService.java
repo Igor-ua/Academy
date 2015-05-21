@@ -47,13 +47,14 @@ public class JDBCSubjectService implements SubjectService {
 	}
 
 	@Override
-	public boolean deleteSubjectService(Subject subject) {
-		return subjectDAO.deleteSubject(subject);
+	public boolean deleteService(Object object) {
+		return object instanceof Subject && subjectDAO.deleteSubject((Subject) object);
 	}
 
 	@Override
-	public boolean saveSubjectService(Subject subject) {
-		return validateSubject(subject) && subjectDAO.saveSubject(subject);
+	public boolean saveService(Object object) {
+		return object instanceof Subject &&
+				validateSubject((Subject) object) && subjectDAO.saveSubject((Subject) object);
 	}
 
 	@Override

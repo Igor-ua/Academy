@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Group_sql")
-public class Group {
+public class Group implements AcademyEntity {
 
 	@Id
 	@GeneratedValue
@@ -64,6 +64,8 @@ public class Group {
 		scheduleSet = new HashSet<Schedule>();
 		markSet = new HashSet<Mark>();
 		studentSet = new HashSet<Student>();
+		this.form_id = form.getId();
+		this.specialization_id = specialization.getId();
 	}
 
 	public long getId() {

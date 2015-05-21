@@ -5,7 +5,7 @@ import org.mydomain.academy.db.entities.Student;
 import java.util.Date;
 import java.util.List;
 
-public interface StudentService {
+public interface StudentService extends RootService {
 
 	List<Student> findAllStudentsService();
 
@@ -18,10 +18,6 @@ public interface StudentService {
 	List<Student> findStudentByStartService(Date start);
 
 	List<Student> findStudentByFinishService(Date finish);
-
-	boolean deleteStudentService(Student student);
-
-	boolean saveStudentService(Student student);
 
 	List<Student> findByCriteriaService(int flags, Object... values);
 }

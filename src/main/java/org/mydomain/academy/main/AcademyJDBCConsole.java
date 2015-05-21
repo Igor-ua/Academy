@@ -9,10 +9,13 @@ import org.mydomain.academy.db.DAO.impls.JDBC.*;
 import org.mydomain.academy.db.utils.Bootstrap;
 import org.mydomain.academy.db.utils.ConnectionManager;
 import org.mydomain.academy.db.utils.SingleConnectionManager;
+import org.mydomain.academy.db.utils.content.JDBCContentManager;
 import org.mydomain.academy.services.ServiceInterface.*;
 import org.mydomain.academy.services.impls.ServiceImpl.*;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.mydomain.academy.UI.console.messages.ConsoleMessages.MSG_CONNECTION_ERROR;
 import static org.mydomain.academy.db.utils.LogMessages.*;
@@ -27,7 +30,7 @@ public class AcademyJDBCConsole {
 
 	private static FormService formService;
 	private static GroupService groupService;
-	private static MarkTypeService mark_typeService;
+	private static MarkTypeService markTypeService;
 	private static MarkService markService;
 	private static PersonService personService;
 	private static ScheduleService scheduleService;
@@ -36,18 +39,21 @@ public class AcademyJDBCConsole {
 	private static SubjectService subjectService;
 	private static TeacherService teacherService;
 
+	private static Map<String, RootService> rootServices;
+
 	public static void main(String[] args) {
 		log.info(LOG_MAIN_START);
 
 		try {
 			init();
 			UserInterface userInterface = new ConsoleUserInterface(
-					formService, groupService, mark_typeService,
+					formService, groupService, markTypeService,
 					markService, personService, scheduleService,
 					specializationService, studentService,
 					subjectService, teacherService);
 			try {
 				new Bootstrap(connectionManager).init();
+				new JDBCContentManager(rootServices).fillDB();
 				userInterface.run();
 			} catch (SQLException e) {
 				System.err.println(MSG_CONNECTION_ERROR);
@@ -83,13 +89,26 @@ public class AcademyJDBCConsole {
 
 		formService = new JDBCFormService(formDAO);
 		groupService = new JDBCGroupService(groupDAO);
-		mark_typeService = new JDBCMarkTypeService(markTypeDAO);
 		markService = new JDBCMarkService(markDAO);
+		markTypeService = new JDBCMarkTypeService(markTypeDAO);
 		personService = new JDBCPersonService(personDAO);
 		scheduleService = new JDBCScheduleService(scheduleDAO);
 		specializationService = new JDBCSpecializationService(specializationDAO);
 		studentService = new JDBCStudentService(studentDAO);
 		subjectService = new JDBCSubjectService(subjectDAO);
 		teacherService = new JDBCTeacherService(teacherDAO);
+
+		rootServices = new HashMap<>();
+
+		rootServices.put("formService", formService);
+		rootServices.put("groupService", groupService);
+		rootServices.put("markService", markService);
+		rootServices.put("markTypeService", markTypeService);
+		rootServices.put("personService", personService);
+		rootServices.put("scheduleService", scheduleService);
+		rootServices.put("specializationService", specializationService);
+		rootServices.put("studentService", studentService);
+		rootServices.put("subjectService", subjectService);
+		rootServices.put("teacherService", teacherService);
 	}
 }

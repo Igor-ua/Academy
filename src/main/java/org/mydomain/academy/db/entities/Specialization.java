@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Specialization_sql")
-public class Specialization {
+public class Specialization implements AcademyEntity {
 
 	@Id
 	@GeneratedValue

@@ -113,7 +113,7 @@ public class ConsolePerson {
 			Person person = new Person();
 			person.setId(scanner.nextLong());
 			scanner.nextLine();
-			if (personService.deletePersonService(person)) {
+			if (personService.deleteService(person)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -131,7 +131,7 @@ public class ConsolePerson {
 			Date personBirthday = std.parseToDate(str);
 			System.out.print(RS_PERSON_SELECT_PASSPORT);
 			String personPassport = scanner.nextLine();
-			if (personService.savePersonService(new Person(personName, personBirthday, personPassport))) {
+			if (personService.saveService(new Person(personName, personBirthday, personPassport))) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (ParseException e) {
@@ -157,7 +157,7 @@ public class ConsolePerson {
 				String personPassport = scanner.nextLine();
 				Person person = new Person(personName, personBirthday, personPassport);
 				person.setId(personId);
-				if (personService.savePersonService(person)) {
+				if (personService.saveService(person)) {
 					System.out.println(RS_OPERATION_SUCCESS);
 				} else System.out.println(RS_OPERATION_ERROR);
 			} catch (ParseException e) {

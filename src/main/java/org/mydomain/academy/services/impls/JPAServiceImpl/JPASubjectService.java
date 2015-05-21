@@ -16,7 +16,7 @@ import java.util.List;
 import static org.mydomain.academy.db.utils.LogMessages.LOG_NOT_IMPLEMENTED_IN_JPA;
 
 @Component
-public class JPASubjectService implements SubjectService{
+public class JPASubjectService implements SubjectService {
 
 	private static final Logger log = Logger.getLogger(JPASubjectService.class);
 
@@ -65,25 +65,29 @@ public class JPASubjectService implements SubjectService{
 	}
 
 	@Override
-	public boolean deleteSubjectService(Subject subject) {
-		try {
-			jpaSubjectDAO.delete(subject);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof Subject) {
+			try {
+				jpaSubjectDAO.delete((Subject) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean saveSubjectService(Subject subject) {
-		try {
-			if (validateSubject(subject)) {
-				jpaSubjectDAO.save(subject);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof Subject) {
+			try {
+				if (validateSubject((Subject) object)) {
+					jpaSubjectDAO.save((Subject) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}

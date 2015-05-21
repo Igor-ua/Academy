@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Student_sql")
-public class Student {
+public class Student implements AcademyEntity {
 	@Id
 	@GeneratedValue
 	private long id;
@@ -61,6 +61,8 @@ public class Student {
 		this.finish = finish;
 		this.person = person;
 		this.group = group;
+		this.person_id = person.getId();
+		this.group_id = group.getId();
 	}
 
 	public long getId() {

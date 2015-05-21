@@ -135,7 +135,7 @@ public class ConsoleGroup {
 			scanner.nextLine();
 			Group group = new Group();
 			group.setId(id);
-			if (groupService.deleteGroupService(group)) {
+			if (groupService.deleteService(group)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -158,7 +158,7 @@ public class ConsoleGroup {
 			long specializationId = scanner.nextLong();
 			scanner.nextLine();
 			Group group = new Group(groupName, formId, specializationId);
-			if (groupService.saveGroupService(group)) {
+			if (groupService.saveService(group)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -186,7 +186,7 @@ public class ConsoleGroup {
 			scanner.nextLine();
 			Group group = new Group(groupName, formId, specializationId);
 			group.setId(groupId);
-			if (groupService.saveGroupService(group)) {
+			if (groupService.saveService(group)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {

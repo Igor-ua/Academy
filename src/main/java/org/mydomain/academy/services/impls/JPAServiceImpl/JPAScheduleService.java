@@ -95,25 +95,29 @@ public class JPAScheduleService implements ScheduleService {
 	}
 
 	@Override
-	public boolean deleteScheduleService(Schedule schedule) {
-		try {
-			jpaScheduleDAO.delete(schedule);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof Schedule) {
+			try {
+				jpaScheduleDAO.delete((Schedule) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean saveScheduleService(Schedule schedule) {
-		try {
-			if (validateSchedule(schedule)) {
-				jpaScheduleDAO.save(schedule);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof Schedule) {
+			try {
+				if (validateSchedule((Schedule) object)) {
+					jpaScheduleDAO.save((Schedule) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}

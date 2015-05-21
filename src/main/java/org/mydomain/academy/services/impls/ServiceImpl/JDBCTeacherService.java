@@ -53,13 +53,14 @@ public class JDBCTeacherService implements TeacherService {
 	}
 
 	@Override
-	public boolean deleteTeacherService(Teacher teacher) {
-		return teacherDAO.deleteTeacher(teacher);
+	public boolean deleteService(Object object) {
+		return object instanceof Teacher && teacherDAO.deleteTeacher((Teacher) object);
 	}
 
 	@Override
-	public boolean saveTeacherService(Teacher teacher) {
-		return validateTeacher(teacher) && teacherDAO.saveTeacher(teacher);
+	public boolean saveService(Object object) {
+		return object instanceof Teacher &&
+				validateTeacher((Teacher) object) && teacherDAO.saveTeacher((Teacher) object);
 	}
 
 	@Override

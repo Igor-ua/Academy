@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Teacher_sql")
-public class Teacher {
+public class Teacher implements AcademyEntity {
 
 	@Id
 	@GeneratedValue
@@ -60,7 +60,9 @@ public class Teacher {
 		this.start = start;
 		this.finish = finish;
 		this.person = person;
+		this.person_id = person.getId();
 		sdf = new BasicStringDateFormatter();
+		this.person_id = person.getId();
 	}
 
 	public long getId() {

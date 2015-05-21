@@ -6,7 +6,7 @@ import org.mydomain.academy.db.entities.Person;
 import java.util.Date;
 import java.util.List;
 
-public interface PersonService {
+public interface PersonService extends RootService {
 
 	List<Person> findAllPersonsService();
 
@@ -17,10 +17,6 @@ public interface PersonService {
 	List<Person> findPersonByPassportService(String passport);
 
 	List<Person> findPersonByBirthdayService(Date birthday);
-
-	boolean deletePersonService(Person person);
-
-	boolean savePersonService(Person person);
 
 	List<Person> findByCriteriaService(int flags, Object... values);
 }

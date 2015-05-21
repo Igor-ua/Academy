@@ -50,9 +50,9 @@ public class MarkTypeController {
 		if (count > 0) {
 			for (short i = 0; i < count; i++) {
 				if (i % 2 == 0) {
-					jpaPersonService.savePersonService(new Person("Jack", new Date(), "FF223344"));
+					jpaPersonService.saveService(new Person("Jack", new Date(), "FF223344"));
 				} else {
-					jpaPersonService.savePersonService(new Person("Mike", new Date(), "AB000111"));
+					jpaPersonService.saveService(new Person("Mike", new Date(), "AB000111"));
 				}
 			}
 			return true;
@@ -108,7 +108,7 @@ public class MarkTypeController {
 		} catch (ParseException e) {
 			System.err.println("Parse error");
 		}
-		return jpaPersonService.savePersonService(person);
+		return jpaPersonService.saveService(person);
 	}
 
 	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
@@ -147,7 +147,7 @@ public class MarkTypeController {
 			method = RequestMethod.GET)
 	public String deletePerson(@RequestParam(value = "id") long id,
 							   ModelMap modelMap, Pageable pageable) {
-		jpaPersonService.deletePersonService(jpaPersonService.findPersonByIdService(id));
+		jpaPersonService.deleteService(jpaPersonService.findPersonByIdService(id));
 		PageWrapper<Person> page = new PageWrapper<>(
 				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
 		modelMap.addAttribute("page", page);

@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Person_sql")
-public class Person {
+public class Person implements AcademyEntity {
 
 	@Id
 	@GeneratedValue

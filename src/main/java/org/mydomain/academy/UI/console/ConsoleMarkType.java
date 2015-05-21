@@ -72,7 +72,7 @@ public class ConsoleMarkType {
 			scanner.nextLine();
 			MarkType markType = new MarkType();
 			markType.setId(markTypeId);
-			if (markTypeService.deleteMarkTypeService(markType)) {
+			if (markTypeService.deleteService(markType)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {
@@ -84,7 +84,7 @@ public class ConsoleMarkType {
 		System.out.print(RS_MARKTYPE_NAME);
 		String markTypeName = scanner.nextLine();
 		MarkType markType = new MarkType(markTypeName);
-		if (markTypeService.saveMarkTypeService(markType)) {
+		if (markTypeService.saveService(markType)) {
 			System.out.println(RS_OPERATION_SUCCESS);
 		} else System.out.println(RS_OPERATION_ERROR);
 	}
@@ -100,7 +100,7 @@ public class ConsoleMarkType {
 
 			MarkType markType = new MarkType(markTypeName);
 			markType.setId(markTypeId);
-			if (markTypeService.saveMarkTypeService(markType)) {
+			if (markTypeService.saveService(markType)) {
 				System.out.println(RS_OPERATION_SUCCESS);
 			} else System.out.println(RS_OPERATION_ERROR);
 		} catch (InputMismatchException e) {

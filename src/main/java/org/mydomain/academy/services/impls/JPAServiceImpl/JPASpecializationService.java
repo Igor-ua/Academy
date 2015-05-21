@@ -58,25 +58,29 @@ public class JPASpecializationService implements SpecializationService {
 	}
 
 	@Override
-	public boolean deleteSpecializationService(Specialization specialization) {
-		try {
-			jpaSpecializationDAO.delete(specialization);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof Specialization) {
+			try {
+				jpaSpecializationDAO.delete((Specialization) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean saveSpecializationService(Specialization specialization) {
-		try {
-			if (validateSpecialization(specialization)) {
-				jpaSpecializationDAO.save(specialization);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof Specialization) {
+			try {
+				if (validateSpecialization((Specialization) object)) {
+					jpaSpecializationDAO.save((Specialization) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}

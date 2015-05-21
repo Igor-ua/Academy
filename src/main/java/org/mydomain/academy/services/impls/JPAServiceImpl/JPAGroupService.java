@@ -17,7 +17,7 @@ import java.util.List;
 import static org.mydomain.academy.db.utils.LogMessages.LOG_NOT_IMPLEMENTED_IN_JPA;
 
 @Component
-public class JPAGroupService implements GroupService{
+public class JPAGroupService implements GroupService {
 
 	private static final Logger log = Logger.getLogger(JPAGroupService.class);
 
@@ -32,7 +32,7 @@ public class JPAGroupService implements GroupService{
 	}
 
 	private boolean validateGroup(Group group) {
-		if (!group.getName().matches("[ A-Za-zР-пр-џ\\-]{0,}")) {
+		if (!group.getName().matches("[ A-Za-zР-пр-џ0-9\\-]{0,}")) {
 			log.error("Group validation error.");
 			return false;
 		}
@@ -72,25 +72,29 @@ public class JPAGroupService implements GroupService{
 	}
 
 	@Override
-	public boolean deleteGroupService(Group group) {
-		try {
-			jpaGroupDAO.delete(group);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof Group) {
+			try {
+				jpaGroupDAO.delete((Group) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean saveGroupService(Group group) {
-		try {
-			if (validateGroup(group)) {
-				jpaGroupDAO.save(group);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof Group) {
+			try {
+				if (validateGroup((Group) object)) {
+					jpaGroupDAO.save((Group) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}

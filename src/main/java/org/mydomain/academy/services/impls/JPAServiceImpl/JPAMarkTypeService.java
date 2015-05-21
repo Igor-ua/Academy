@@ -15,7 +15,7 @@ import java.util.List;
 import static org.mydomain.academy.db.utils.LogMessages.LOG_NOT_IMPLEMENTED_IN_JPA;
 
 @Component
-public class JPAMarkTypeService implements MarkTypeService{
+public class JPAMarkTypeService implements MarkTypeService {
 
 	private static final Logger log = Logger.getLogger(JPAMarkTypeService.class);
 
@@ -58,25 +58,29 @@ public class JPAMarkTypeService implements MarkTypeService{
 	}
 
 	@Override
-	public boolean deleteMarkTypeService(MarkType markType) {
-		try {
-			jpaMarkTypeDAO.delete(markType);
-			return true;
-		} catch (RuntimeException e) {
-			log.error(e);
+	public boolean deleteService(Object object) {
+		if (object instanceof MarkType) {
+			try {
+				jpaMarkTypeDAO.delete((MarkType) object);
+				return true;
+			} catch (RuntimeException e) {
+				log.error(e);
+			}
 		}
 		return false;
 	}
 
 	@Override
-	public boolean saveMarkTypeService(MarkType markType) {
-		try {
-			if (validateMarkType(markType)) {
-				jpaMarkTypeDAO.save(markType);
-				return true;
+	public boolean saveService(Object object) {
+		if (object instanceof MarkType) {
+			try {
+				if (validateMarkType((MarkType) object)) {
+					jpaMarkTypeDAO.save((MarkType) object);
+					return true;
+				}
+			} catch (RuntimeException e) {
+				log.error(e);
 			}
-		} catch (RuntimeException e) {
-			log.error(e);
 		}
 		return false;
 	}
