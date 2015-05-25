@@ -101,7 +101,7 @@ public class JDBCContentManager {
 
 			addMarks();
 			marks.forEach(markService::saveService);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
+		} catch (IndexOutOfBoundsException ignored) {
 
 		}
 	}
@@ -131,7 +131,7 @@ public class JDBCContentManager {
 					"R104",
 					formService.findFormByNameService("Distance learning").get(0),
 					specializationService.findSpecializationByNameService("Anykey Specialist").get(0)));
-		} catch (ArrayIndexOutOfBoundsException ignored) {
+		} catch (IndexOutOfBoundsException ignored) {
 
 		}
 	}
@@ -165,7 +165,7 @@ public class JDBCContentManager {
 					formService.findFormByNameService("External studies").get(0),
 					new Date()
 			));
-		} catch (ArrayIndexOutOfBoundsException ignored) {
+		} catch (IndexOutOfBoundsException ignored) {
 
 		}
 	}
@@ -212,7 +212,7 @@ public class JDBCContentManager {
 					TableNames.ScheduleColumns.CHIS_ZNAM_ENUM.CH.toString(),
 					3
 			));
-		} catch (ArrayIndexOutOfBoundsException ignored) {
+		} catch (IndexOutOfBoundsException ignored) {
 
 		}
 	}
@@ -256,7 +256,7 @@ public class JDBCContentManager {
 					groupService.findGroupByNameService("R101").get(0),
 					new Date(), new Date()
 			));
-		} catch (ArrayIndexOutOfBoundsException ignored) {
+		} catch (IndexOutOfBoundsException ignored) {
 
 		}
 	}
@@ -287,7 +287,7 @@ public class JDBCContentManager {
 			subjects.add(new Subject(
 					"Windows for dummies",
 					specializationService.findSpecializationByNameService("Anykey Specialist").get(0)));
-		} catch (ArrayIndexOutOfBoundsException ignored) {
+		} catch (IndexOutOfBoundsException ignored) {
 
 		}
 	}
@@ -314,7 +314,7 @@ public class JDBCContentManager {
 					new Teacher(personService.findPersonByPassportService("FF001166").get(0),
 							new Date(), new Date())
 			);
-		} catch (ArrayIndexOutOfBoundsException ignored) {
+		} catch (IndexOutOfBoundsException ignored) {
 
 		}
 	}
