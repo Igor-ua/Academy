@@ -25,4 +25,3 @@ public interface SubjectDAO {
 
 	List<Subject> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

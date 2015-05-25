@@ -174,4 +174,3 @@ public class Student implements AcademyEntity {
 				'}';
 	}
 }
-//todo javadoc

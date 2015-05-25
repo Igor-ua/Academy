@@ -37,4 +37,3 @@ public interface ScheduleDAO {
 
 	List<Schedule> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

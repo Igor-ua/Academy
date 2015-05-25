@@ -192,4 +192,3 @@ public class Teacher implements AcademyEntity {
 				'}';
 	}
 }
-//todo javadoc

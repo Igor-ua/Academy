@@ -195,4 +195,3 @@ public class Schedule implements AcademyEntity {
 				'}';
 	}
 }
-//todo javadoc

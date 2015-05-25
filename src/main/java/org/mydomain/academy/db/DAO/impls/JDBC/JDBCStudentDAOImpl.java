@@ -228,4 +228,3 @@ public class JDBCStudentDAOImpl implements StudentDAO {
 		return mark;
 	}
 }
-//todo javadoc

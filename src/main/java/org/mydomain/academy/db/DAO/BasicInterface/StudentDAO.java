@@ -32,4 +32,3 @@ public interface StudentDAO {
 
 	List<Student> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

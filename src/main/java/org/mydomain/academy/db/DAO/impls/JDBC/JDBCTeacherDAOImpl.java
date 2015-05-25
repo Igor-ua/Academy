@@ -186,4 +186,3 @@ public class JDBCTeacherDAOImpl implements TeacherDAO {
 		return teacher;
 	}
 }
-//todo javadoc

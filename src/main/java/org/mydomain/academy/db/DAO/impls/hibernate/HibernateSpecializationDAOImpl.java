@@ -102,4 +102,3 @@ public class HibernateSpecializationDAOImpl implements SpecializationDAO {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_HIBERNATE.toString());
 	}
 }
-//todo javadoc

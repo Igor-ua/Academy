@@ -159,4 +159,3 @@ public class JDBCMarkTypeDAOImpl implements MarkTypeDAO {
 		return mark;
 	}
 }
-//todo javadoc

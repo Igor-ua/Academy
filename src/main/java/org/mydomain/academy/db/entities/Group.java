@@ -203,4 +203,3 @@ public class Group implements AcademyEntity {
 				'}';
 	}
 }
-//todo javadoc

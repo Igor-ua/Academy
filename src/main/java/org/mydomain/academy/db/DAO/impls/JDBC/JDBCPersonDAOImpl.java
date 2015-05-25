@@ -213,4 +213,3 @@ public class JDBCPersonDAOImpl implements PersonDAO {
 		return teacher;
 	}
 }
-//todo javadoc

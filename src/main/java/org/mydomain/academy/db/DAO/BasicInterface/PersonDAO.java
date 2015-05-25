@@ -28,4 +28,3 @@ public interface PersonDAO {
 
 	List<Person> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

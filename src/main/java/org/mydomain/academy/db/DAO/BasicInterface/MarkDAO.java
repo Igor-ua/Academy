@@ -41,4 +41,3 @@ public interface MarkDAO {
 
 	List<Mark> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

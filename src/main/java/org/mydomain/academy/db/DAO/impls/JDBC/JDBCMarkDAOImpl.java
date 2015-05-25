@@ -274,4 +274,4 @@ public class JDBCMarkDAOImpl implements MarkDAO {
 		return mark;
 	}
 }
-//todo javadoc
+

@@ -174,4 +174,3 @@ public class JDBCSpecializationDAOImpl implements SpecializationDAO {
 		return subject;
 	}
 }
-//todo javadoc

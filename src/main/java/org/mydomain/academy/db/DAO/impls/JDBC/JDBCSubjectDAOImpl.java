@@ -187,4 +187,3 @@ public class JDBCSubjectDAOImpl implements SubjectDAO {
 		return schedule;
 	}
 }
-//todo javadoc

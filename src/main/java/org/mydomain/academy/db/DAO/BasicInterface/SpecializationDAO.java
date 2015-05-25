@@ -22,4 +22,3 @@ public interface SpecializationDAO {
 
 	List<Specialization> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

@@ -254,4 +254,3 @@ public class JDBCScheduleDAOImpl implements ScheduleDAO {
 		return schedule;
 	}
 }
-//todo javadoc

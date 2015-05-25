@@ -29,4 +29,3 @@ public interface TeacherDAO {
 
 	List<Teacher> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

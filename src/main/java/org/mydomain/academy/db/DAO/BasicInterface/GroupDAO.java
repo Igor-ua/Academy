@@ -28,4 +28,3 @@ public interface GroupDAO {
 
 	List<Group> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

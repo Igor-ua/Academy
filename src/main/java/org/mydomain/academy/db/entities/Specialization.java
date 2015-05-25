@@ -116,4 +116,3 @@ public class Specialization implements AcademyEntity {
 				'}';
 	}
 }
-//todo javadoc

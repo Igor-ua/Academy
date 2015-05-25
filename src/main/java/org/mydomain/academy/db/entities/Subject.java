@@ -174,4 +174,3 @@ public class Subject implements AcademyEntity {
 				'}';
 	}
 }
-//todo javadoc

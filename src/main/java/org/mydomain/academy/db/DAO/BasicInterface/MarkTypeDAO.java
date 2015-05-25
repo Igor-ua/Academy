@@ -22,4 +22,3 @@ public interface MarkTypeDAO {
 
 	List<MarkType> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

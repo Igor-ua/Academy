@@ -21,4 +21,3 @@ public interface FormDAO {
 
 	List<Form> findByCriteria(int flags, Object... values);
 }
-//todo javadoc

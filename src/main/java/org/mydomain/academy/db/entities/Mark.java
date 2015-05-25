@@ -247,4 +247,3 @@ public class Mark implements AcademyEntity {
 				'}';
 	}
 }
-//todo javadoc

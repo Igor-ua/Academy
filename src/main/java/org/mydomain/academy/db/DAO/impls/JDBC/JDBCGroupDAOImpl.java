@@ -234,4 +234,3 @@ public class JDBCGroupDAOImpl implements GroupDAO {
 		return student;
 	}
 }
-//todo javadoc

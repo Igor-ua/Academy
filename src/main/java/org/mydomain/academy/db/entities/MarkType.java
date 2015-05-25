@@ -92,4 +92,3 @@ public class MarkType implements AcademyEntity {
 				'}';
 	}
 }
-//todo javadoc
