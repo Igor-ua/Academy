@@ -112,54 +112,59 @@ public class TeacherController {
 		return "/fragments/entities/teacher/teacherlist";
 	}
 
-//	@RequestMapping(
-//			value = "/find",
-//			params = {"name", "birthday", "passport"},
-//			method = RequestMethod.GET)
-//	public String findByAny(@RequestParam(value = "name") String name,
-//							@RequestParam(value = "birthday") String birthday,
-//							@RequestParam(value = "passport") String passport,
-//							ModelMap modelMap,
-//							Pageable pageable) {
-//		Date bday = null;
-//		try {
-//			bday = sdf.parseToDate(birthday);
-//		} catch (ParseException e) {
-//			System.err.println("Parse error");
-//		}
-//		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
-//		PageWrapper<Person> page = new PageWrapper<>(
-//				jpaPersonService.findByAny(name, bday, passport, pageable), url);
-//		modelMap.addAttribute("page", page);
-//		return "/fragments/entities/person/personlist";
-//	}
+	@RequestMapping(
+			value = "/find",
+			params = {"name", "start", "finish"},
+			method = RequestMethod.GET)
+	public String findByAny(@RequestParam(value = "name") String name,
+							@RequestParam(value = "start") String start,
+							@RequestParam(value = "finish") String finish,
+							ModelMap modelMap,
+							Pageable pageable) {
+		Date dStart = null;
+		Date dFinish = null;
+		try {
+			dStart = sdf.parseToDate(start);
+			dFinish = sdf.parseToDate(finish);
+		} catch (ParseException e) {
+			//supposed to be sent into logs
+		}
+		String url = "/db/teacher/find" + "?name=" + name + "&start=" + start + "&finish=" + finish;
+		Person person = new Person();
+		person.setName(name);
+//		System.out.println("name: " + name + ", start: " + dStart + ", finish: " + dFinish);
+		PageWrapper<Teacher> page = new PageWrapper<>(
+				jpaTeacherService.findByAny(name, dStart, dFinish, pageable), url);
+		modelMap.addAttribute("page", page);
+		return "/fragments/entities/teacher/teacherlist";
+	}
 
-//	@RequestMapping(
-//			value = "/delete",
-//			params = {"id"},
-//			method = RequestMethod.GET)
-//	public String deletePerson(@RequestParam(value = "id") long id,
-//							   ModelMap modelMap, Pageable pageable) {
-//		jpaPersonService.deleteService(jpaPersonService.findPersonByIdService(id));
-//		PageWrapper<Person> page = new PageWrapper<>(
-//				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
-//		modelMap.addAttribute("page", page);
-//		return "/fragments/entities/person/delete_person";
-//	}
-//
-//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-//	public String deletePerson(ModelMap modelMap, Pageable pageable) {
-//		PageWrapper<Person> page = new PageWrapper<>(
-//				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
-//		modelMap.addAttribute("page", page);
-//		return "/fragments/entities/person/delete_person";
-//	}
-//
-//	@RequestMapping(value = "/update", method = RequestMethod.GET)
-//	public String updatePerson(ModelMap modelMap, Pageable pageable) {
-//		PageWrapper<Person> page = new PageWrapper<>(
-//				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
-//		modelMap.addAttribute("page", page);
-//		return "/fragments/entities/person/update_person";
-//	}
+	@RequestMapping(
+			value = "/delete",
+			params = {"id"},
+			method = RequestMethod.GET)
+	public String deleteTeacher(@RequestParam(value = "id") long id,
+							   ModelMap modelMap, Pageable pageable) {
+		jpaTeacherService.deleteService(jpaTeacherService.findTeacherByIdService(id));
+		PageWrapper<Teacher> page = new PageWrapper<>(
+				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/delete");
+		modelMap.addAttribute("page", page);
+		return "/fragments/entities/teacher/delete_teacher";
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String deleteTeacher(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Teacher> page = new PageWrapper<>(
+				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/delete");
+		modelMap.addAttribute("page", page);
+		return "/fragments/entities/teacher/delete_teacher";
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateTeacher(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Teacher> page = new PageWrapper<>(
+				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/update");
+		modelMap.addAttribute("page", page);
+		return "/fragments/entities/teacher/update_teacher";
+	}
 }

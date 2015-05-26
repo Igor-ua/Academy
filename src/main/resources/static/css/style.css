@@ -105,11 +105,16 @@ body {
     display: inline-block;
 }
 
-.btn {
+.btn-forms {
     margin-left: 10px;
     margin-right: 10px;
     /*margin-top: 5px;*/
     /*margin-bottom: 5px;*/
+}
+
+.db-btn {
+    margin-left: 2px;
+    margin-right: 2px;
 }
 
 .btn-mrg-top {

@@ -16,20 +16,22 @@
 
 <div id="div-edit-person">
     <div class="container" id="root-container">
+        <div th:replace="fragments/db/db-body :: buttons">Buttons section</div>
+        <br/>
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-persons-btn" href="javascript:void(0);" class="btn btn-primary">Print all
+                <a id="print-all-persons-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
                     persons</a><br/><br/>
-                <a id="find-person-by-id-btn" href="javascript:void(0);" class="btn btn-primary">Find person
+                <a id="find-person-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find person
                     by id</a><br/><br/>
-                <a id="find-persons-by-any-btn" href="javascript:void(0);" class="btn btn-primary">Find person
+                <a id="find-persons-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find person
                     by any</a><br/><br/>
-                <a id="save-person-btn" href="javascript:void(0);" class="btn btn-warning">Save
+                <a id="save-person-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
                     person</a><br/><br/>
-                <a id="update-person-btn" href="javascript:void(0);" class="btn btn-warning">Update
+                <a id="update-person-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
                     person</a><br/><br/>
-                <a id="delete-person-btn" href="javascript:void(0);" class="btn btn-danger">Delete
+                <a id="delete-person-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
                     person</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">

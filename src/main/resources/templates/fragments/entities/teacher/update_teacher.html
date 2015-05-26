@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Delete Person</title>
+    <title>Delete Teacher</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -15,75 +15,74 @@
 <body>
 <div class="container" id="root-container">
     <div id="inside-container">
-        <div class="text-center" th:if="${page} != null">
-            <div class="row" id="div-personlist">
-                <div class="col-md-12 text-center">
-                    <table class="table table-bordered">
-                        <thead class="table-title">
-                        <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">BIRTHDAY</th>
-                            <th class="text-center">PASSPORT</th>
-                            <th class="text-center"></th>
-                        </tr>
-                        </thead>
-                        <tbody id="update-body">
-                        <tr th:id="(${iterationStatus.index} % 2 == 0) ? 'a-row' : 'b-row'"
-                            th:each="person,iterationStatus  : ${page.getContent()}">
-                            <td th:text="${person.id}">id</td>
-                            <td th:text="${person.name}">Name</td>
-                            <td th:text="${#dates.format(person.birthday, #messages.msg('app.dateformat'))}">Birthday
-                            </td>
-                            <td th:text="${person.passport}">Passport</td>
-                            <td>
-                                <div class="btn-group">
-                                    <a th:href="@{'/db/person/save'(id=${person.id})}"
-                                       class="btn btn-warning">
-                                        update</a>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-md-12 text-center">
-                    <div class='pagination pagination-centered'>
-                        <ul class="pagination" id="pagination">
-                            <li th:class="${page.firstPage}? 'disabled' : ''">
-                                <span th:if="${page.firstPage}">← First</span>
-                                <a th:if='${not page.firstPage}'
-                                   th:href='@{${page.url}(page.page=1,page.size=${page.size})}'>←
-                                    First</a>
-                            </li>
-                            <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
-                                <span th:if='${not page.hasPreviousPage}'>«</span>
-                                <a th:if='${page.hasPreviousPage}'
-                                   th:href='@{${page.url}(page.page=${page.number-1},page.size=${page.size})}'
-                                   title='Go to previous page'>«</a>
-                            </li>
+        <div class="row" id="div-teacherlist">
+            <div class="col-md-12 text-center">
+                <table class="table table-bordered">
+                    <thead class="table-title">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">NAME</th>
+                        <th class="text-center">START</th>
+                        <th class="text-center">FINISH</th>
+                        <th class="text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="update-body">
+                    <tr th:id="(${iterationStatus.index} % 2 == 0) ? 'a-row' : 'b-row'"
+                        th:each="teacher,iterationStatus  : ${page.getContent()}">
+                        <td th:text="${teacher.id}">Id</td>
+                        <td th:text="${teacher.person.name}">Person_name</td>
+                        <td th:text="${#dates.format(teacher.start, #messages.msg('app.dateformat'))}">Start
+                        </td>
+                        <td th:text="${#dates.format(teacher.finish, #messages.msg('app.dateformat'))}">Finish
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a th:href="@{'/db/teacher/save'(id=${teacher.id})}"
+                                   class="btn btn-forms btn-warning">
+                                    update</a>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 text-center">
+                <div class='pagination pagination-centered'>
+                    <ul class="pagination" id="pagination">
+                        <li th:class="${page.firstPage}? 'disabled' : ''">
+                            <span th:if="${page.firstPage}">← First</span>
+                            <a th:if='${not page.firstPage}'
+                               th:href='@{${page.url}(page.page=1,page.size=${page.size})}'>←
+                                First</a>
+                        </li>
+                        <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
+                            <span th:if='${not page.hasPreviousPage}'>«</span>
+                            <a th:if='${page.hasPreviousPage}'
+                               th:href='@{${page.url}(page.page=${page.number-1},page.size=${page.size})}'
+                               title='Go to previous page'>«</a>
+                        </li>
 
-                            <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
-                                <span th:if='${item.current}' th:text='${item.number}'>1</span>
-                                <a th:if='${not item.current}'
-                                   th:href='@{${page.url}(page.page=${item.number},page.size=${page.size})}'><span
-                                        th:text='${item.number}'>1</span></a>
-                            </li>
+                        <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
+                            <span th:if='${item.current}' th:text='${item.number}'>1</span>
+                            <a th:if='${not item.current}'
+                               th:href='@{${page.url}(page.page=${item.number},page.size=${page.size})}'><span
+                                    th:text='${item.number}'>1</span></a>
+                        </li>
 
-                            <li th:class="${page.hasNextPage}? '' : 'disabled'">
-                                <span th:if='${not page.hasNextPage}'>»</span>
-                                <a th:if='${page.hasNextPage}'
-                                   th:href='@{${page.url}(page.page=${page.number+1},page.size=${page.size})}'
-                                   title='Go to next page'>»</a>
-                            </li>
-                            <li th:class="${page.lastPage}? 'disabled' : ''">
-                                <span th:if='${page.lastPage}'>Last →</span>
-                                <a th:if='${not page.lastPage}'
-                                   th:href='@{${page.url}(page.page=${page.totalPages},page.size=${page.size})}'>Last
-                                    →</a>
-                            </li>
-                        </ul>
-                    </div>
+                        <li th:class="${page.hasNextPage}? '' : 'disabled'">
+                            <span th:if='${not page.hasNextPage}'>»</span>
+                            <a th:if='${page.hasNextPage}'
+                               th:href='@{${page.url}(page.page=${page.number+1},page.size=${page.size})}'
+                               title='Go to next page'>»</a>
+                        </li>
+                        <li th:class="${page.lastPage}? 'disabled' : ''">
+                            <span th:if='${page.lastPage}'>Last →</span>
+                            <a th:if='${not page.lastPage}'
+                               th:href='@{${page.url}(page.page=${page.totalPages},page.size=${page.size})}'>Last
+                                →</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

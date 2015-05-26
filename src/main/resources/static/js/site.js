@@ -11,7 +11,7 @@ var Module = (function () {
 
     var privateEntryPoint = function () {
         $(document).ready(function () {
-            privateBindHrefs();
+            privateLinkBinding();
             privateForms();
             privatePaginationHrefs();
         });
@@ -57,7 +57,11 @@ var Module = (function () {
         jQuery.validator.addMethod("accept", function (value, element, param) {
             return value.match(new RegExp("^" + param + "$"));
         });
-        //################################################################
+
+
+        //############################################################################################
+        //Forms FIND BY ID block
+        //############################################################################################
         $('#personFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
@@ -74,8 +78,31 @@ var Module = (function () {
                 }
             });
         });
+
+        $('#teacherFindByIdForm').submit(function (event) {
+            event.preventDefault();
+            $.ajax({
+                url: '/db/teacher/show',
+                type: 'post',
+                data: $('#teacherFindByIdForm').serialize(),
+                success: function (response, textStatus, jqXHR) {
+                    console.log("ajax success.");
+                    var res = $(response).find('#inside-container')[0];
+                    $('#find-result').html(res);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('error(s):' + textStatus, errorThrown);
+                }
+            });
+        });
+        //____________________________________END OF THE SECTION______________________________________
+
+
+
+
+
         //############################################################################################
-        //Forms save block
+        //Forms SAVE
         //############################################################################################
         $('#savePersonForm').validate({
             rules: {
@@ -166,6 +193,15 @@ var Module = (function () {
                 });
             }
         });
+        //____________________________________END OF THE SECTION______________________________________
+
+
+
+
+
+
+        //############################################################################################
+        //Forms FIND BY ANY
         //############################################################################################
         $('#findPersonForm').validate({
             rules: {
@@ -201,10 +237,6 @@ var Module = (function () {
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
-                        //$.each(response, function(i, item) {
-                        //    $('#find-2-result').append('{' + response[i].name + ', '
-                        //    + response[i].birthday + ', ' + response[i].passport + '}, ');
-                        //});
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log('error(s):' + textStatus, errorThrown);
@@ -212,11 +244,52 @@ var Module = (function () {
                 });
             }
         });
-        //################################################################
+
+        $('#findTeacherForm').validate({
+            rules: {
+                name: {
+                    required: false,
+                    minlength: 1
+                },
+                start: {
+                    required: false,
+                    date: true
+                },
+                finish: {
+                    required: false,
+                    date: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/teacher/find',
+                    type: 'GET',
+                    //dataType: 'json',
+                    data: $('#findTeacherForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        var res = $(response).find('#inside-container')[0];
+                        $('#find-2-result').html(res);
+                        privatePaginationHrefs();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+        //____________________________________END OF THE SECTION______________________________________
 
     };
 
-    var privateBindHrefs = function () {
+    var privateLinkBinding = function () {
         //--------------------------------------------------------------
         //Left as an example
         //$('#hrefLogin').attr('onclick', 'Module.publicBindLogin();');
@@ -227,75 +300,13 @@ var Module = (function () {
         //};
         //--------------------------------------------------------------
 
-        $('#hrefAdmin').click(function () {
-            $("#div-db").load('/admin', function () {
-                privateBindHrefs();
-            });
-        });
-
-        //############################################################################################
-        //Print-all block
-        //############################################################################################
-        $('#print-all-persons-btn').click(function () {
-            $("#person-result").load('/db/person/show_all #inside-container', function () {
-                privatePaginationHrefs();
-            });
-        });
-
-        $('#print-all-teachers-btn').click(function () {
-            $("#teacher-result").load('/db/teacher/show_all #inside-container', function () {
-                privatePaginationHrefs();
-            });
-        });
-        //############################################################################################
-
-
         $('#get-into-db-href').click(function () {
             $("#div-body").load('/db #div-db');
         });
 
-        $('#find-person-by-id-btn').click(function () {
-            $("#person-result").load('/db/person/find #inside-container', function () {
-                privateForms();
-            });
-        });
 
         //############################################################################################
-        //Buttons save block
-        //############################################################################################
-        $('#save-person-btn').click(function () {
-            $("#person-result").load('/db/person/save?id= #inside-container', function () {
-                privateForms();
-            });
-        });
-
-        $('#save-teacher-btn').click(function () {
-            $("#teacher-result").load('/db/teacher/save?id= #inside-container', function () {
-                privateForms();
-            });
-        });
-        //############################################################################################
-
-        $('#update-person-btn').click(function () {
-            $("#person-result").load('/db/person/update #inside-container', function () {
-                privatePaginationHrefs();
-            });
-        });
-
-        $('#find-persons-by-any-btn').click(function () {
-            $("#person-result").load('/db/person/find #inside-container-2', function () {
-                privateForms();
-            });
-        });
-
-        $('#delete-person-btn').click(function () {
-            $("#person-result").load('/db/person/delete #inside-container', function () {
-                privatePaginationHrefs();
-            });
-        });
-
-        //############################################################################################
-        //DB buttons block
+        //DB buttons
         //############################################################################################
         $('#person-btn').attr('href', '/db/person');
         $('#teacher-btn').attr('href', '/db/teacher');
@@ -308,8 +319,116 @@ var Module = (function () {
         $('#spec-btn').attr('href', '/db/specialization');
         $('#subject-btn').attr('href', '/db/subject');
         $('#authentication-btn').attr('href', '/db/authentication');
-        //############################################################################################
+        //____________________________________END OF THE SECTION______________________________________
 
+        
+
+        //############################################################################################
+        //Buttons SHOW ALL
+        //############################################################################################
+        $('#print-all-persons-btn').click(function () {
+            $("#person-result").load('/db/person/show_all #inside-container', function () {
+                privatePaginationHrefs();
+            });
+        });
+
+        $('#print-all-teachers-btn').click(function () {
+            $("#teacher-result").load('/db/teacher/show_all #inside-container', function () {
+                privatePaginationHrefs();
+            });
+        });
+        //____________________________________END OF THE SECTION______________________________________
+
+
+
+
+        //############################################################################################
+        //Buttons FIND BY ID
+        //############################################################################################
+        $('#find-person-by-id-btn').click(function () {
+            $("#person-result").load('/db/person/find #inside-container', function () {
+                privateForms();
+            });
+        });
+        $('#find-teacher-by-id-btn').click(function () {
+            $("#teacher-result").load('/db/teacher/find #inside-container', function () {
+                privateForms();
+            });
+        });
+        //____________________________________END OF THE SECTION______________________________________
+
+
+
+
+        //############################################################################################
+        //Buttons FIND BY ANY
+        //############################################################################################
+        $('#find-persons-by-any-btn').click(function () {
+            $("#person-result").load('/db/person/find #inside-container-2', function () {
+                privateForms();
+            });
+        });
+        $('#find-teachers-by-any-btn').click(function () {
+            $("#teacher-result").load('/db/teacher/find #inside-container-2', function () {
+                privateForms();
+            });
+        });
+        //____________________________________END OF THE SECTION______________________________________
+
+
+
+
+        //############################################################################################
+        //Buttons SAVE
+        //############################################################################################
+        $('#save-person-btn').click(function () {
+            $("#person-result").load('/db/person/save?id= #inside-container', function () {
+                privateForms();
+            });
+        });
+
+        $('#save-teacher-btn').click(function () {
+            $("#teacher-result").load('/db/teacher/save?id= #inside-container', function () {
+                privateForms();
+            });
+        });
+        //____________________________________END OF THE SECTION______________________________________
+
+
+
+        //############################################################################################
+        //Buttons UPDATE
+        //############################################################################################
+        $('#update-person-btn').click(function () {
+            $("#person-result").load('/db/person/update #inside-container', function () {
+                privatePaginationHrefs();
+            });
+        });
+        $('#update-teacher-btn').click(function () {
+            $("#teacher-result").load('/db/teacher/update #inside-container', function () {
+                privatePaginationHrefs();
+            });
+        });
+        //____________________________________END OF THE SECTION______________________________________
+
+        
+        
+        
+        
+        //############################################################################################
+        //Buttons DELETE
+        //############################################################################################
+        $('#delete-person-btn').click(function () {
+            $("#person-result").load('/db/person/delete #inside-container', function () {
+                privatePaginationHrefs();
+            });
+        });
+        $('#delete-teacher-btn').click(function () {
+            $("#teacher-result").load('/db/teacher/delete #inside-container', function () {
+                privatePaginationHrefs();
+            });
+        });
+        //____________________________________END OF THE SECTION______________________________________
     };
 
     myModule.publicFunction = function () {

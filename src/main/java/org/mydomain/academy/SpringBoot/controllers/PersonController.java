@@ -83,8 +83,8 @@ public class PersonController {
 		person.setPassport(passport);
 		try {
 			person.setBirthday(sdf.parseToDate(birthday));
-		} catch (ParseException e) {
-			System.err.println("Parse error");
+		} catch (ParseException ignored) {
+			//supposed to be sent into logs
 		}
 		return jpaPersonService.saveService(person);
 	}
@@ -110,7 +110,7 @@ public class PersonController {
 		try {
 			bday = sdf.parseToDate(birthday);
 		} catch (ParseException e) {
-			System.err.println("Parse error");
+			//supposed to be sent into logs
 		}
 		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
 		PageWrapper<Person> page = new PageWrapper<>(

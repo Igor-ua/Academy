@@ -105,7 +105,7 @@ public class JPATeacherService implements TeacherService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public Page<Teacher> findByAny(Person person, Date start, Date finish, Pageable pageable) {
-		return jpaTeacherDAO.findByPersonOrStartOrFinish(person, start, finish, pageable);
+	public Page<Teacher> findByAny(String name, Date start, Date finish, Pageable pageable) {
+		return jpaTeacherDAO.findByPersonNameOrStartOrFinish(name, start, finish, pageable);
 	}
 }
