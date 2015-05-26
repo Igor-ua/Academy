@@ -1,5 +1,6 @@
 package org.mydomain.academy.main;
 
+import org.mydomain.academy.SpringBoot.config.PropertyManager;
 import org.mydomain.academy.db.utils.content.JPAContentManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import static org.mydomain.academy.db.H2Server.H2ConsoleServer.startServer;
 
 @SpringBootApplication
 @EntityScan(basePackages = "org.mydomain.academy/db/entities")
@@ -19,7 +21,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class AcademySpringBootWeb extends WebMvcConfigurerAdapter implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		ApplicationContext ctx = SpringApplication.run(AcademySpringBootWeb.class, args);
+		PropertyManager pm = new PropertyManager();
+		if (startServer(pm.getPort())) {
+			ApplicationContext ctx = SpringApplication.run(AcademySpringBootWeb.class, args);
+		}
 	}
 
 	@Override

@@ -57,7 +57,6 @@ public class AcademyHibernateConsole {
 				System.err.println(MSG_CONNECTION_ERROR);
 				log.error(LOG_MAIN_CON_ERROR.toString() + e);
 			} finally {
-				stopServer(getAvailablePort());
 				stopServer(port);
 				log.info(LOG_MAIN_FINISH_SUCCESS);
 				log.info(LOG_MAIN_FINISH_DIVIDER);

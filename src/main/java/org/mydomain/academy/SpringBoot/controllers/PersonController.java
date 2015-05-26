@@ -39,25 +39,6 @@ public class PersonController {
 	}
 
 	@RequestMapping(
-			value = "/fill",
-			params = {"count"},
-			method = RequestMethod.GET)
-	@ResponseBody
-	public boolean fillWithData(@RequestParam(value = "count") short count) {
-		if (count > 0) {
-			for (short i = 0; i < count; i++) {
-				if (i % 2 == 0) {
-					jpaPersonService.saveService(new Person("Jack", new Date(), "FF223344"));
-				} else {
-					jpaPersonService.saveService(new Person("Mike", new Date(), "AB000111"));
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@RequestMapping(
 			value = "/find",
 			method = RequestMethod.GET)
 	public String findPersonById(ModelMap modelMap) {

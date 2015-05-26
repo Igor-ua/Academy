@@ -51,29 +51,6 @@ public class TeacherController {
 	}
 
 	@RequestMapping(
-			value = "/fill",
-			params = {"count"},
-			method = RequestMethod.GET)
-	@ResponseBody
-	public boolean fillWithData(@RequestParam(value = "count") short count) {
-		if (count > 0) {
-			for (short i = 0; i < count; i++) {
-				if (i % 2 == 0) {
-					Person p1 = new Person();
-					p1.setId(100L);
-					jpaTeacherService.saveService(new Teacher(p1, new Date(), new Date()));
-				} else {
-					Person p2 = new Person();
-					p2.setId(101L);
-					jpaTeacherService.saveService(new Teacher(p2, new Date(), new Date()));
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@RequestMapping(
 			value = "/find",
 			method = RequestMethod.GET)
 	public String findTeacherById(ModelMap modelMap) {
