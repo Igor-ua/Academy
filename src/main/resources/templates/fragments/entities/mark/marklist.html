@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Person</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
+    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{../../js/jquery.validate.min.js}"></script>
+    <script th:src="@{../../js/additional-methods.min.js}"></script>
+    <script th:src="@{../../js/site.js}"></script>
+</head>
+
+<body>
+<div class="container" id="root-container">
+    <div id="inside-container">
+        <div class="text-center" th:if="${mark} != null">
+            <div class="row" id="div-marklist-1">
+                <div class="col-md-12 text-center">
+                    <table class="table table-bordered">
+                        <thead class="table-title">
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">MARK TYPE</th>
+                            <th class="text-center">TEACHER</th>
+                            <th class="text-center">STUDENT</th>
+                            <th class="text-center">GROUP</th>
+                            <th class="text-center">SUBJECT</th>
+                            <th class="text-center">FORM</th>
+                            <th class="text-center">DATE</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="a-row">
+                            <td th:text="${mark.id}">id</td>
+                            <td th:text="${mark.markType.name}">MarkType_name</td>
+                            <td th:text="${mark.teacher.person.name}">Teacher_name</td>
+                            <td th:text="${mark.student.person.name}">Student_name</td>
+                            <td th:text="${mark.group.name}">Group_name</td>
+                            <td th:text="${mark.subject.name}">Subject_name</td>
+                            <td th:text="${mark.form.name}">Form_name</td>
+                            <td th:text="${#dates.format(mark.date, #messages.msg('app.dateformat'))}">Date</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" th:if="${page} != null">
+            <div class="row" id="div-marklist">
+                <div class="col-md-12 text-center">
+                    <table class="table table-bordered">
+                        <thead class="table-title">
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">MARK TYPE</th>
+                            <th class="text-center">TEACHER</th>
+                            <th class="text-center">STUDENT</th>
+                            <th class="text-center">GROUP</th>
+                            <th class="text-center">SUBJECT</th>
+                            <th class="text-center">FORM</th>
+                            <th class="text-center">DATE</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:id="(${iterationStatus.index} % 2 == 0) ? 'a-row' : 'b-row'"
+                            th:each="mark,iterationStatus  : ${page.getContent()}">
+                            <td th:text="${mark.id}">id</td>
+                            <td th:text="${mark.markType.name}">MarkType_name</td>
+                            <td th:text="${mark.teacher.person.name}">Teacher_name</td>
+                            <td th:text="${mark.student.person.name}">Student_name</td>
+                            <td th:text="${mark.group.name}">Group_name</td>
+                            <td th:text="${mark.subject.name}">Subject_name</td>
+                            <td th:text="${mark.form.name}">Form_name</td>
+                            <td th:text="${#dates.format(mark.date, #messages.msg('app.dateformat'))}">Date</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div th:replace="fragments/entities/pagination/template :: template-root">Pagination section</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

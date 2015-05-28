@@ -27,15 +27,15 @@ public class Teacher implements AcademyEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "teacher_id")
-	private Set<Mark> markSet = new HashSet<Mark>();
+	private Set<Mark> markSet;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "teacher_id")
-	private Set<Schedule> scheduleSet = new HashSet<Schedule>();
+	private Set<Schedule> scheduleSet;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "teacher_subject")
-	private Set<Subject> subjectSet = new HashSet<Subject>();
+	private Set<Subject> subjectSet;
 
 	@Transient
 	private long person_id;
@@ -47,6 +47,9 @@ public class Teacher implements AcademyEntity {
 		sdf = new BasicStringDateFormatter();
 		this.start = new Date();
 		this.finish = new Date();
+		scheduleSet = new HashSet<Schedule>();
+		subjectSet = new HashSet<Subject>();
+		markSet = new HashSet<Mark>();
 	}
 
 	public Teacher(long person_id, Date start, Date finish) {
@@ -54,6 +57,9 @@ public class Teacher implements AcademyEntity {
 		this.finish = finish;
 		this.person_id = person_id;
 		sdf = new BasicStringDateFormatter();
+		scheduleSet = new HashSet<Schedule>();
+		subjectSet = new HashSet<Subject>();
+		markSet = new HashSet<Mark>();
 	}
 
 	public Teacher(Person person, Date start, Date finish) {

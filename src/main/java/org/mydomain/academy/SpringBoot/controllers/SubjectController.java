@@ -107,6 +107,7 @@ public class SubjectController {
 			ModelMap modelMap,
 			Pageable pageable) {
 		String url = "/db/subject/find" + "?subjectName=" + subjectName + "&specializationName=" + specializationName;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<Subject> page = new PageWrapper<>(
 				jpaSubjectService.findByAny(subjectName, specializationName, pageable), url);
 		modelMap.addAttribute("page", page);

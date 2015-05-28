@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Person</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
+    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{../../js/jquery.validate.min.js}"></script>
+    <script th:src="@{../../js/additional-methods.min.js}"></script>
+    <script th:src="@{../../js/site.js}"></script>
+</head>
+
+<body>
+<div class="container" id="root-container">
+    <div id="inside-container">
+        <div class="text-center" th:if="${schedule} != null">
+            <div class="row" id="div-schedulelist-1">
+                <div class="col-md-12 text-center">
+                    <table class="table table-bordered">
+                        <thead class="table-title">
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">SUBJECT</th>
+                            <th class="text-center">TEACHER</th>
+                            <th class="text-center">GROUP</th>
+                            <th class="text-center">DAY</th>
+                            <th class="text-center">CHIS-ZNAM</th>
+                            <th class="text-center">LENTA</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="a-row">
+                            <td th:text="${schedule.id}">id</td>
+                            <td th:text="${schedule.subject.name}">Subject_name</td>
+                            <td th:text="${schedule.teacher.person.name}">Teacher_name</td>
+                            <td th:text="${schedule.group.name}">Group_name</td>
+                            <td th:text="${schedule.day}">Day</td>
+                            <td th:text="${schedule.chisZnam}">Chis-Znam</td>
+                            <td th:text="${schedule.lenta}">Lenta</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" th:if="${page} != null">
+            <div class="row" id="div-schedulelist">
+                <div class="col-md-12 text-center">
+                    <table class="table table-bordered">
+                        <thead class="table-title">
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">SUBJECT</th>
+                            <th class="text-center">TEACHER</th>
+                            <th class="text-center">GROUP</th>
+                            <th class="text-center">DAY</th>
+                            <th class="text-center">CHIS-ZNAM</th>
+                            <th class="text-center">LENTA</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:id="(${iterationStatus.index} % 2 == 0) ? 'a-row' : 'b-row'"
+                            th:each="schedule,iterationStatus  : ${page.getContent()}">
+                            <td th:text="${schedule.id}">id</td>
+                            <td th:text="${schedule.subject.name}">Subject_name</td>
+                            <td th:text="${schedule.teacher.person.name}">Teacher_name</td>
+                            <td th:text="${schedule.group.name}">Group_name</td>
+                            <td th:text="${schedule.day}">Day</td>
+                            <td th:text="${schedule.chisZnam}">Chis-Znam</td>
+                            <td th:text="${schedule.lenta}">Lenta</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div th:replace="fragments/entities/pagination/template :: template-root">Pagination section</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

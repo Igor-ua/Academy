@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Person</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
+    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{../../js/jquery.validate.min.js}"></script>
+    <script th:src="@{../../js/additional-methods.min.js}"></script>
+    <script th:src="@{../../js/site.js}"></script>
+</head>
+
+<body>
+<div class="container" id="root-container">
+    <div id="inside-container">
+        <div class="text-center" th:if="${specialization} != null">
+            <div class="row" id="div-specializationlist-1">
+                <div class="col-md-12 text-center">
+                    <table class="table table-bordered">
+                        <thead class="table-title">
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">NAME</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr id="a-row">
+                            <td th:text="${specialization.id}">id</td>
+                            <td th:text="${specialization.name}">Name</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" th:if="${page} != null">
+            <div class="row" id="div-specializationlist">
+                <div class="col-md-12 text-center">
+                    <table class="table table-bordered">
+                        <thead class="table-title">
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">NAME</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:id="(${iterationStatus.index} % 2 == 0) ? 'a-row' : 'b-row'"
+                            th:each="specialization,iterationStatus  : ${page.getContent()}">
+                            <td th:text="${specialization.id}">id</td>
+                            <td th:text="${specialization.name}">Name</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div th:replace="fragments/entities/pagination/template :: template-root">Pagination section</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

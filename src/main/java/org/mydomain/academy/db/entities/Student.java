@@ -31,7 +31,7 @@ public class Student implements AcademyEntity {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id")
-	private Set<Mark> markSet = new HashSet<Mark>();
+	private Set<Mark> markSet;
 
 	@Transient
 	private long person_id;
@@ -45,6 +45,7 @@ public class Student implements AcademyEntity {
 		sdf = new BasicStringDateFormatter();
 		this.start = new Date();
 		this.finish = new Date();
+		markSet = new HashSet<Mark>();
 	}
 
 	public Student(long person_id, long group_id, Date start, Date finish) {
@@ -53,6 +54,7 @@ public class Student implements AcademyEntity {
 		this.finish = finish;
 		this.person_id = person_id;
 		this.group_id = group_id;
+		markSet = new HashSet<Mark>();
 	}
 
 	public Student(Person person, Group group, Date start, Date finish) {

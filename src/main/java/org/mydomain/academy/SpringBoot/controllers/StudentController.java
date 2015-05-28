@@ -127,6 +127,7 @@ public class StudentController {
 			ModelMap modelMap,
 			Pageable pageable) {
 		String url = "/db/student/find" + "?personName=" + personName + "&groupName=" + groupName;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<Student> page = new PageWrapper<>(
 				jpaStudentService.findByAny(personName, groupName, pageable), url);
 		modelMap.addAttribute("page", page);

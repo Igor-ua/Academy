@@ -121,10 +121,12 @@ public class ScheduleController {
 	@RequestMapping(
 			value = "/find",
 			params = {"groupName"})
-	public String findByAny(@RequestParam(value = "groupName") String groupName,
-							ModelMap modelMap,
-							Pageable pageable) {
+	public String findByAny(
+			@RequestParam(value = "groupName") String groupName,
+			ModelMap modelMap,
+			Pageable pageable) {
 		String url = "/db/schedule/find" + "?groupName=" + groupName;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<Schedule> page = new PageWrapper<>(
 				jpaScheduleService.findByAny(groupName, pageable), url);
 		modelMap.addAttribute("page", page);

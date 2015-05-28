@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Delete Person</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
+    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{../../js/jquery.validate.min.js}"></script>
+    <script th:src="@{../../js/additional-methods.min.js}"></script>
+    <script th:src="@{../../js/site.js}"></script>
+</head>
+
+<body>
+<div class="container" id="root-container">
+    <div id="inside-container">
+        <div class="text-center" th:if="${page} != null">
+            <div class="row" id="div-personlist">
+                <div class="col-md-12 text-center">
+                    <table class="table table-bordered">
+                        <thead class="table-title">
+                        <tr>
+                            <th class="text-center">ID</th>
+                            <th class="text-center">NAME</th>
+                            <th class="text-center">BIRTHDAY</th>
+                            <th class="text-center">PASSPORT</th>
+                            <th class="text-center"></th>
+                        </tr>
+                        </thead>
+                        <tbody id="delete-body">
+                        <tr th:id="(${iterationStatus.index} % 2 == 0) ? 'a-row' : 'b-row'"
+                            th:each="person,iterationStatus  : ${page.getContent()}">
+                            <td th:text="${person.id}">id</td>
+                            <td th:text="${person.name}">Name</td>
+                            <td th:text="${#dates.format(person.birthday, #messages.msg('app.dateformat'))}">Birthday
+                            </td>
+                            <td th:text="${person.passport}">Passport</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a th:href="@{${page.url}(id=${person.id},
+                                       page.page=${page.getNumber()},
+                                       page.size=${page.size})}"
+                                       class="btn btn-forms btn-danger">
+                                        delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div th:replace="fragments/entities/pagination/template :: template-root">Pagination section</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

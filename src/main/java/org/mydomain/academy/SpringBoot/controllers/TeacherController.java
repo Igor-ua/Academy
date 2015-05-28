@@ -123,6 +123,7 @@ public class TeacherController {
 			//supposed to be sent into logs
 		}
 		String url = "/db/teacher/find" + "?name=" + personName + "&start=" + start + "&finish=" + finish;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<Teacher> page = new PageWrapper<>(
 				jpaTeacherService.findByAny(personName, dStart, dFinish, pageable), url);
 		modelMap.addAttribute("page", page);

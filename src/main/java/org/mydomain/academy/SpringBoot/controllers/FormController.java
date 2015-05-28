@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 @Controller
 @RequestMapping("/db/form")
 public class FormController {
@@ -84,8 +87,8 @@ public class FormController {
 			ModelMap modelMap,
 			Pageable pageable) {
 		String url = "/db/form/find" + "?name=" + name;
-		PageWrapper<Form> page = new PageWrapper<>(
-				jpaFormService.findByAny(name, pageable), url);
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Form> page = new PageWrapper<>(jpaFormService.findByAny(name, pageable), url);
 		modelMap.addAttribute("page", page);
 		return FORM_ROUTE + "/formlist";
 	}

@@ -107,6 +107,7 @@ public class GroupController {
 			Pageable pageable) {
 		String url = "/db/group/find" + "?groupName=" + groupName + "&formName="
 				+ formName + "&specializationName=" + specializationName;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<Group> page = new PageWrapper<>(
 				jpaGroupService.findByAny(groupName, formName, specializationName, pageable), url);
 		modelMap.addAttribute("page", page);

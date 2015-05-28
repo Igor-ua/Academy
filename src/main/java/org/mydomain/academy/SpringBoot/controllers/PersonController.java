@@ -104,10 +104,11 @@ public class PersonController {
 		Date bday = null;
 		try {
 			bday = sdf.parseToDate(birthday);
-		} catch (ParseException e) {
+		} catch (ParseException ignored) {
 			//supposed to be sent into logs
 		}
 		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<Person> page = new PageWrapper<>(
 				jpaPersonService.findByAny(name, bday, passport, pageable), url);
 		modelMap.addAttribute("page", page);

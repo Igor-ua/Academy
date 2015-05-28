@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="page">
+<head>
+    <title>Academy - Mark</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
+    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{../../js/jquery.validate.min.js}"></script>
+    <script th:src="@{../../js/additional-methods.min.js}"></script>
+    <script th:src="@{../../js/site.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: page">Header section</div>
+
+<div id="div-edit-mark">
+    <div class="container" id="root-container">
+        <div th:replace="fragments/db/db-body :: buttons">Buttons section</div>
+        <br/>
+        <div class="row">
+            <div class="col-md-3 brd">
+                <br/>
+                <a id="print-all-marks-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
+                    marks</a><br/><br/>
+                <a id="find-mark-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find mark
+                    by id</a><br/><br/>
+                <a id="find-marks-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find mark
+                    by any</a><br/><br/>
+                <a id="save-mark-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
+                    mark</a><br/><br/>
+                <a id="update-mark-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
+                    mark</a><br/><br/>
+                <a id="delete-mark-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
+                    mark</a><br/><br/>
+            </div>
+            <div class="col-md-9 text-center brd">
+                <div id="mark-result">result</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

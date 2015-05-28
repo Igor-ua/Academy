@@ -86,6 +86,7 @@ public class SpecializationController {
 			ModelMap modelMap,
 			Pageable pageable) {
 		String url = "/db/specialization/find" + "?name=" + name;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<Specialization> page = new PageWrapper<>(
 				jpaSpecializationService.findByAny(name, pageable), url);
 		modelMap.addAttribute("page", page);

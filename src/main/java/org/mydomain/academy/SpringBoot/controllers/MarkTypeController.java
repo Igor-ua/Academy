@@ -40,7 +40,7 @@ public class MarkTypeController {
 			params = {"id"},
 			method = RequestMethod.POST)
 	public String showMarkTypeById(@RequestParam(value = "id") long id, Model model) {
-		model.addAttribute("markType", jpaMarkTypeService.findMarkTypeByIdService(id));
+		model.addAttribute("marktype", jpaMarkTypeService.findMarkTypeByIdService(id));
 		return "/fragments/entities/markType/marktypelist";
 	}
 
@@ -83,7 +83,8 @@ public class MarkTypeController {
 			@RequestParam(value = "name") String name,
 			ModelMap modelMap,
 			Pageable pageable) {
-		String url = "/db/markType/find" + "?name=" + name;
+		String url = "/db/marktype/find" + "?name=" + name;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<MarkType> page = new PageWrapper<>(
 				jpaMarkTypeService.findByAny(name, pageable), url);
 		modelMap.addAttribute("page", page);

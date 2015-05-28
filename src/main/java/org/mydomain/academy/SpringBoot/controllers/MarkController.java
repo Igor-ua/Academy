@@ -139,15 +139,16 @@ public class MarkController {
 
 	@RequestMapping(
 			value = "/find",
-			params = {"markName", "formName"})
+			params = {"teacherName", "studentName"})
 	public String findByAny(
-			@RequestParam(value = "markName") String markName,
-			@RequestParam(value = "formName") String formName,
+			@RequestParam(value = "teacherName") String teacherName,
+			@RequestParam(value = "studentName") String studentName,
 			ModelMap modelMap,
 			Pageable pageable) {
-		String url = "/db/mark/find" + "?markName=" + markName + "&formName=" + formName;
+		String url = "/db/mark/find" + "?teacherName=" + teacherName + "&studentName=" + studentName;
+		url = url.replaceAll(" ", "%20");
 		PageWrapper<Mark> page = new PageWrapper<>(
-				jpaMarkService.findByAny(markName, formName, pageable), url);
+				jpaMarkService.findByAny(teacherName, studentName, pageable), url);
 		modelMap.addAttribute("page", page);
 		return MARK_ROUTE + "/marklist";
 	}
