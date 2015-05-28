@@ -1,10 +1,9 @@
 package org.mydomain.academy.SpringBoot.controllers;
 
 import org.mydomain.academy.SpringBoot.utils.PageWrapper;
-import org.mydomain.academy.db.entities.Person;
-import org.mydomain.academy.db.utils.formatters.BasicStringDateFormatter;
-import org.mydomain.academy.db.utils.formatters.StringDateFormatter;
-import org.mydomain.academy.services.impls.JPAServiceImpl.JPAPersonService;
+import org.mydomain.academy.db.entities.Specialization;
+import org.mydomain.academy.db.entities.Subject;
+import org.mydomain.academy.services.impls.JPAServiceImpl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -16,157 +15,130 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.ParseException;
-import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/db/subject")
 public class SubjectController {
 
-	private JPAPersonService jpaPersonService;
-	private StringDateFormatter sdf;
+	@Autowired
+	private JPASubjectService jpaSubjectService;
 
 	@Autowired
-	public void setSdf(BasicStringDateFormatter sdf) {
-		this.sdf = sdf;
-	}
+	private JPASpecializationService jpaSpecializationService;
 
-	@Autowired
-	public void setJpaPersonService(JPAPersonService jpaPersonService) {
-		this.jpaPersonService = jpaPersonService;
-	}
+	private static final String SUBJECT_ROUTE = "/fragments/entities/subject";
+
 
 	@RequestMapping(value = {"", "/"})
-	public String person(ModelMap modelMap) {
-		return "/fragments/entities/person/person";
+	public String subjectRootPage() {
+		return SUBJECT_ROUTE + "/subject";
 	}
 
-	@RequestMapping(
-			value = "/fill",
-			params = {"count"},
-			method = RequestMethod.GET)
-	@ResponseBody
-	public boolean fillWithData(@RequestParam(value = "count") short count) {
-		if (count > 0) {
-			for (short i = 0; i < count; i++) {
-				if (i % 2 == 0) {
-					jpaPersonService.saveService(new Person("Jack", new Date(), "FF223344"));
-				} else {
-					jpaPersonService.saveService(new Person("Mike", new Date(), "AB000111"));
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@RequestMapping(
-			value = "/find",
-			method = RequestMethod.GET)
-	public String findPersonById(ModelMap modelMap) {
-		return "/fragments/entities/person/find_person";
+	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
+	public String findAllSubjects(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Subject> page = new PageWrapper<>(
+				jpaSubjectService.findAllSubjectsService(pageable), "/db/subject/show_all");
+		modelMap.addAttribute("page", page);
+		return SUBJECT_ROUTE + "/subjectlist";
 	}
 
 	@RequestMapping(
 			value = "/show",
 			params = {"id"},
 			method = RequestMethod.POST)
-	public String findOne(@RequestParam(value = "id") long id, Model model) {
-		model.addAttribute("person", jpaPersonService.findPersonByIdService(id));
-		return "/fragments/entities/person/personlist";
+	public String showSubjectById(@RequestParam(value = "id") long id, Model model) {
+		model.addAttribute("subject", jpaSubjectService.findSubjectByIdService(id));
+		return SUBJECT_ROUTE + "/subjectlist";
+	}
+
+	@RequestMapping(
+			value = "/find",
+			method = RequestMethod.GET)
+	public String findSubject() {
+		return SUBJECT_ROUTE + "/find_subject";
 	}
 
 	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String savePersonMapping(@RequestParam(value = "id") String id,
-									ModelMap modelMap) {
+	public String saveNewSubject(
+			@RequestParam(value = "id") String id,
+			ModelMap modelMap) {
+
+		List<Specialization> specializations = jpaSpecializationService.findAllSpecializationsService();
+		modelMap.addAttribute("specializations", specializations);
+
 		modelMap.addAttribute("id", id);
-		return "/fragments/entities/person/save_person";
+		return SUBJECT_ROUTE + "/save_subject";
 	}
 
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value = "/save",
-			params = {"id", "name", "birthday", "passport"},
+			params = {"id", "name", "specialization_id"},
 			method = RequestMethod.POST)
 	@ResponseBody
-	public boolean savePerson(@RequestParam(value = "id", required = false, defaultValue = "") String id,
-							  @RequestParam(value = "name") String name,
-							  @RequestParam(value = "birthday") String birthday,
-							  @RequestParam(value = "passport") String passport,
-							  ModelMap modelMap) {
-		Person person = new Person();
+	public boolean saveSubjectById(
+			@RequestParam(value = "id", required = false, defaultValue = "") String id,
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "specialization_id") String specialization_id) {
+		Subject subject = new Subject();
 		if (!id.equals("")) {
-			person.setId(Long.parseLong(id));
+			subject.setId(Long.parseLong(id));
 		}
-		person.setName(name);
-		person.setPassport(passport);
-		try {
-			person.setBirthday(sdf.parseToDate(birthday));
-		} catch (ParseException e) {
-			System.err.println("Parse error");
-		}
-		return jpaPersonService.saveService(person);
+
+		subject.setName(name);
+		subject.setSpecialization(jpaSpecializationService.findSpecializationByIdService
+				(Long.parseLong(specialization_id)));
+
+		return jpaSubjectService.saveService(subject);
 	}
 
-	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
-	public String findAll(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/show_all");
-		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
-	}
 
 	@RequestMapping(
 			value = "/find",
-			params = {"name", "birthday", "passport"},
+			params = {"subjectName", "specializationName"},
 			method = RequestMethod.GET)
-	public String findByAny(@RequestParam(value = "name") String name,
-							@RequestParam(value = "birthday") String birthday,
-							@RequestParam(value = "passport") String passport,
-							ModelMap modelMap,
-							Pageable pageable) {
-		Date bday = null;
-		try {
-			bday = sdf.parseToDate(birthday);
-		} catch (ParseException e) {
-			System.err.println("Parse error");
-		}
-		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findByAny(name, bday, passport, pageable), url);
+	public String findByAny(
+			@RequestParam(value = "subjectName") String subjectName,
+			@RequestParam(value = "specializationName") String specializationName,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/subject/find" + "?subjectName=" + subjectName + "&specializationName=" + specializationName;
+		PageWrapper<Subject> page = new PageWrapper<>(
+				jpaSubjectService.findByAny(subjectName, specializationName, pageable), url);
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
+		return SUBJECT_ROUTE + "/subjectlist";
 	}
 
 	@RequestMapping(
 			value = "/delete",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String deletePerson(@RequestParam(value = "id") long id,
-							   ModelMap modelMap, Pageable pageable) {
-		jpaPersonService.deleteService(jpaPersonService.findPersonByIdService(id));
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+	public String deleteSubject(@RequestParam(value = "id") long id,
+								ModelMap modelMap, Pageable pageable) {
+		jpaSubjectService.deleteService(jpaSubjectService.findSubjectByIdService(id));
+		PageWrapper<Subject> page = new PageWrapper<>(
+				jpaSubjectService.findAllSubjectsService(pageable), "/db/subject/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return SUBJECT_ROUTE + "/delete_subject";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String deletePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+	public String deleteSubject(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Subject> page = new PageWrapper<>(
+				jpaSubjectService.findAllSubjectsService(pageable), "/db/subject/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return SUBJECT_ROUTE + "/delete_subject";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updatePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
+	public String updateSubject(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Subject> page = new PageWrapper<>(
+				jpaSubjectService.findAllSubjectsService(pageable), "/db/subject/update");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/update_person";
+		return SUBJECT_ROUTE + "/update_subject";
 	}
 }

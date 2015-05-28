@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface JPAMarkDAO extends JpaRepository<Mark, Long> {
 
-	Page<Mark> findByDateOrMarkTypeOrTeacherOrStudentOrGroupOrSubjectOrForm(
-			Date date, MarkType markType, Teacher teacher,
-			Student student, Group group, Subject subject, Form form,
+	Page<Mark> findByTeacherPersonNameOrStudentPersonName(
+			String teacherName,
+			String studentName,
 			Pageable pageable
 	);
 

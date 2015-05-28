@@ -26,56 +26,57 @@ import java.util.List;
 @RequestMapping("/db/teacher")
 public class TeacherController {
 
+	@Autowired
 	private JPATeacherService jpaTeacherService;
+	@Autowired
 	private JPAPersonService jpaPersonService;
 	private StringDateFormatter sdf;
+	private static final String TEACHER_ROUTE = "/fragments/entities/teacher";
 
 	@Autowired
 	public void setSdf(BasicStringDateFormatter sdf) {
 		this.sdf = sdf;
 	}
 
-	@Autowired
-	public void setJpaTeacherService(JPATeacherService jpaTeacherService) {
-		this.jpaTeacherService = jpaTeacherService;
-	}
-
-	@Autowired
-	public void setJpaPersonService(JPAPersonService jpaPersonService) {
-		this.jpaPersonService = jpaPersonService;
-	}
-
 	@RequestMapping(value = {"", "/"})
-	public String teacher(ModelMap modelMap) {
-		return "/fragments/entities/teacher/teacher";
+	public String teacherRootPage() {
+		return TEACHER_ROUTE + "/teacher";
 	}
 
-	@RequestMapping(
-			value = "/find",
-			method = RequestMethod.GET)
-	public String findTeacherById(ModelMap modelMap) {
-		return "/fragments/entities/teacher/find_teacher";
+	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
+	public String findAllTeachers(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Teacher> page = new PageWrapper<>(
+				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/show_all");
+		modelMap.addAttribute("page", page);
+		return TEACHER_ROUTE + "/teacherlist";
 	}
 
 	@RequestMapping(
 			value = "/show",
 			params = {"id"},
 			method = RequestMethod.POST)
-	public String findOne(@RequestParam(value = "id") long id, Model model) {
+	public String showTeacherById(@RequestParam(value = "id") long id, Model model) {
 		model.addAttribute("teacher", jpaTeacherService.findTeacherByIdService(id));
-		return "/fragments/entities/teacher/teacherlist";
+		return TEACHER_ROUTE + "/teacherlist";
+	}
+
+	@RequestMapping(
+			value = "/find",
+			method = RequestMethod.GET)
+	public String findTeacher() {
+		return TEACHER_ROUTE + "/find_teacher";
 	}
 
 	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String saveTeacherMapping(@RequestParam(value = "id") String id,
+	public String saveTeacher(@RequestParam(value = "id") String id,
 									ModelMap modelMap) {
 		List<Person> persons = jpaPersonService.findAllPersonsService();
 		modelMap.addAttribute("persons", persons);
 		modelMap.addAttribute("id", id);
-		return "/fragments/entities/teacher/save_teacher";
+		return TEACHER_ROUTE + "/save_teacher";
 	}
 
 	@RequestMapping(
@@ -87,9 +88,7 @@ public class TeacherController {
 	public boolean saveTeacher(@RequestParam(value = "id", required = false, defaultValue = "") String id,
 							  @RequestParam(value = "person_id") String personId,
 							  @RequestParam(value = "start") String start,
-							  @RequestParam(value = "finish") String finish,
-							  ModelMap modelMap) {
-//		System.out.println("id: " + id + ", pid: " + personId + ", start: " + start + ", finish: " + finish);
+							  @RequestParam(value = "finish") String finish) {
 		Teacher teacher = new Teacher();
 		if (!id.equals("")) {
 			teacher.setId(Long.parseLong(id));
@@ -99,24 +98,18 @@ public class TeacherController {
 			teacher.setStart(sdf.parseToDate(start));
 			teacher.setFinish(sdf.parseToDate(finish));
 		} catch (ParseException e) {
-			System.err.println("Parse error");
+			//supposed to be sent into logs
 		}
 		return jpaTeacherService.saveService(teacher);
 	}
 
-	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
-	public String findAll(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Teacher> page = new PageWrapper<>(
-				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/show_all");
-		modelMap.addAttribute("page", page);
-		return "/fragments/entities/teacher/teacherlist";
-	}
+
 
 	@RequestMapping(
 			value = "/find",
 			params = {"name", "start", "finish"},
 			method = RequestMethod.GET)
-	public String findByAny(@RequestParam(value = "name") String name,
+	public String findByAny(@RequestParam(value = "name") String personName,
 							@RequestParam(value = "start") String start,
 							@RequestParam(value = "finish") String finish,
 							ModelMap modelMap,
@@ -129,14 +122,11 @@ public class TeacherController {
 		} catch (ParseException e) {
 			//supposed to be sent into logs
 		}
-		String url = "/db/teacher/find" + "?name=" + name + "&start=" + start + "&finish=" + finish;
-		Person person = new Person();
-		person.setName(name);
-//		System.out.println("name: " + name + ", start: " + dStart + ", finish: " + dFinish);
+		String url = "/db/teacher/find" + "?name=" + personName + "&start=" + start + "&finish=" + finish;
 		PageWrapper<Teacher> page = new PageWrapper<>(
-				jpaTeacherService.findByAny(name, dStart, dFinish, pageable), url);
+				jpaTeacherService.findByAny(personName, dStart, dFinish, pageable), url);
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/teacher/teacherlist";
+		return TEACHER_ROUTE + "/teacherlist";
 	}
 
 	@RequestMapping(
@@ -149,7 +139,7 @@ public class TeacherController {
 		PageWrapper<Teacher> page = new PageWrapper<>(
 				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/teacher/delete_teacher";
+		return TEACHER_ROUTE + "/delete_teacher";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -157,7 +147,7 @@ public class TeacherController {
 		PageWrapper<Teacher> page = new PageWrapper<>(
 				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/teacher/delete_teacher";
+		return TEACHER_ROUTE + "/delete_teacher";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -165,6 +155,6 @@ public class TeacherController {
 		PageWrapper<Teacher> page = new PageWrapper<>(
 				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/update");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/teacher/update_teacher";
+		return TEACHER_ROUTE + "/update_teacher";
 	}
 }

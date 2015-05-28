@@ -1,10 +1,10 @@
 package org.mydomain.academy.SpringBoot.controllers;
 
 import org.mydomain.academy.SpringBoot.utils.PageWrapper;
-import org.mydomain.academy.db.entities.Person;
+import org.mydomain.academy.db.entities.*;
 import org.mydomain.academy.db.utils.formatters.BasicStringDateFormatter;
 import org.mydomain.academy.db.utils.formatters.StringDateFormatter;
-import org.mydomain.academy.services.impls.JPAServiceImpl.JPAPersonService;
+import org.mydomain.academy.services.impls.JPAServiceImpl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -17,13 +17,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
-import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/db/mark")
 public class MarkController {
 
-	private JPAPersonService jpaPersonService;
+	@Autowired
+	private JPAMarkService jpaMarkService;
+	@Autowired
+	private JPAMarkTypeService jpaMarkTypeService;
+	@Autowired
+	private JPATeacherService jpaTeacherService;
+	@Autowired
+	private JPAStudentService jpaStudentService;
+	@Autowired
+	private JPAGroupService jpaGroupService;
+	@Autowired
+	private JPASubjectService jpaSubjectService;
+	@Autowired
+	private JPAFormService jpaFormService;
+
 	private StringDateFormatter sdf;
 
 	@Autowired
@@ -31,142 +45,139 @@ public class MarkController {
 		this.sdf = sdf;
 	}
 
-	@Autowired
-	public void setJpaPersonService(JPAPersonService jpaPersonService) {
-		this.jpaPersonService = jpaPersonService;
-	}
+	private static final String MARK_ROUTE = "/fragments/entities/mark";
 
 	@RequestMapping(value = {"", "/"})
-	public String person(ModelMap modelMap) {
-		return "/fragments/entities/person/person";
+	public String markRootPage() {
+		return MARK_ROUTE + "/mark";
 	}
 
-	@RequestMapping(
-			value = "/fill",
-			params = {"count"},
-			method = RequestMethod.GET)
-	@ResponseBody
-	public boolean fillWithData(@RequestParam(value = "count") short count) {
-		if (count > 0) {
-			for (short i = 0; i < count; i++) {
-				if (i % 2 == 0) {
-					jpaPersonService.saveService(new Person("Jack", new Date(), "FF223344"));
-				} else {
-					jpaPersonService.saveService(new Person("Mike", new Date(), "AB000111"));
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@RequestMapping(
-			value = "/find",
-			method = RequestMethod.GET)
-	public String findPersonById(ModelMap modelMap) {
-		return "/fragments/entities/person/find_person";
+	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
+	public String findAllMarks(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Mark> page = new PageWrapper<>(jpaMarkService.findAllMarksService(pageable),
+				"/db/mark/show_all");
+		modelMap.addAttribute("page", page);
+		return MARK_ROUTE + "/marklist";
 	}
 
 	@RequestMapping(
 			value = "/show",
 			params = {"id"},
 			method = RequestMethod.POST)
-	public String findOne(@RequestParam(value = "id") long id, Model model) {
-		model.addAttribute("person", jpaPersonService.findPersonByIdService(id));
-		return "/fragments/entities/person/personlist";
+	public String showMarkById(@RequestParam(value = "id") long id, Model model) {
+		model.addAttribute("mark", jpaMarkService.findMarkByIdService(id));
+		return "/fragments/entities/mark/marklist";
+	}
+
+	@RequestMapping(value = "/find")
+	public String findMark() {
+		return MARK_ROUTE + "/find_mark";
 	}
 
 	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String savePersonMapping(@RequestParam(value = "id") String id,
-									ModelMap modelMap) {
+	public String saveNewMark(@RequestParam(value = "id") String id,
+							  ModelMap modelMap) {
 		modelMap.addAttribute("id", id);
-		return "/fragments/entities/person/save_person";
+
+		List<MarkType> markTypes = jpaMarkTypeService.findAllMarkTypesService();
+		modelMap.addAttribute("markTypes", markTypes);
+
+		List<Teacher> teachers = jpaTeacherService.findAllTeachersService();
+		modelMap.addAttribute("teachers", teachers);
+
+		List<Student> students = jpaStudentService.findAllStudentsService();
+		modelMap.addAttribute("students", students);
+
+		List<Group> groups = jpaGroupService.findAllGroupsService();
+		modelMap.addAttribute("groups", groups);
+
+		List<Subject> subjects = jpaSubjectService.findAllSubjectsService();
+		modelMap.addAttribute("subjects", subjects);
+
+		List<Form> forms = jpaFormService.findAllFormsService();
+		modelMap.addAttribute("forms", forms);
+
+		return MARK_ROUTE + "/save_mark";
 	}
 
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value = "/save",
-			params = {"id", "name", "birthday", "passport"},
+			params = {"id", "date", "markType_id", "teacher_id", "student_id", "group_id", "subject_id", "form_id"},
 			method = RequestMethod.POST)
 	@ResponseBody
-	public boolean savePerson(@RequestParam(value = "id", required = false, defaultValue = "") String id,
-							  @RequestParam(value = "name") String name,
-							  @RequestParam(value = "birthday") String birthday,
-							  @RequestParam(value = "passport") String passport,
-							  ModelMap modelMap) {
-		Person person = new Person();
+	public boolean saveMarkById(
+			@RequestParam(value = "id", required = false, defaultValue = "") String id,
+			@RequestParam(value = "date") String date,
+			@RequestParam(value = "markType_id") String markType_id,
+			@RequestParam(value = "teacher_id") String teacher_id,
+			@RequestParam(value = "student_id") String student_id,
+			@RequestParam(value = "group_id") String group_id,
+			@RequestParam(value = "subject_id") String subject_id,
+			@RequestParam(value = "form_id") String form_id) {
+		Mark mark = new Mark();
 		if (!id.equals("")) {
-			person.setId(Long.parseLong(id));
+			mark.setId(Long.parseLong(id));
 		}
-		person.setName(name);
-		person.setPassport(passport);
 		try {
-			person.setBirthday(sdf.parseToDate(birthday));
-		} catch (ParseException e) {
-			System.err.println("Parse error");
+			mark.setDate(sdf.parseToDate(date));
+		} catch (ParseException ignored) {
+			//supposed to be sent into logs
 		}
-		return jpaPersonService.saveService(person);
-	}
+		mark.setMarkType(jpaMarkTypeService.findMarkTypeByIdService(Long.parseLong(markType_id)));
+		mark.setTeacher(jpaTeacherService.findTeacherByIdService(Long.parseLong(teacher_id)));
+		mark.setStudent(jpaStudentService.findStudentByIdService(Long.parseLong(student_id)));
+		mark.setGroup(jpaGroupService.findGroupByIdService(Long.parseLong(group_id)));
+		mark.setSubject(jpaSubjectService.findSubjectByIdService(Long.parseLong(subject_id)));
+		mark.setForm(jpaFormService.findFormByIdService(Long.parseLong(form_id)));
 
-	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
-	public String findAll(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/show_all");
-		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
+		return jpaMarkService.saveService(mark);
 	}
 
 	@RequestMapping(
 			value = "/find",
-			params = {"name", "birthday", "passport"},
-			method = RequestMethod.GET)
-	public String findByAny(@RequestParam(value = "name") String name,
-							@RequestParam(value = "birthday") String birthday,
-							@RequestParam(value = "passport") String passport,
-							ModelMap modelMap,
-							Pageable pageable) {
-		Date bday = null;
-		try {
-			bday = sdf.parseToDate(birthday);
-		} catch (ParseException e) {
-			System.err.println("Parse error");
-		}
-		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findByAny(name, bday, passport, pageable), url);
+			params = {"markName", "formName"})
+	public String findByAny(
+			@RequestParam(value = "markName") String markName,
+			@RequestParam(value = "formName") String formName,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/mark/find" + "?markName=" + markName + "&formName=" + formName;
+		PageWrapper<Mark> page = new PageWrapper<>(
+				jpaMarkService.findByAny(markName, formName, pageable), url);
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
+		return MARK_ROUTE + "/marklist";
 	}
 
 	@RequestMapping(
 			value = "/delete",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String deletePerson(@RequestParam(value = "id") long id,
-							   ModelMap modelMap, Pageable pageable) {
-		jpaPersonService.deleteService(jpaPersonService.findPersonByIdService(id));
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+	public String deleteMark(@RequestParam(value = "id") long id,
+							 ModelMap modelMap, Pageable pageable) {
+		jpaMarkService.deleteService(jpaMarkService.findMarkByIdService(id));
+		PageWrapper<Mark> page = new PageWrapper<>(
+				jpaMarkService.findAllMarksService(pageable), "/db/mark/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return MARK_ROUTE + "/delete_mark";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String deletePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+	public String deleteMark(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Mark> page = new PageWrapper<>(
+				jpaMarkService.findAllMarksService(pageable), "/db/mark/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return MARK_ROUTE + "/delete_mark";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updatePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
+	public String updateMark(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Mark> page = new PageWrapper<>(
+				jpaMarkService.findAllMarksService(pageable), "/db/mark/update");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/update_person";
+		return MARK_ROUTE + "/update_mark";
 	}
 }

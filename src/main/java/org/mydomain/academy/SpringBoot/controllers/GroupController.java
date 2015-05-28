@@ -1,10 +1,12 @@
 package org.mydomain.academy.SpringBoot.controllers;
 
 import org.mydomain.academy.SpringBoot.utils.PageWrapper;
-import org.mydomain.academy.db.entities.Person;
-import org.mydomain.academy.db.utils.formatters.BasicStringDateFormatter;
-import org.mydomain.academy.db.utils.formatters.StringDateFormatter;
-import org.mydomain.academy.services.impls.JPAServiceImpl.JPAPersonService;
+import org.mydomain.academy.db.entities.Form;
+import org.mydomain.academy.db.entities.Group;
+import org.mydomain.academy.db.entities.Specialization;
+import org.mydomain.academy.services.impls.JPAServiceImpl.JPAFormService;
+import org.mydomain.academy.services.impls.JPAServiceImpl.JPAGroupService;
+import org.mydomain.academy.services.impls.JPAServiceImpl.JPASpecializationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -16,157 +18,127 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.ParseException;
-import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/db/group")
 public class GroupController {
 
-	private JPAPersonService jpaPersonService;
-	private StringDateFormatter sdf;
+	@Autowired
+	private JPAGroupService jpaGroupService;
 
 	@Autowired
-	public void setSdf(BasicStringDateFormatter sdf) {
-		this.sdf = sdf;
-	}
+	private JPAFormService jpaFormService;
 
 	@Autowired
-	public void setJpaPersonService(JPAPersonService jpaPersonService) {
-		this.jpaPersonService = jpaPersonService;
-	}
+	private JPASpecializationService jpaSpecializationService;
+
+	private static final String GROUP_ROUTE = "/fragments/entities/group";
 
 	@RequestMapping(value = {"", "/"})
-	public String person(ModelMap modelMap) {
-		return "/fragments/entities/person/person";
+	public String groupRootPage() {
+		return GROUP_ROUTE + "/group";
 	}
 
-	@RequestMapping(
-			value = "/fill",
-			params = {"count"},
-			method = RequestMethod.GET)
-	@ResponseBody
-	public boolean fillWithData(@RequestParam(value = "count") short count) {
-		if (count > 0) {
-			for (short i = 0; i < count; i++) {
-				if (i % 2 == 0) {
-					jpaPersonService.saveService(new Person("Jack", new Date(), "FF223344"));
-				} else {
-					jpaPersonService.saveService(new Person("Mike", new Date(), "AB000111"));
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@RequestMapping(
-			value = "/find",
-			method = RequestMethod.GET)
-	public String findPersonById(ModelMap modelMap) {
-		return "/fragments/entities/person/find_person";
+	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
+	public String findAllGroups(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Group> page = new PageWrapper<>(jpaGroupService.findAllGroupsService(pageable),
+				"/db/group/show_all");
+		modelMap.addAttribute("page", page);
+		return GROUP_ROUTE + "/grouplist";
 	}
 
 	@RequestMapping(
 			value = "/show",
 			params = {"id"},
 			method = RequestMethod.POST)
-	public String findOne(@RequestParam(value = "id") long id, Model model) {
-		model.addAttribute("person", jpaPersonService.findPersonByIdService(id));
-		return "/fragments/entities/person/personlist";
+	public String showGroupById(@RequestParam(value = "id") long id, Model model) {
+		model.addAttribute("group", jpaGroupService.findGroupByIdService(id));
+		return "/fragments/entities/group/grouplist";
+	}
+
+	@RequestMapping(value = "/find")
+	public String findGroup() {
+		return GROUP_ROUTE + "/find_group";
 	}
 
 	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String savePersonMapping(@RequestParam(value = "id") String id,
-									ModelMap modelMap) {
+	public String saveNewGroup(@RequestParam(value = "id") String id,
+							   ModelMap modelMap) {
+
+		List<Form> forms = jpaFormService.findAllFormsService();
+		modelMap.addAttribute("forms", forms);
+
+		List<Specialization> specializations = jpaSpecializationService.findAllSpecializationsService();
+		modelMap.addAttribute("specializations", specializations);
+
 		modelMap.addAttribute("id", id);
-		return "/fragments/entities/person/save_person";
+		return GROUP_ROUTE + "/save_group";
 	}
 
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value = "/save",
-			params = {"id", "name", "birthday", "passport"},
+			params = {"id", "name"},
 			method = RequestMethod.POST)
 	@ResponseBody
-	public boolean savePerson(@RequestParam(value = "id", required = false, defaultValue = "") String id,
-							  @RequestParam(value = "name") String name,
-							  @RequestParam(value = "birthday") String birthday,
-							  @RequestParam(value = "passport") String passport,
-							  ModelMap modelMap) {
-		Person person = new Person();
+	public boolean saveGroupById(
+			@RequestParam(value = "id", required = false, defaultValue = "") String id,
+			@RequestParam(value = "name") String name) {
+		Group group = new Group();
 		if (!id.equals("")) {
-			person.setId(Long.parseLong(id));
+			group.setId(Long.parseLong(id));
 		}
-		person.setName(name);
-		person.setPassport(passport);
-		try {
-			person.setBirthday(sdf.parseToDate(birthday));
-		} catch (ParseException e) {
-			System.err.println("Parse error");
-		}
-		return jpaPersonService.saveService(person);
-	}
-
-	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
-	public String findAll(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/show_all");
-		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
+		group.setName(name);
+		return jpaGroupService.saveService(group);
 	}
 
 	@RequestMapping(
 			value = "/find",
-			params = {"name", "birthday", "passport"},
-			method = RequestMethod.GET)
-	public String findByAny(@RequestParam(value = "name") String name,
-							@RequestParam(value = "birthday") String birthday,
-							@RequestParam(value = "passport") String passport,
-							ModelMap modelMap,
-							Pageable pageable) {
-		Date bday = null;
-		try {
-			bday = sdf.parseToDate(birthday);
-		} catch (ParseException e) {
-			System.err.println("Parse error");
-		}
-		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findByAny(name, bday, passport, pageable), url);
+			params = {"groupName", "formName", "specializationName"})
+	public String findByAny(
+			@RequestParam(value = "groupName") String groupName,
+			@RequestParam(value = "formName") String formName,
+			@RequestParam(value = "specializationName") String specializationName,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/group/find" + "?groupName=" + groupName + "&formName="
+				+ formName + "&specializationName=" + specializationName;
+		PageWrapper<Group> page = new PageWrapper<>(
+				jpaGroupService.findByAny(groupName, formName, specializationName, pageable), url);
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
+		return GROUP_ROUTE + "/grouplist";
 	}
 
 	@RequestMapping(
 			value = "/delete",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String deletePerson(@RequestParam(value = "id") long id,
-							   ModelMap modelMap, Pageable pageable) {
-		jpaPersonService.deleteService(jpaPersonService.findPersonByIdService(id));
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+	public String deleteGroup(@RequestParam(value = "id") long id,
+							  ModelMap modelMap, Pageable pageable) {
+		jpaGroupService.deleteService(jpaGroupService.findGroupByIdService(id));
+		PageWrapper<Group> page = new PageWrapper<>(
+				jpaGroupService.findAllGroupsService(pageable), "/db/group/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return GROUP_ROUTE + "/delete_group";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String deletePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+	public String deleteGroup(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Group> page = new PageWrapper<>(
+				jpaGroupService.findAllGroupsService(pageable), "/db/group/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return GROUP_ROUTE + "/delete_group";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updatePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
+	public String updateGroup(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Group> page = new PageWrapper<>(
+				jpaGroupService.findAllGroupsService(pageable), "/db/group/update");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/update_person";
+		return GROUP_ROUTE + "/update_group";
 	}
 }

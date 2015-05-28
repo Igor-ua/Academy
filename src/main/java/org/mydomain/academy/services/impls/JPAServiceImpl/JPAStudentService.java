@@ -112,7 +112,7 @@ public class JPAStudentService implements StudentService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public Page<Student> findByAny(Person person, Group group, Date start, Date finish, Pageable pageable) {
-		return jpaStudentDAO.findByPersonOrGroupOrStartOrFinish(person, group, start, finish, pageable);
+	public Page<Student> findByAny(String personName, String groupName, Pageable pageable) {
+		return jpaStudentDAO.findByPersonNameOrGroupName(personName, groupName, pageable);
 	}
 }

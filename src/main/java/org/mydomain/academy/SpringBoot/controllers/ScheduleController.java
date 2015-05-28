@@ -1,10 +1,10 @@
 package org.mydomain.academy.SpringBoot.controllers;
 
 import org.mydomain.academy.SpringBoot.utils.PageWrapper;
-import org.mydomain.academy.db.entities.Person;
+import org.mydomain.academy.db.entities.*;
 import org.mydomain.academy.db.utils.formatters.BasicStringDateFormatter;
 import org.mydomain.academy.db.utils.formatters.StringDateFormatter;
-import org.mydomain.academy.services.impls.JPAServiceImpl.JPAPersonService;
+import org.mydomain.academy.services.impls.JPAServiceImpl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
@@ -18,12 +18,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/db/schedule")
 public class ScheduleController {
 
-	private JPAPersonService jpaPersonService;
+	@Autowired
+	private JPASubjectService jpaSubjectService;
+	@Autowired
+	private JPATeacherService jpaTeacherService;
+	@Autowired
+	private JPAGroupService jpaGroupService;
+	@Autowired
+	private JPAScheduleService jpaScheduleService;
+
 	private StringDateFormatter sdf;
 
 	@Autowired
@@ -31,142 +40,123 @@ public class ScheduleController {
 		this.sdf = sdf;
 	}
 
-	@Autowired
-	public void setJpaPersonService(JPAPersonService jpaPersonService) {
-		this.jpaPersonService = jpaPersonService;
-	}
+	private static final String SCHEDULE_ROUTE = "/fragments/entities/schedule";
 
 	@RequestMapping(value = {"", "/"})
-	public String person(ModelMap modelMap) {
-		return "/fragments/entities/person/person";
+	public String scheduleRootPage() {
+		return SCHEDULE_ROUTE + "/schedule";
 	}
 
-	@RequestMapping(
-			value = "/fill",
-			params = {"count"},
-			method = RequestMethod.GET)
-	@ResponseBody
-	public boolean fillWithData(@RequestParam(value = "count") short count) {
-		if (count > 0) {
-			for (short i = 0; i < count; i++) {
-				if (i % 2 == 0) {
-					jpaPersonService.saveService(new Person("Jack", new Date(), "FF223344"));
-				} else {
-					jpaPersonService.saveService(new Person("Mike", new Date(), "AB000111"));
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@RequestMapping(
-			value = "/find",
-			method = RequestMethod.GET)
-	public String findPersonById(ModelMap modelMap) {
-		return "/fragments/entities/person/find_person";
+	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
+	public String findAllSchedules(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Schedule> page = new PageWrapper<>(jpaScheduleService.findAllSchedulesService(pageable),
+				"/db/schedule/show_all");
+		modelMap.addAttribute("page", page);
+		return SCHEDULE_ROUTE + "/schedulelist";
 	}
 
 	@RequestMapping(
 			value = "/show",
 			params = {"id"},
 			method = RequestMethod.POST)
-	public String findOne(@RequestParam(value = "id") long id, Model model) {
-		model.addAttribute("person", jpaPersonService.findPersonByIdService(id));
-		return "/fragments/entities/person/personlist";
+	public String showScheduleById(@RequestParam(value = "id") long id, Model model) {
+		model.addAttribute("schedule", jpaScheduleService.findScheduleByIdService(id));
+		return "/fragments/entities/schedule/schedulelist";
+	}
+
+	@RequestMapping(value = "/find")
+	public String findSchedule() {
+		return SCHEDULE_ROUTE + "/find_schedule";
 	}
 
 	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String savePersonMapping(@RequestParam(value = "id") String id,
-									ModelMap modelMap) {
+	public String saveNewSchedule(@RequestParam(value = "id") String id,
+								  ModelMap modelMap) {
+
+		List<Subject> subjects = jpaSubjectService.findAllSubjectsService();
+		modelMap.addAttribute("subjects", subjects);
+
+		List<Teacher> teachers = jpaTeacherService.findAllTeachersService();
+		modelMap.addAttribute("teachers", teachers);
+
+		List<Group> groups = jpaGroupService.findAllGroupsService();
+		modelMap.addAttribute("groups", groups);
+
 		modelMap.addAttribute("id", id);
-		return "/fragments/entities/person/save_person";
+		return SCHEDULE_ROUTE + "/save_schedule";
 	}
 
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value = "/save",
-			params = {"id", "name", "birthday", "passport"},
+			params = {"id", "subject_id", "teacher_id", "group_id", "day", "chisznam", "lenta"},
 			method = RequestMethod.POST)
 	@ResponseBody
-	public boolean savePerson(@RequestParam(value = "id", required = false, defaultValue = "") String id,
-							  @RequestParam(value = "name") String name,
-							  @RequestParam(value = "birthday") String birthday,
-							  @RequestParam(value = "passport") String passport,
-							  ModelMap modelMap) {
-		Person person = new Person();
+	public boolean saveScheduleById(
+			@RequestParam(value = "id", required = false, defaultValue = "") String id,
+			@RequestParam(value = "subject_id") String subject_id,
+			@RequestParam(value = "teacher_id") String teacher_id,
+			@RequestParam(value = "group_id") String group_id,
+			@RequestParam(value = "day") String day,
+			@RequestParam(value = "chisznam") String chisznam,
+			@RequestParam(value = "lenta") String lenta) {
+		Schedule schedule = new Schedule();
 		if (!id.equals("")) {
-			person.setId(Long.parseLong(id));
+			schedule.setId(Long.parseLong(id));
 		}
-		person.setName(name);
-		person.setPassport(passport);
-		try {
-			person.setBirthday(sdf.parseToDate(birthday));
-		} catch (ParseException e) {
-			System.err.println("Parse error");
-		}
-		return jpaPersonService.saveService(person);
-	}
 
-	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
-	public String findAll(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/show_all");
-		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
+		schedule.setSubject(jpaSubjectService.findSubjectByIdService(Long.parseLong(subject_id)));
+		schedule.setTeacher(jpaTeacherService.findTeacherByIdService(Long.parseLong(teacher_id)));
+		schedule.setGroup(jpaGroupService.findGroupByIdService(Long.parseLong(group_id)));
+		schedule.setDay(Integer.parseInt(day));
+		schedule.setChisZnam(Integer.parseInt(chisznam));
+		schedule.setLenta(Integer.parseInt(lenta));
+
+		return jpaScheduleService.saveService(schedule);
 	}
 
 	@RequestMapping(
 			value = "/find",
-			params = {"name", "birthday", "passport"},
-			method = RequestMethod.GET)
-	public String findByAny(@RequestParam(value = "name") String name,
-							@RequestParam(value = "birthday") String birthday,
-							@RequestParam(value = "passport") String passport,
+			params = {"groupName"})
+	public String findByAny(@RequestParam(value = "groupName") String groupName,
 							ModelMap modelMap,
 							Pageable pageable) {
-		Date bday = null;
-		try {
-			bday = sdf.parseToDate(birthday);
-		} catch (ParseException e) {
-			System.err.println("Parse error");
-		}
-		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findByAny(name, bday, passport, pageable), url);
+		String url = "/db/schedule/find" + "?groupName=" + groupName;
+		PageWrapper<Schedule> page = new PageWrapper<>(
+				jpaScheduleService.findByAny(groupName, pageable), url);
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
+		return SCHEDULE_ROUTE + "/schedulelist";
 	}
 
 	@RequestMapping(
 			value = "/delete",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String deletePerson(@RequestParam(value = "id") long id,
-							   ModelMap modelMap, Pageable pageable) {
-		jpaPersonService.deleteService(jpaPersonService.findPersonByIdService(id));
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+	public String deleteSchedule(@RequestParam(value = "id") long id,
+								 ModelMap modelMap, Pageable pageable) {
+		jpaScheduleService.deleteService(jpaScheduleService.findScheduleByIdService(id));
+		PageWrapper<Schedule> page = new PageWrapper<>(
+				jpaScheduleService.findAllSchedulesService(pageable), "/db/schedule/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return SCHEDULE_ROUTE + "/delete_schedule";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String deletePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
+	public String deleteSchedule(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Schedule> page = new PageWrapper<>(
+				jpaScheduleService.findAllSchedulesService(pageable), "/db/schedule/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return SCHEDULE_ROUTE + "/delete_schedule";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updatePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
+	public String updateSchedule(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Schedule> page = new PageWrapper<>(
+				jpaScheduleService.findAllSchedulesService(pageable), "/db/schedule/update");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/update_person";
+		return SCHEDULE_ROUTE + "/update_schedule";
 	}
 }

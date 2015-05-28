@@ -20,48 +20,51 @@ import java.util.Date;
 @RequestMapping("/db/person")
 public class PersonController {
 
+	@Autowired
 	private JPAPersonService jpaPersonService;
 	private StringDateFormatter sdf;
+	private static final String PERSON_ROUTE = "/fragments/entities/person";
 
 	@Autowired
 	public void setSdf(BasicStringDateFormatter sdf) {
 		this.sdf = sdf;
 	}
 
-	@Autowired
-	public void setJpaPersonService(JPAPersonService jpaPersonService) {
-		this.jpaPersonService = jpaPersonService;
-	}
-
 	@RequestMapping(value = {"", "/"})
-	public String person(ModelMap modelMap) {
-		return "/fragments/entities/person/person";
+	public String personRootPage() {
+		return PERSON_ROUTE + "/person";
 	}
 
-	@RequestMapping(
-			value = "/find",
-			method = RequestMethod.GET)
-	public String findPersonById(ModelMap modelMap) {
-		return "/fragments/entities/person/find_person";
+	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
+	public String findAllPersons(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Person> page = new PageWrapper<>(jpaPersonService.findAllPersonsService(pageable),
+				"/db/person/show_all");
+		modelMap.addAttribute("page", page);
+		return PERSON_ROUTE + "/personlist";
 	}
 
 	@RequestMapping(
 			value = "/show",
 			params = {"id"},
 			method = RequestMethod.POST)
-	public String findOne(@RequestParam(value = "id") long id, Model model) {
+	public String showPersonById(@RequestParam(value = "id") long id, Model model) {
 		model.addAttribute("person", jpaPersonService.findPersonByIdService(id));
 		return "/fragments/entities/person/personlist";
+	}
+
+	@RequestMapping(value = "/find")
+	public String findPerson() {
+		return PERSON_ROUTE + "/find_person";
 	}
 
 	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
-	public String savePersonMapping(@RequestParam(value = "id") String id,
-									ModelMap modelMap) {
+	public String saveNewPerson(@RequestParam(value = "id") String id,
+								ModelMap modelMap) {
 		modelMap.addAttribute("id", id);
-		return "/fragments/entities/person/save_person";
+		return PERSON_ROUTE + "/save_person";
 	}
 
 	@RequestMapping(
@@ -70,11 +73,11 @@ public class PersonController {
 			params = {"id", "name", "birthday", "passport"},
 			method = RequestMethod.POST)
 	@ResponseBody
-	public boolean savePerson(@RequestParam(value = "id", required = false, defaultValue = "") String id,
-							  @RequestParam(value = "name") String name,
-							  @RequestParam(value = "birthday") String birthday,
-							  @RequestParam(value = "passport") String passport,
-							  ModelMap modelMap) {
+	public boolean savePersonById(
+			@RequestParam(value = "id", required = false, defaultValue = "") String id,
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "birthday") String birthday,
+			@RequestParam(value = "passport") String passport) {
 		Person person = new Person();
 		if (!id.equals("")) {
 			person.setId(Long.parseLong(id));
@@ -89,23 +92,15 @@ public class PersonController {
 		return jpaPersonService.saveService(person);
 	}
 
-	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
-	public String findAll(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/show_all");
-		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
-	}
-
 	@RequestMapping(
 			value = "/find",
-			params = {"name", "birthday", "passport"},
-			method = RequestMethod.GET)
-	public String findByAny(@RequestParam(value = "name") String name,
-							@RequestParam(value = "birthday") String birthday,
-							@RequestParam(value = "passport") String passport,
-							ModelMap modelMap,
-							Pageable pageable) {
+			params = {"name", "birthday", "passport"})
+	public String findByAny(
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "birthday") String birthday,
+			@RequestParam(value = "passport") String passport,
+			ModelMap modelMap,
+			Pageable pageable) {
 		Date bday = null;
 		try {
 			bday = sdf.parseToDate(birthday);
@@ -116,7 +111,7 @@ public class PersonController {
 		PageWrapper<Person> page = new PageWrapper<>(
 				jpaPersonService.findByAny(name, bday, passport, pageable), url);
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/personlist";
+		return PERSON_ROUTE + "/personlist";
 	}
 
 	@RequestMapping(
@@ -129,7 +124,7 @@ public class PersonController {
 		PageWrapper<Person> page = new PageWrapper<>(
 				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return PERSON_ROUTE + "/delete_person";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -137,7 +132,7 @@ public class PersonController {
 		PageWrapper<Person> page = new PageWrapper<>(
 				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/delete_person";
+		return PERSON_ROUTE + "/delete_person";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
@@ -145,6 +140,6 @@ public class PersonController {
 		PageWrapper<Person> page = new PageWrapper<>(
 				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
 		modelMap.addAttribute("page", page);
-		return "/fragments/entities/person/update_person";
+		return PERSON_ROUTE + "/update_person";
 	}
 }

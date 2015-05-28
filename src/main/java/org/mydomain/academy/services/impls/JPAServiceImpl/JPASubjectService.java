@@ -98,7 +98,7 @@ public class JPASubjectService implements SubjectService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public Page<Subject> findByAny(String name, Specialization specialization, Pageable pageable) {
-		return jpaSubjectDAO.findByNameOrSpecialization(name, specialization, pageable);
+	public Page<Subject> findByAny(String name, String specializationName, Pageable pageable) {
+		return jpaSubjectDAO.findByNameOrSpecializationName(name, specializationName, pageable);
 	}
 }

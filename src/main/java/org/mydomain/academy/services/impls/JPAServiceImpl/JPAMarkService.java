@@ -128,9 +128,7 @@ public class JPAMarkService implements MarkService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public Page<Mark> findByAny(Date date, MarkType markType, Teacher teacher, Student student,
-								Group group, Subject subject, Form form, Pageable pageable) {
-		return jpaMarkDAO.findByDateOrMarkTypeOrTeacherOrStudentOrGroupOrSubjectOrForm(
-				date, markType, teacher, student, group, subject, form, pageable);
+	public Page<Mark> findByAny(String teacherName, String studentName, Pageable pageable) {
+		return jpaMarkDAO.findByTeacherPersonNameOrStudentPersonName(teacherName, studentName, pageable);
 	}
 }

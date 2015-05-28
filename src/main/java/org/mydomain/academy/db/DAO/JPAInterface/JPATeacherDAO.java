@@ -9,5 +9,5 @@ import java.util.Date;
 
 public interface JPATeacherDAO extends JpaRepository<Teacher, Long> {
 
-	Page<Teacher> findByPersonNameOrStartOrFinish(String name, Date start, Date finish, Pageable pageable);
+	Page<Teacher> findByPersonNameOrStartOrFinish(String personName, Date start, Date finish, Pageable pageable);
 }

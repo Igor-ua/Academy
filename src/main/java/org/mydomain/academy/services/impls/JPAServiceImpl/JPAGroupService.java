@@ -105,7 +105,7 @@ public class JPAGroupService implements GroupService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public Page<Group> findByAny(String name, Form form, Specialization specialization, Pageable pageable) {
-		return jpaGroupDAO.findByNameOrFormOrSpecialization(name, form, specialization, pageable);
+	public Page<Group> findByAny(String groupName, String formName, String specializationName, Pageable pageable) {
+		return jpaGroupDAO.findByNameOrFormNameOrSpecializationName(groupName, formName, specializationName, pageable);
 	}
 }

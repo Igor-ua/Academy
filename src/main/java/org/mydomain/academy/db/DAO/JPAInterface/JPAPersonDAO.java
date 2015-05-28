@@ -11,6 +11,10 @@ import java.util.List;
 
 public interface JPAPersonDAO extends JpaRepository<Person, Long> {
 
-	Page<Person> findByNameOrBirthdayOrPassport(String name, Date birthday, String passport, Pageable pageable);
+	Page<Person> findByNameOrBirthdayOrPassport(
+			String name,
+			Date birthday,
+			String passport,
+			Pageable pageable);
 
 }

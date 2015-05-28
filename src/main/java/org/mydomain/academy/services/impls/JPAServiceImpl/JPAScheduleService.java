@@ -128,9 +128,7 @@ public class JPAScheduleService implements ScheduleService {
 		throw new NotImplementedException(LOG_NOT_IMPLEMENTED_IN_JPA.toString());
 	}
 
-	public Page<Schedule> findByAny(Subject subject, Teacher teacher, Group group,
-									String day, String chisZnam, Integer lenta, Pageable pageable) {
-		return jpaScheduleDAO.findBySubjectOrTeacherOrGroupOrDayOrChisZnamOrLenta(
-				subject, teacher, group, day, chisZnam, lenta, pageable);
+	public Page<Schedule> findByAny(String groupName, Pageable pageable) {
+		return jpaScheduleDAO.findByGroupName(groupName, pageable);
 	}
 }

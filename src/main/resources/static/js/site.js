@@ -53,7 +53,7 @@ var Module = (function () {
     };
 
     var privateForms = function () {
-        //################################################################
+        //############################################################################################
         jQuery.validator.addMethod("accept", function (value, element, param) {
             return value.match(new RegExp("^" + param + "$"));
         });
