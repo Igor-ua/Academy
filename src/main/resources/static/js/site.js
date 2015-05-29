@@ -721,6 +721,320 @@ var Module = (function () {
                 });
             }
         });
+
+        $('#saveFormForm').validate({
+            rules: {
+                name: {
+                    minlength: 1,
+                    required: true,
+                    accept: "[ a-zA-Z]+"
+                    //accept: "[0-9]+" <- only digits
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/form/save',
+                    type: 'post',
+                    data: $('#saveFormForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#form-result').html('<span class="text-success">' +
+                                '<strong>New form was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#form-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new form. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+
+        $('#saveStudentForm').validate({
+            rules: {
+                start: {
+                    required: true,
+                    date: true
+                },
+                finish: {
+                    required: true,
+                    date: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/student/save',
+                    type: 'post',
+                    data: $('#saveStudentForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#student-result').html('<span class="text-success">' +
+                                '<strong>New student was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#student-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new student. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+
+        $('#saveGroupForm').validate({
+            rules: {
+                name: {
+                    minlength: 1,
+                    required: true,
+                    accept: "[ a-zA-Z]+"
+                    //accept: "[0-9]+" <- only digits
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/group/save',
+                    type: 'post',
+                    data: $('#saveGroupForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#group-result').html('<span class="text-success">' +
+                                '<strong>New group was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#group-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new group. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+
+        $('#saveMarkTypeForm').validate({
+            rules: {
+                name: {
+                    minlength: 1,
+                    required: true,
+                    accept: "[ a-zA-Z]+"
+                    //accept: "[0-9]+" <- only digits
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/marktype/save',
+                    type: 'post',
+                    data: $('#saveMarkTypeForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#marktype-result').html('<span class="text-success">' +
+                                '<strong>New markType was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#marktype-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new markType. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+
+        $('#saveMarkForm').validate({
+            rules: {
+                date: {
+                    required: true,
+                    date: true
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/mark/save',
+                    type: 'post',
+                    data: $('#saveMarkForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#mark-result').html('<span class="text-success">' +
+                                '<strong>New mark was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#mark-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new mark. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+
+        $('#saveScheduleForm').validate({
+            rules: {
+                lenta: {
+                    minlength: 1,
+                    required: true,
+                    accept: "[0-9]+"
+                    //accept: "[0-9]+" <- only digits
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/schedule/save',
+                    type: 'post',
+                    data: $('#saveScheduleForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#schedule-result').html('<span class="text-success">' +
+                                '<strong>New schedule was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#schedule-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new schedule. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+
+        $('#saveSpecializationForm').validate({
+            rules: {
+                name: {
+                    minlength: 1,
+                    required: true,
+                    accept: "[ a-zA-Z]+"
+                    //accept: "[0-9]+" <- only digits
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/specialization/save',
+                    type: 'post',
+                    data: $('#saveSpecializationForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#specialization-result').html('<span class="text-success">' +
+                                '<strong>New specialization was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#specialization-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new specialization. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+
+        $('#saveSubjectForm').validate({
+            rules: {
+                name: {
+                    minlength: 1,
+                    required: true,
+                    accept: "[ a-zA-Z]+"
+                    //accept: "[0-9]+" <- only digits
+                }
+            },
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.addClass('valid')
+                    .closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: '/db/subject/save',
+                    type: 'post',
+                    data: $('#saveSubjectForm').serialize(),
+                    success: function (response, textStatus, jqXHR) {
+                        console.log("ajax success");
+                        if (response == true) {
+                            $('#subject-result').html('<span class="text-success">' +
+                                '<strong>New subject was saved successfully</strong></span>');
+                        }
+                        if (response == false) {
+                            $('#subject-result').html('<span class="text-danger">' +
+                                '<strong>Error saving new subject. Check your data.</strong></span>');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log('error(s):' + textStatus, errorThrown);
+                    }
+                });
+            }
+        });
+
+
         //____________________________________END OF THE SECTION______________________________________
 
 

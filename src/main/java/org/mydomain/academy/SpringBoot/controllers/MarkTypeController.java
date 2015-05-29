@@ -30,7 +30,7 @@ public class MarkTypeController {
 	@RequestMapping(value = "/show_all", method = RequestMethod.GET)
 	public String findAllMarkTypes(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<MarkType> page = new PageWrapper<>(jpaMarkTypeService.findAllMarkTypesService(pageable),
-				"/db/markType/show_all");
+				"/db/marktype/show_all");
 		modelMap.addAttribute("page", page);
 		return MARK_TYPE_ROUTE + "/marktypelist";
 	}
@@ -41,12 +41,27 @@ public class MarkTypeController {
 			method = RequestMethod.POST)
 	public String showMarkTypeById(@RequestParam(value = "id") long id, Model model) {
 		model.addAttribute("marktype", jpaMarkTypeService.findMarkTypeByIdService(id));
-		return "/fragments/entities/markType/marktypelist";
+		return MARK_TYPE_ROUTE + "/marktypelist";
 	}
 
 	@RequestMapping(value = "/find")
 	public String findMarkType() {
 		return MARK_TYPE_ROUTE + "/find_markType";
+	}
+
+	@RequestMapping(
+			value = "/find",
+			params = {"name"})
+	public String findByAny(
+			@RequestParam(value = "name") String name,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/marktype/find" + "?name=" + name;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<MarkType> page = new PageWrapper<>(
+				jpaMarkTypeService.findByAny(name, pageable), url);
+		modelMap.addAttribute("page", page);
+		return MARK_TYPE_ROUTE + "/marktypelist";
 	}
 
 	@RequestMapping(
@@ -76,19 +91,12 @@ public class MarkTypeController {
 		return jpaMarkTypeService.saveService(markType);
 	}
 
-	@RequestMapping(
-			value = "/find",
-			params = {"name"})
-	public String findByAny(
-			@RequestParam(value = "name") String name,
-			ModelMap modelMap,
-			Pageable pageable) {
-		String url = "/db/marktype/find" + "?name=" + name;
-		url = url.replaceAll(" ", "%20");
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateMarkType(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<MarkType> page = new PageWrapper<>(
-				jpaMarkTypeService.findByAny(name, pageable), url);
+				jpaMarkTypeService.findAllMarkTypesService(pageable), "/db/marktype/update");
 		modelMap.addAttribute("page", page);
-		return MARK_TYPE_ROUTE + "/marktypelist";
+		return MARK_TYPE_ROUTE + "/update_marktype";
 	}
 
 	@RequestMapping(
@@ -99,7 +107,7 @@ public class MarkTypeController {
 								 ModelMap modelMap, Pageable pageable) {
 		jpaMarkTypeService.deleteService(jpaMarkTypeService.findMarkTypeByIdService(id));
 		PageWrapper<MarkType> page = new PageWrapper<>(
-				jpaMarkTypeService.findAllMarkTypesService(pageable), "/db/markType/delete");
+				jpaMarkTypeService.findAllMarkTypesService(pageable), "/db/marktype/delete");
 		modelMap.addAttribute("page", page);
 		return MARK_TYPE_ROUTE + "/delete_marktype";
 	}
@@ -107,16 +115,8 @@ public class MarkTypeController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deleteMarkType(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<MarkType> page = new PageWrapper<>(
-				jpaMarkTypeService.findAllMarkTypesService(pageable), "/db/markType/delete");
+				jpaMarkTypeService.findAllMarkTypesService(pageable), "/db/marktype/delete");
 		modelMap.addAttribute("page", page);
 		return MARK_TYPE_ROUTE + "/delete_marktype";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateMarkType(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<MarkType> page = new PageWrapper<>(
-				jpaMarkTypeService.findAllMarkTypesService(pageable), "/db/markType/update");
-		modelMap.addAttribute("page", page);
-		return MARK_TYPE_ROUTE + "/update_marktype";
 	}
 }

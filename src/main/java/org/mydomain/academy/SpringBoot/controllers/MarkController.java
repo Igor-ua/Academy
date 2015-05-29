@@ -75,6 +75,22 @@ public class MarkController {
 	}
 
 	@RequestMapping(
+			value = "/find",
+			params = {"teacherName", "studentName"})
+	public String findByAny(
+			@RequestParam(value = "teacherName") String teacherName,
+			@RequestParam(value = "studentName") String studentName,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/mark/find" + "?teacherName=" + teacherName + "&studentName=" + studentName;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Mark> page = new PageWrapper<>(
+				jpaMarkService.findByAny(teacherName, studentName, pageable), url);
+		modelMap.addAttribute("page", page);
+		return MARK_ROUTE + "/marklist";
+	}
+
+	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
@@ -83,7 +99,7 @@ public class MarkController {
 		modelMap.addAttribute("id", id);
 
 		List<MarkType> markTypes = jpaMarkTypeService.findAllMarkTypesService();
-		modelMap.addAttribute("markTypes", markTypes);
+		modelMap.addAttribute("marktypes", markTypes);
 
 		List<Teacher> teachers = jpaTeacherService.findAllTeachersService();
 		modelMap.addAttribute("teachers", teachers);
@@ -106,13 +122,13 @@ public class MarkController {
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value = "/save",
-			params = {"id", "date", "markType_id", "teacher_id", "student_id", "group_id", "subject_id", "form_id"},
+			params = {"id", "date", "marktype_id", "teacher_id", "student_id", "group_id", "subject_id", "form_id"},
 			method = RequestMethod.POST)
 	@ResponseBody
 	public boolean saveMarkById(
 			@RequestParam(value = "id", required = false, defaultValue = "") String id,
 			@RequestParam(value = "date") String date,
-			@RequestParam(value = "markType_id") String markType_id,
+			@RequestParam(value = "marktype_id") String markType_id,
 			@RequestParam(value = "teacher_id") String teacher_id,
 			@RequestParam(value = "student_id") String student_id,
 			@RequestParam(value = "group_id") String group_id,
@@ -137,20 +153,12 @@ public class MarkController {
 		return jpaMarkService.saveService(mark);
 	}
 
-	@RequestMapping(
-			value = "/find",
-			params = {"teacherName", "studentName"})
-	public String findByAny(
-			@RequestParam(value = "teacherName") String teacherName,
-			@RequestParam(value = "studentName") String studentName,
-			ModelMap modelMap,
-			Pageable pageable) {
-		String url = "/db/mark/find" + "?teacherName=" + teacherName + "&studentName=" + studentName;
-		url = url.replaceAll(" ", "%20");
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateMark(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<Mark> page = new PageWrapper<>(
-				jpaMarkService.findByAny(teacherName, studentName, pageable), url);
+				jpaMarkService.findAllMarksService(pageable), "/db/mark/update");
 		modelMap.addAttribute("page", page);
-		return MARK_ROUTE + "/marklist";
+		return MARK_ROUTE + "/update_mark";
 	}
 
 	@RequestMapping(
@@ -172,13 +180,5 @@ public class MarkController {
 				jpaMarkService.findAllMarksService(pageable), "/db/mark/delete");
 		modelMap.addAttribute("page", page);
 		return MARK_ROUTE + "/delete_mark";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateMark(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Mark> page = new PageWrapper<>(
-				jpaMarkService.findAllMarksService(pageable), "/db/mark/update");
-		modelMap.addAttribute("page", page);
-		return MARK_ROUTE + "/update_mark";
 	}
 }

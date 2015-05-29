@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Find Person by ID</title>
+    <title>Save Student</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -19,21 +19,45 @@
             <div class="col-md-12">
                 <br/>
 
-                <form id="savePersonForm" method="post" class="form-horizontal">
+                <form id="saveStudentForm" method="post" class="form-horizontal">
                     <input type="hidden" name="id" th:value="${id}"/>
                     <div class="form-group">
-                        <label for="input-1" class="col-lg-2 control-label">Name</label>
-                        <input id="input-1" type="text" class="form-control" name="name" placeholder="PERSON NAME"/>
+                        <label for="select1" class="col-lg-2 control-label">Persons</label>
+                        <select class="form-control" id="select1" name="person_id">
+                            <option
+                                    th:each="person : ${persons}"
+                                    th:value="${person.id}"
+                                    th:text="${person.name + ' (' +
+                                    #dates.format(person.birthday, #messages.msg('app.dateformat')) + ', ' +
+                                    person.passport + ')'}">
+                                Person
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="select2" class="col-lg-2 control-label">Groups</label>
+                        <select class="form-control" id="select2" name="group_id">
+                            <option
+                                    th:each="group : ${groups}"
+                                    th:value="${group.id}"
+                                    th:text="${group.name}">
+                                Group
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-1" class="col-lg-2 control-label">Start</label>
+                        <input id="input-1" type="date" class="form-control" name="start" placeholder="START DATE"
+                               min="1900-01-01"/>
                     </div>
                     <div class="form-group">
-                        <label for="input-2" class="col-lg-2 control-label">Birthday</label>
-                        <input id="input-2" type="date" class="form-control" name="birthday" placeholder="PERSON BIRTHDAY"
-                               min="1900-01-01" max="2016-01-01"/>
+                        <label for="input-2" class="col-lg-2 control-label">Finish</label>
+                        <input id="input-2" type="date" class="form-control" name="finish" placeholder="FINISH DATE"
+                               min="1900-01-01"/>
                     </div>
-                    <div class="form-group">
-                        <label for="input-3" class="col-lg-2 control-label">Passport</label>
-                        <input id="input-3" type="text" class="form-control" name="passport" placeholder="PERSON PASSPORT"/>
-                    </div>
+
                     <button class="btn btn-forms btn-warning" type="reset" name="Reset">Reset</button>
                     <button class="btn btn-forms btn-primary" type="submit" name="Save">Save</button>
                 </form>

@@ -63,6 +63,24 @@ public class GroupController {
 	}
 
 	@RequestMapping(
+			value = "/find",
+			params = {"groupName", "formName", "specializationName"})
+	public String findByAny(
+			@RequestParam(value = "groupName") String groupName,
+			@RequestParam(value = "formName") String formName,
+			@RequestParam(value = "specializationName") String specializationName,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/group/find" + "?groupName=" + groupName + "&formName="
+				+ formName + "&specializationName=" + specializationName;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Group> page = new PageWrapper<>(
+				jpaGroupService.findByAny(groupName, formName, specializationName, pageable), url);
+		modelMap.addAttribute("page", page);
+		return GROUP_ROUTE + "/grouplist";
+	}
+
+	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
@@ -82,36 +100,30 @@ public class GroupController {
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			value = "/save",
-			params = {"id", "name"},
+			params = {"id", "name", "form_id", "specialization_id"},
 			method = RequestMethod.POST)
 	@ResponseBody
 	public boolean saveGroupById(
 			@RequestParam(value = "id", required = false, defaultValue = "") String id,
-			@RequestParam(value = "name") String name) {
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "form_id") String form_id,
+			@RequestParam(value = "specialization_id") String specialization_id) {
 		Group group = new Group();
 		if (!id.equals("")) {
 			group.setId(Long.parseLong(id));
 		}
 		group.setName(name);
+		group.setForm(jpaFormService.findFormByIdService(Long.parseLong(form_id)));
+		group.setSpecialization(jpaSpecializationService.findSpecializationByIdService(Long.parseLong(specialization_id)));
 		return jpaGroupService.saveService(group);
 	}
 
-	@RequestMapping(
-			value = "/find",
-			params = {"groupName", "formName", "specializationName"})
-	public String findByAny(
-			@RequestParam(value = "groupName") String groupName,
-			@RequestParam(value = "formName") String formName,
-			@RequestParam(value = "specializationName") String specializationName,
-			ModelMap modelMap,
-			Pageable pageable) {
-		String url = "/db/group/find" + "?groupName=" + groupName + "&formName="
-				+ formName + "&specializationName=" + specializationName;
-		url = url.replaceAll(" ", "%20");
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateGroup(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<Group> page = new PageWrapper<>(
-				jpaGroupService.findByAny(groupName, formName, specializationName, pageable), url);
+				jpaGroupService.findAllGroupsService(pageable), "/db/group/update");
 		modelMap.addAttribute("page", page);
-		return GROUP_ROUTE + "/grouplist";
+		return GROUP_ROUTE + "/update_group";
 	}
 
 	@RequestMapping(
@@ -133,13 +145,5 @@ public class GroupController {
 				jpaGroupService.findAllGroupsService(pageable), "/db/group/delete");
 		modelMap.addAttribute("page", page);
 		return GROUP_ROUTE + "/delete_group";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateGroup(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Group> page = new PageWrapper<>(
-				jpaGroupService.findAllGroupsService(pageable), "/db/group/update");
-		modelMap.addAttribute("page", page);
-		return GROUP_ROUTE + "/update_group";
 	}
 }

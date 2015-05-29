@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Find Person by ID</title>
+    <title>Save Schedule</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -19,21 +19,74 @@
             <div class="col-md-12">
                 <br/>
 
-                <form id="savePersonForm" method="post" class="form-horizontal">
+                <form id="saveScheduleForm" method="post" class="form-horizontal">
                     <input type="hidden" name="id" th:value="${id}"/>
+
                     <div class="form-group">
-                        <label for="input-1" class="col-lg-2 control-label">Name</label>
-                        <input id="input-1" type="text" class="form-control" name="name" placeholder="PERSON NAME"/>
+                        <label for="select1" class="col-lg-2 control-label">Subject</label>
+                        <select class="form-control" id="select1" name="subject_id">
+                            <option
+                                    th:each="subject : ${subjects}"
+                                    th:value="${subject.id}"
+                                    th:text="${subject.name}">
+                                Subject
+                            </option>
+                        </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="input-2" class="col-lg-2 control-label">Birthday</label>
-                        <input id="input-2" type="date" class="form-control" name="birthday" placeholder="PERSON BIRTHDAY"
-                               min="1900-01-01" max="2016-01-01"/>
+                        <label for="select1" class="col-lg-2 control-label">Teacher</label>
+                        <select class="form-control" id="select1" name="teacher_id">
+                            <option
+                                    th:each="teacher : ${teachers}"
+                                    th:value="${teacher.id}"
+                                    th:text="${teacher.person.name}">
+                                Teacher
+                            </option>
+                        </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="input-3" class="col-lg-2 control-label">Passport</label>
-                        <input id="input-3" type="text" class="form-control" name="passport" placeholder="PERSON PASSPORT"/>
+                        <label for="select1" class="col-lg-2 control-label">Group</label>
+                        <select class="form-control" id="select1" name="group_id">
+                            <option
+                                    th:each="group : ${groups}"
+                                    th:value="${group.id}"
+                                    th:text="${group.name}">
+                                Group
+                            </option>
+                        </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="select1" class="col-lg-2 control-label">Day</label>
+                        <select class="form-control" id="select1" name="day">
+                            <option
+                                    th:each="day : ${days}"
+                                    th:value="${day}"
+                                    th:text="${day}">
+                                Day
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="select2" class="col-lg-2 control-label">ChisZnam</label>
+                        <select class="form-control" id="select2" name="chisznam">
+                            <option
+                                    th:each="chisznam : ${chisznams}"
+                                    th:value="${chisznam}"
+                                    th:text="${chisznam}">
+                                Day
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-3" class="col-lg-2 control-label">Lenta</label>
+                        <input id="input-3" type="text" class="form-control" name="lenta" placeholder="LENTA"/>
+                    </div>
+
                     <button class="btn btn-forms btn-warning" type="reset" name="Reset">Reset</button>
                     <button class="btn btn-forms btn-primary" type="submit" name="Save">Save</button>
                 </form>

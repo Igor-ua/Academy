@@ -60,6 +60,23 @@ public class SubjectController {
 	}
 
 	@RequestMapping(
+			value = "/find",
+			params = {"subjectName", "specializationName"},
+			method = RequestMethod.GET)
+	public String findByAny(
+			@RequestParam(value = "subjectName") String subjectName,
+			@RequestParam(value = "specializationName") String specializationName,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/subject/find" + "?subjectName=" + subjectName + "&specializationName=" + specializationName;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Subject> page = new PageWrapper<>(
+				jpaSubjectService.findByAny(subjectName, specializationName, pageable), url);
+		modelMap.addAttribute("page", page);
+		return SUBJECT_ROUTE + "/subjectlist";
+	}
+
+	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
@@ -96,22 +113,12 @@ public class SubjectController {
 		return jpaSubjectService.saveService(subject);
 	}
 
-
-	@RequestMapping(
-			value = "/find",
-			params = {"subjectName", "specializationName"},
-			method = RequestMethod.GET)
-	public String findByAny(
-			@RequestParam(value = "subjectName") String subjectName,
-			@RequestParam(value = "specializationName") String specializationName,
-			ModelMap modelMap,
-			Pageable pageable) {
-		String url = "/db/subject/find" + "?subjectName=" + subjectName + "&specializationName=" + specializationName;
-		url = url.replaceAll(" ", "%20");
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateSubject(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<Subject> page = new PageWrapper<>(
-				jpaSubjectService.findByAny(subjectName, specializationName, pageable), url);
+				jpaSubjectService.findAllSubjectsService(pageable), "/db/subject/update");
 		modelMap.addAttribute("page", page);
-		return SUBJECT_ROUTE + "/subjectlist";
+		return SUBJECT_ROUTE + "/update_subject";
 	}
 
 	@RequestMapping(
@@ -133,13 +140,5 @@ public class SubjectController {
 				jpaSubjectService.findAllSubjectsService(pageable), "/db/subject/delete");
 		modelMap.addAttribute("page", page);
 		return SUBJECT_ROUTE + "/delete_subject";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateSubject(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Subject> page = new PageWrapper<>(
-				jpaSubjectService.findAllSubjectsService(pageable), "/db/subject/update");
-		modelMap.addAttribute("page", page);
-		return SUBJECT_ROUTE + "/update_subject";
 	}
 }

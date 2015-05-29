@@ -2,6 +2,7 @@ package org.mydomain.academy.SpringBoot.controllers;
 
 import org.mydomain.academy.SpringBoot.utils.PageWrapper;
 import org.mydomain.academy.db.entities.*;
+import org.mydomain.academy.db.utils.TableNames;
 import org.mydomain.academy.db.utils.formatters.BasicStringDateFormatter;
 import org.mydomain.academy.db.utils.formatters.StringDateFormatter;
 import org.mydomain.academy.services.impls.JPAServiceImpl.*;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/db/schedule")
@@ -70,6 +74,21 @@ public class ScheduleController {
 	}
 
 	@RequestMapping(
+			value = "/find",
+			params = {"groupName"})
+	public String findByAny(
+			@RequestParam(value = "groupName") String groupName,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/schedule/find" + "?groupName=" + groupName;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Schedule> page = new PageWrapper<>(
+				jpaScheduleService.findByAny(groupName, pageable), url);
+		modelMap.addAttribute("page", page);
+		return SCHEDULE_ROUTE + "/schedulelist";
+	}
+
+	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
@@ -84,6 +103,19 @@ public class ScheduleController {
 
 		List<Group> groups = jpaGroupService.findAllGroupsService();
 		modelMap.addAttribute("groups", groups);
+
+		Object days [] = Arrays.stream(TableNames.ScheduleColumns.DAY_ENUM.values())
+				.map(Enum::name)
+				.collect(Collectors.toList())
+				.toArray();
+
+		Object chisznam [] = Arrays.stream(TableNames.ScheduleColumns.CHIS_ZNAM_ENUM.values())
+				.map(Enum::name)
+				.collect(Collectors.toList())
+				.toArray();
+
+		modelMap.addAttribute("days", days);
+		modelMap.addAttribute("chisznams", chisznam);
 
 		modelMap.addAttribute("id", id);
 		return SCHEDULE_ROUTE + "/save_schedule";
@@ -111,26 +143,19 @@ public class ScheduleController {
 		schedule.setSubject(jpaSubjectService.findSubjectByIdService(Long.parseLong(subject_id)));
 		schedule.setTeacher(jpaTeacherService.findTeacherByIdService(Long.parseLong(teacher_id)));
 		schedule.setGroup(jpaGroupService.findGroupByIdService(Long.parseLong(group_id)));
-		schedule.setDay(Integer.parseInt(day));
-		schedule.setChisZnam(Integer.parseInt(chisznam));
+		schedule.setDay(day);
+		schedule.setChisZnam(chisznam);
 		schedule.setLenta(Integer.parseInt(lenta));
 
 		return jpaScheduleService.saveService(schedule);
 	}
 
-	@RequestMapping(
-			value = "/find",
-			params = {"groupName"})
-	public String findByAny(
-			@RequestParam(value = "groupName") String groupName,
-			ModelMap modelMap,
-			Pageable pageable) {
-		String url = "/db/schedule/find" + "?groupName=" + groupName;
-		url = url.replaceAll(" ", "%20");
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateSchedule(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<Schedule> page = new PageWrapper<>(
-				jpaScheduleService.findByAny(groupName, pageable), url);
+				jpaScheduleService.findAllSchedulesService(pageable), "/db/schedule/update");
 		modelMap.addAttribute("page", page);
-		return SCHEDULE_ROUTE + "/schedulelist";
+		return SCHEDULE_ROUTE + "/update_schedule";
 	}
 
 	@RequestMapping(
@@ -152,13 +177,5 @@ public class ScheduleController {
 				jpaScheduleService.findAllSchedulesService(pageable), "/db/schedule/delete");
 		modelMap.addAttribute("page", page);
 		return SCHEDULE_ROUTE + "/delete_schedule";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateSchedule(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Schedule> page = new PageWrapper<>(
-				jpaScheduleService.findAllSchedulesService(pageable), "/db/schedule/update");
-		modelMap.addAttribute("page", page);
-		return SCHEDULE_ROUTE + "/update_schedule";
 	}
 }

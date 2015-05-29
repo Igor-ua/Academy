@@ -51,6 +51,21 @@ public class SpecializationController {
 	}
 
 	@RequestMapping(
+			value = "/find",
+			params = {"name"})
+	public String findByAny(
+			@RequestParam(value = "name") String name,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/specialization/find" + "?name=" + name;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Specialization> page = new PageWrapper<>(
+				jpaSpecializationService.findByAny(name, pageable), url);
+		modelMap.addAttribute("page", page);
+		return SPECIALIZATION_ROUTE + "/specializationlist";
+	}
+
+	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
@@ -78,19 +93,12 @@ public class SpecializationController {
 		return jpaSpecializationService.saveService(specialization);
 	}
 
-	@RequestMapping(
-			value = "/find",
-			params = {"name"})
-	public String findByAny(
-			@RequestParam(value = "name") String name,
-			ModelMap modelMap,
-			Pageable pageable) {
-		String url = "/db/specialization/find" + "?name=" + name;
-		url = url.replaceAll(" ", "%20");
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateSpecialization(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<Specialization> page = new PageWrapper<>(
-				jpaSpecializationService.findByAny(name, pageable), url);
+				jpaSpecializationService.findAllSpecializationsService(pageable), "/db/specialization/update");
 		modelMap.addAttribute("page", page);
-		return SPECIALIZATION_ROUTE + "/specializationlist";
+		return SPECIALIZATION_ROUTE + "/update_specialization";
 	}
 
 	@RequestMapping(
@@ -112,13 +120,5 @@ public class SpecializationController {
 				jpaSpecializationService.findAllSpecializationsService(pageable), "/db/specialization/delete");
 		modelMap.addAttribute("page", page);
 		return SPECIALIZATION_ROUTE + "/delete_specialization";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateSpecialization(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Specialization> page = new PageWrapper<>(
-				jpaSpecializationService.findAllSpecializationsService(pageable), "/db/specialization/update");
-		modelMap.addAttribute("page", page);
-		return SPECIALIZATION_ROUTE + "/update_specialization";
 	}
 }

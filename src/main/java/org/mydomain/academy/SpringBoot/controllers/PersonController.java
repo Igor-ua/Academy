@@ -58,6 +58,29 @@ public class PersonController {
 	}
 
 	@RequestMapping(
+			value = "/find",
+			params = {"name", "birthday", "passport"})
+	public String findByAny(
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "birthday") String birthday,
+			@RequestParam(value = "passport") String passport,
+			ModelMap modelMap,
+			Pageable pageable) {
+		Date bday = null;
+		try {
+			bday = sdf.parseToDate(birthday);
+		} catch (ParseException ignored) {
+			//supposed to be sent into logs
+		}
+		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Person> page = new PageWrapper<>(
+				jpaPersonService.findByAny(name, bday, passport, pageable), url);
+		modelMap.addAttribute("page", page);
+		return PERSON_ROUTE + "/personlist";
+	}
+
+	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
@@ -92,27 +115,12 @@ public class PersonController {
 		return jpaPersonService.saveService(person);
 	}
 
-	@RequestMapping(
-			value = "/find",
-			params = {"name", "birthday", "passport"})
-	public String findByAny(
-			@RequestParam(value = "name") String name,
-			@RequestParam(value = "birthday") String birthday,
-			@RequestParam(value = "passport") String passport,
-			ModelMap modelMap,
-			Pageable pageable) {
-		Date bday = null;
-		try {
-			bday = sdf.parseToDate(birthday);
-		} catch (ParseException ignored) {
-			//supposed to be sent into logs
-		}
-		String url = "/db/person/find" + "?name=" + name + "&birthday=" + birthday + "&passport=" + passport;
-		url = url.replaceAll(" ", "%20");
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updatePerson(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findByAny(name, bday, passport, pageable), url);
+				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
 		modelMap.addAttribute("page", page);
-		return PERSON_ROUTE + "/personlist";
+		return PERSON_ROUTE + "/update_person";
 	}
 
 	@RequestMapping(
@@ -134,13 +142,5 @@ public class PersonController {
 				jpaPersonService.findAllPersonsService(pageable), "/db/person/delete");
 		modelMap.addAttribute("page", page);
 		return PERSON_ROUTE + "/delete_person";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updatePerson(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Person> page = new PageWrapper<>(
-				jpaPersonService.findAllPersonsService(pageable), "/db/person/update");
-		modelMap.addAttribute("page", page);
-		return PERSON_ROUTE + "/update_person";
 	}
 }

@@ -72,6 +72,23 @@ public class StudentController {
 	}
 
 	@RequestMapping(
+			value = "/find",
+			params = {"personName", "groupName"},
+			method = RequestMethod.GET)
+	public String findByAny(
+			@RequestParam(value = "personName") String personName,
+			@RequestParam(value = "groupName") String groupName,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/student/find" + "?personName=" + personName + "&groupName=" + groupName;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Student> page = new PageWrapper<>(
+				jpaStudentService.findByAny(personName, groupName, pageable), url);
+		modelMap.addAttribute("page", page);
+		return STUDENT_ROUTE + "/studentlist";
+	}
+
+	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
@@ -116,22 +133,12 @@ public class StudentController {
 		return jpaStudentService.saveService(student);
 	}
 
-
-	@RequestMapping(
-			value = "/find",
-			params = {"personName", "groupName"},
-			method = RequestMethod.GET)
-	public String findByAny(
-			@RequestParam(value = "personName") String personName,
-			@RequestParam(value = "groupName") String groupName,
-			ModelMap modelMap,
-			Pageable pageable) {
-		String url = "/db/student/find" + "?personName=" + personName + "&groupName=" + groupName;
-		url = url.replaceAll(" ", "%20");
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateStudent(ModelMap modelMap, Pageable pageable) {
 		PageWrapper<Student> page = new PageWrapper<>(
-				jpaStudentService.findByAny(personName, groupName, pageable), url);
+				jpaStudentService.findAllStudentsService(pageable), "/db/student/update");
 		modelMap.addAttribute("page", page);
-		return STUDENT_ROUTE + "/studentlist";
+		return STUDENT_ROUTE + "/update_student";
 	}
 
 	@RequestMapping(
@@ -153,13 +160,5 @@ public class StudentController {
 				jpaStudentService.findAllStudentsService(pageable), "/db/student/delete");
 		modelMap.addAttribute("page", page);
 		return STUDENT_ROUTE + "/delete_student";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateStudent(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Student> page = new PageWrapper<>(
-				jpaStudentService.findAllStudentsService(pageable), "/db/student/update");
-		modelMap.addAttribute("page", page);
-		return STUDENT_ROUTE + "/update_student";
 	}
 }

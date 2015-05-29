@@ -1,5 +1,7 @@
 package org.mydomain.academy.db.utils;
 
+import org.springframework.stereotype.Service;
+
 /**
  * {@link TableNames} contains table and column names for using them in SQL syntax
  *

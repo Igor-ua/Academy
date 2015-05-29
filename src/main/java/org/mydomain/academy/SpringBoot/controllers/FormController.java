@@ -53,6 +53,20 @@ public class FormController {
 	}
 
 	@RequestMapping(
+			value = "/find",
+			params = {"name"})
+	public String findByAny(
+			@RequestParam(value = "name") String name,
+			ModelMap modelMap,
+			Pageable pageable) {
+		String url = "/db/form/find" + "?name=" + name;
+		url = url.replaceAll(" ", "%20");
+		PageWrapper<Form> page = new PageWrapper<>(jpaFormService.findByAny(name, pageable), url);
+		modelMap.addAttribute("page", page);
+		return FORM_ROUTE + "/formlist";
+	}
+
+	@RequestMapping(
 			value = "/save",
 			params = {"id"},
 			method = RequestMethod.GET)
@@ -79,18 +93,12 @@ public class FormController {
 		return jpaFormService.saveService(form);
 	}
 
-	@RequestMapping(
-			value = "/find",
-			params = {"name"})
-	public String findByAny(
-			@RequestParam(value = "name") String name,
-			ModelMap modelMap,
-			Pageable pageable) {
-		String url = "/db/form/find" + "?name=" + name;
-		url = url.replaceAll(" ", "%20");
-		PageWrapper<Form> page = new PageWrapper<>(jpaFormService.findByAny(name, pageable), url);
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateForm(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Form> page = new PageWrapper<>(
+				jpaFormService.findAllFormsService(pageable), "/db/form/update");
 		modelMap.addAttribute("page", page);
-		return FORM_ROUTE + "/formlist";
+		return FORM_ROUTE + "/update_form";
 	}
 
 	@RequestMapping(
@@ -112,13 +120,5 @@ public class FormController {
 				jpaFormService.findAllFormsService(pageable), "/db/form/delete");
 		modelMap.addAttribute("page", page);
 		return FORM_ROUTE + "/delete_form";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateForm(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Form> page = new PageWrapper<>(
-				jpaFormService.findAllFormsService(pageable), "/db/form/update");
-		modelMap.addAttribute("page", page);
-		return FORM_ROUTE + "/update_form";
 	}
 }

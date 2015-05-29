@@ -68,44 +68,6 @@ public class TeacherController {
 	}
 
 	@RequestMapping(
-			value = "/save",
-			params = {"id"},
-			method = RequestMethod.GET)
-	public String saveTeacher(@RequestParam(value = "id") String id,
-									ModelMap modelMap) {
-		List<Person> persons = jpaPersonService.findAllPersonsService();
-		modelMap.addAttribute("persons", persons);
-		modelMap.addAttribute("id", id);
-		return TEACHER_ROUTE + "/save_teacher";
-	}
-
-	@RequestMapping(
-			produces = MediaType.APPLICATION_JSON_VALUE,
-			value = "/save",
-			params = {"id", "person_id", "start", "finish"},
-			method = RequestMethod.POST)
-	@ResponseBody
-	public boolean saveTeacher(@RequestParam(value = "id", required = false, defaultValue = "") String id,
-							  @RequestParam(value = "person_id") String personId,
-							  @RequestParam(value = "start") String start,
-							  @RequestParam(value = "finish") String finish) {
-		Teacher teacher = new Teacher();
-		if (!id.equals("")) {
-			teacher.setId(Long.parseLong(id));
-		}
-		teacher.setPerson(jpaPersonService.findPersonByIdService(Long.parseLong(personId)));
-		try {
-			teacher.setStart(sdf.parseToDate(start));
-			teacher.setFinish(sdf.parseToDate(finish));
-		} catch (ParseException e) {
-			//supposed to be sent into logs
-		}
-		return jpaTeacherService.saveService(teacher);
-	}
-
-
-
-	@RequestMapping(
 			value = "/find",
 			params = {"name", "start", "finish"},
 			method = RequestMethod.GET)
@@ -131,11 +93,55 @@ public class TeacherController {
 	}
 
 	@RequestMapping(
+			value = "/save",
+			params = {"id"},
+			method = RequestMethod.GET)
+	public String saveTeacher(@RequestParam(value = "id") String id,
+							  ModelMap modelMap) {
+		List<Person> persons = jpaPersonService.findAllPersonsService();
+		modelMap.addAttribute("persons", persons);
+		modelMap.addAttribute("id", id);
+		return TEACHER_ROUTE + "/save_teacher";
+	}
+
+	@RequestMapping(
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			value = "/save",
+			params = {"id", "person_id", "start", "finish"},
+			method = RequestMethod.POST)
+	@ResponseBody
+	public boolean saveTeacher(@RequestParam(value = "id", required = false, defaultValue = "") String id,
+							   @RequestParam(value = "person_id") String personId,
+							   @RequestParam(value = "start") String start,
+							   @RequestParam(value = "finish") String finish) {
+		Teacher teacher = new Teacher();
+		if (!id.equals("")) {
+			teacher.setId(Long.parseLong(id));
+		}
+		teacher.setPerson(jpaPersonService.findPersonByIdService(Long.parseLong(personId)));
+		try {
+			teacher.setStart(sdf.parseToDate(start));
+			teacher.setFinish(sdf.parseToDate(finish));
+		} catch (ParseException e) {
+			//supposed to be sent into logs
+		}
+		return jpaTeacherService.saveService(teacher);
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateTeacher(ModelMap modelMap, Pageable pageable) {
+		PageWrapper<Teacher> page = new PageWrapper<>(
+				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/update");
+		modelMap.addAttribute("page", page);
+		return TEACHER_ROUTE + "/update_teacher";
+	}
+
+	@RequestMapping(
 			value = "/delete",
 			params = {"id"},
 			method = RequestMethod.GET)
 	public String deleteTeacher(@RequestParam(value = "id") long id,
-							   ModelMap modelMap, Pageable pageable) {
+								ModelMap modelMap, Pageable pageable) {
 		jpaTeacherService.deleteService(jpaTeacherService.findTeacherByIdService(id));
 		PageWrapper<Teacher> page = new PageWrapper<>(
 				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/delete");
@@ -149,13 +155,5 @@ public class TeacherController {
 				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/delete");
 		modelMap.addAttribute("page", page);
 		return TEACHER_ROUTE + "/delete_teacher";
-	}
-
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateTeacher(ModelMap modelMap, Pageable pageable) {
-		PageWrapper<Teacher> page = new PageWrapper<>(
-				jpaTeacherService.findAllTeachersService(pageable), "/db/teacher/update");
-		modelMap.addAttribute("page", page);
-		return TEACHER_ROUTE + "/update_teacher";
 	}
 }
