@@ -8,9 +8,12 @@ import org.mydomain.academy.db.DAO.BasicInterface.*;
 import org.mydomain.academy.db.DAO.impls.hibernate.*;
 import org.mydomain.academy.db.utils.HibernateSettings;
 import org.mydomain.academy.db.utils.HibernateUtils;
+import org.mydomain.academy.db.utils.content.HibernateContentManager;
 import org.mydomain.academy.services.ServiceInterface.*;
 import org.mydomain.academy.services.impls.ServiceImpl.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 import static org.mydomain.academy.UI.console.messages.ConsoleMessages.*;
@@ -32,6 +35,8 @@ public class AcademyHibernateConsole {
 	private static SubjectService subjectService;
 	private static TeacherService teacherService;
 
+	private static Map<String, RootService> rootServices;
+
 	public static void main(String[] args) {
 
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
@@ -51,6 +56,7 @@ public class AcademyHibernateConsole {
 						specializationService, studentService,
 						subjectService, teacherService);
 
+				new HibernateContentManager(rootServices).fillDB();
 				userInterface.run();
 
 			} catch (HibernateException e) {
@@ -87,5 +93,18 @@ public class AcademyHibernateConsole {
 		studentService = new JDBCStudentService(studentDAO);
 		subjectService = new JDBCSubjectService(subjectDAO);
 		teacherService = new JDBCTeacherService(teacherDAO);
+
+		rootServices = new HashMap<>();
+
+		rootServices.put("formService", formService);
+		rootServices.put("groupService", groupService);
+		rootServices.put("markService", markService);
+		rootServices.put("markTypeService", markTypeService);
+		rootServices.put("personService", personService);
+		rootServices.put("scheduleService", scheduleService);
+		rootServices.put("specializationService", specializationService);
+		rootServices.put("studentService", studentService);
+		rootServices.put("subjectService", subjectService);
+		rootServices.put("teacherService", teacherService);
 	}
 }

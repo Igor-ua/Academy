@@ -4,9 +4,12 @@ import org.mydomain.academy.db.entities.*;
 import org.mydomain.academy.db.utils.TableNames;
 import org.mydomain.academy.services.ServiceInterface.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
-public class JDBCContentManager {
+public class HibernateContentManager {
 
 	private List<Form> forms;
 	private List<Group> groups;
@@ -30,7 +33,7 @@ public class JDBCContentManager {
 	private SubjectService subjectService;
 	private TeacherService teacherService;
 
-	public JDBCContentManager() {
+	public HibernateContentManager() {
 		this.forms = new ArrayList<>();
 		this.groups = new ArrayList<>();
 		this.marks = new ArrayList<>();
@@ -43,7 +46,7 @@ public class JDBCContentManager {
 		this.teachers = new ArrayList<>();
 	}
 
-	public JDBCContentManager(Map<String, RootService> rootServices) {
+	public HibernateContentManager(Map<String, RootService> rootServices) {
 		this.forms = new ArrayList<>();
 		this.groups = new ArrayList<>();
 		this.marks = new ArrayList<>();
@@ -116,21 +119,9 @@ public class JDBCContentManager {
 	private void addGroups() {
 		try {
 			groups.add(new Group(
-					"R101",
-					formService.findFormByNameService("Full time").get(0),
-					specializationService.findSpecializationByNameService("Programming").get(0)));
-			groups.add(new Group(
-					"R102",
-					formService.findFormByNameService("Part time").get(0),
-					specializationService.findSpecializationByNameService("Administration").get(0)));
-			groups.add(new Group(
-					"R103",
-					formService.findFormByNameService("External studies").get(0),
-					specializationService.findSpecializationByNameService("Design").get(0)));
-			groups.add(new Group(
-					"R104",
-					formService.findFormByNameService("Distance learning").get(0),
-					specializationService.findSpecializationByNameService("Anykey Specialist").get(0)));
+					"Hib555",
+					formService.findAllFormsService().get(0),
+					specializationService.findAllSpecializationsService().get(0)));
 		} catch (IndexOutOfBoundsException ignored) {
 
 		}
@@ -139,30 +130,12 @@ public class JDBCContentManager {
 	private void addMarks() {
 		try {
 			marks.add(new Mark(
-					markTypeService.findMarkTypeByNameService("one").get(0),
+					markTypeService.findAllMarkTypesService().get(0),
 					teacherService.findAllTeachersService().get(0),
 					studentService.findAllStudentsService().get(0),
-					groupService.findGroupByNameService("R101").get(0),
-					subjectService.findSubjectByNameService("Java").get(0),
-					formService.findFormByNameService("Full time").get(0),
-					new Date()
-			));
-			marks.add(new Mark(
-					markTypeService.findMarkTypeByNameService("two").get(0),
-					teacherService.findAllTeachersService().get(0),
-					studentService.findAllStudentsService().get(0),
-					groupService.findGroupByNameService("R102").get(0),
-					subjectService.findSubjectByNameService("Csharp").get(0),
-					formService.findFormByNameService("Part time").get(0),
-					new Date()
-			));
-			marks.add(new Mark(
-					markTypeService.findMarkTypeByNameService("three").get(0),
-					teacherService.findAllTeachersService().get(0),
-					studentService.findAllStudentsService().get(0),
-					groupService.findGroupByNameService("R103").get(0),
-					subjectService.findSubjectByNameService("SQL").get(0),
-					formService.findFormByNameService("External studies").get(0),
+					groupService.findAllGroupsService().get(0),
+					subjectService.findAllSubjectsService().get(0),
+					formService.findAllFormsService().get(0),
 					new Date()
 			));
 		} catch (IndexOutOfBoundsException ignored) {
@@ -189,25 +162,25 @@ public class JDBCContentManager {
 	private void addSchedules() {
 		try {
 			schedules.add(new Schedule(
-					subjectService.findSubjectByNameService("Java").get(0),
+					subjectService.findAllSubjectsService().get(0),
 					teacherService.findAllTeachersService().get(0),
-					groupService.findGroupByNameService("R101").get(0),
+					groupService.findAllGroupsService().get(0),
 					TableNames.ScheduleColumns.DAY_ENUM.Monday.toString(),
 					TableNames.ScheduleColumns.CHIS_ZNAM_ENUM.CH.toString(),
 					1
 			));
 			schedules.add(new Schedule(
-					subjectService.findSubjectByNameService("Cplusplus").get(0),
+					subjectService.findAllSubjectsService().get(0),
 					teacherService.findAllTeachersService().get(0),
-					groupService.findGroupByNameService("R101").get(0),
+					groupService.findAllGroupsService().get(0),
 					TableNames.ScheduleColumns.DAY_ENUM.Monday.toString(),
 					TableNames.ScheduleColumns.CHIS_ZNAM_ENUM.CH.toString(),
 					2
 			));
 			schedules.add(new Schedule(
-					subjectService.findSubjectByNameService("Csharp").get(0),
+					subjectService.findAllSubjectsService().get(0),
 					teacherService.findAllTeachersService().get(0),
-					groupService.findGroupByNameService("R101").get(0),
+					groupService.findAllGroupsService().get(0),
 					TableNames.ScheduleColumns.DAY_ENUM.Monday.toString(),
 					TableNames.ScheduleColumns.CHIS_ZNAM_ENUM.CH.toString(),
 					3
@@ -227,33 +200,8 @@ public class JDBCContentManager {
 	private void addStudents() {
 		try {
 			students.add(new Student(
-					personService.findPersonByPassportService("FF001122").get(0),
-					groupService.findGroupByNameService("R101").get(0),
-					new Date(), new Date()
-			));
-			students.add(new Student(
-					personService.findPersonByPassportService("FF001133").get(0),
-					groupService.findGroupByNameService("R102").get(0),
-					new Date(), new Date()
-			));
-			students.add(new Student(
-					personService.findPersonByPassportService("FF001144").get(0),
-					groupService.findGroupByNameService("R103").get(0),
-					new Date(), new Date()
-			));
-			students.add(new Student(
-					personService.findPersonByPassportService("FF001155").get(0),
-					groupService.findGroupByNameService("R104").get(0),
-					new Date(), new Date()
-			));
-			students.add(new Student(
-					personService.findPersonByPassportService("FF001166").get(0),
-					groupService.findGroupByNameService("R101").get(0),
-					new Date(), new Date()
-			));
-			students.add(new Student(
-					personService.findPersonByPassportService("FF001133").get(0),
-					groupService.findGroupByNameService("R101").get(0),
+					personService.findAllPersonsService().get(0),
+					groupService.findAllGroupsService().get(0),
 					new Date(), new Date()
 			));
 		} catch (IndexOutOfBoundsException ignored) {
@@ -265,28 +213,28 @@ public class JDBCContentManager {
 		try {
 			subjects.add(new Subject(
 					"Java",
-					specializationService.findSpecializationByNameService("Programming").get(0)));
+					specializationService.findAllSpecializationsService().get(0)));
 			subjects.add(new Subject(
 					"Cplusplus",
-					specializationService.findSpecializationByNameService("Programming").get(0)));
+					specializationService.findAllSpecializationsService().get(0)));
 			subjects.add(new Subject(
 					"Csharp",
-					specializationService.findSpecializationByNameService("Programming").get(0)));
+					specializationService.findAllSpecializationsService().get(0)));
 			subjects.add(new Subject(
 					"HTML",
-					specializationService.findSpecializationByNameService("Programming").get(0)));
+					specializationService.findAllSpecializationsService().get(0)));
 			subjects.add(new Subject(
 					"JavaScript",
-					specializationService.findSpecializationByNameService("Programming").get(0)));
+					specializationService.findAllSpecializationsService().get(0)));
 			subjects.add(new Subject(
 					"SQL",
-					specializationService.findSpecializationByNameService("Administration").get(0)));
+					specializationService.findAllSpecializationsService().get(0)));
 			subjects.add(new Subject(
 					"Linux",
-					specializationService.findSpecializationByNameService("Administration").get(0)));
+					specializationService.findAllSpecializationsService().get(0)));
 			subjects.add(new Subject(
 					"Windows for dummies",
-					specializationService.findSpecializationByNameService("Anykey Specialist").get(0)));
+					specializationService.findAllSpecializationsService().get(0)));
 		} catch (IndexOutOfBoundsException ignored) {
 
 		}
@@ -295,23 +243,15 @@ public class JDBCContentManager {
 	private void addTeachers() {
 		try {
 			teachers.add(
-					new Teacher(personService.findPersonByPassportService("FF001122").get(0),
+					new Teacher(personService.findAllPersonsService().get(0),
 							new Date(), new Date())
 			);
 			teachers.add(
-					new Teacher(personService.findPersonByPassportService("FF001133").get(0),
+					new Teacher(personService.findAllPersonsService().get(1),
 							new Date(), new Date())
 			);
 			teachers.add(
-					new Teacher(personService.findPersonByPassportService("FF001144").get(0),
-							new Date(), new Date())
-			);
-			teachers.add(
-					new Teacher(personService.findPersonByPassportService("FF001155").get(0),
-							new Date(), new Date())
-			);
-			teachers.add(
-					new Teacher(personService.findPersonByPassportService("FF001166").get(0),
+					new Teacher(personService.findAllPersonsService().get(2),
 							new Date(), new Date())
 			);
 		} catch (IndexOutOfBoundsException ignored) {

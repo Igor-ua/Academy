@@ -14,7 +14,7 @@ import java.util.Set;
 @Component
 
 @Entity
-@Table(name = "Person_sql")
+@Table(name = "Person_sql", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "passport"}))
 public class Person implements AcademyEntity {
 
 	@Id
@@ -26,6 +26,7 @@ public class Person implements AcademyEntity {
 	@JsonView(View.Summary.class)
 	private Date birthday;
 	@JsonView(View.Summary.class)
+	@Column(unique=true)
 	private String passport;
 
 	@OneToMany(cascade = CascadeType.ALL)

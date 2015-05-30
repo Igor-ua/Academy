@@ -15,6 +15,7 @@ public class Group implements AcademyEntity {
 	@Id
 	@GeneratedValue
 	private long id;
+	@Column(unique=true)
 	private String name;
 
 	@ManyToOne

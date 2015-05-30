@@ -8,14 +8,14 @@ import org.mydomain.academy.services.ServiceInterface.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
 import static org.mydomain.academy.db.utils.LogMessages.LOG_NOT_IMPLEMENTED_IN_JPA;
 
-@Component
+@Service
 public class JPAPersonService implements PersonService {
 
 	private static final Logger log = Logger.getLogger(JPAPersonService.class);

@@ -12,7 +12,7 @@ import java.util.Set;
 @Component
 
 @Entity
-@Table(name = "Student_sql")
+@Table(name = "Student_sql", uniqueConstraints = @UniqueConstraint(columnNames = {"person_id", "group_id"}))
 public class Student implements AcademyEntity {
 	@Id
 	@GeneratedValue

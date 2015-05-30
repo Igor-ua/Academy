@@ -60,37 +60,40 @@ public class JPAContentManager {
 		this.teachers = new ArrayList<>();
 	}
 
-//	@PostConstruct
+	//	@PostConstruct
 	public void addContent() {
-		addPersons();
-		persons.forEach(personService::saveService);
+		if (personService.findAllPersonsService().isEmpty()) {
 
-		addTeachers();
-		teachers.forEach(teacherService::saveService);
+			addPersons();
+			persons.forEach(personService::saveService);
 
-		addForms();
-		forms.forEach(formService::saveService);
+			addTeachers();
+			teachers.forEach(teacherService::saveService);
 
-		addSpecializations();
-		specializations.forEach(specializationService::saveService);
+			addForms();
+			forms.forEach(formService::saveService);
 
-		addGroups();
-		groups.forEach(groupService::saveService);
+			addSpecializations();
+			specializations.forEach(specializationService::saveService);
 
-		addMarkTypes();
-		markTypes.forEach(markTypeService::saveService);
+			addGroups();
+			groups.forEach(groupService::saveService);
 
-		addStudents();
-		students.forEach(studentService::saveService);
+			addMarkTypes();
+			markTypes.forEach(markTypeService::saveService);
 
-		addSubjects();
-		subjects.forEach(subjectService::saveService);
+			addStudents();
+			students.forEach(studentService::saveService);
 
-		addSchedules();
-		schedules.forEach(scheduleService::saveService);
+			addSubjects();
+			subjects.forEach(subjectService::saveService);
 
-		addMarks();
-		marks.forEach(markService::saveService);
+			addSchedules();
+			schedules.forEach(scheduleService::saveService);
+
+			addMarks();
+			marks.forEach(markService::saveService);
+		}
 	}
 
 	private void addForms() {

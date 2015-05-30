@@ -15,6 +15,7 @@ public class Form implements AcademyEntity {
 	@Id
 	@GeneratedValue
 	private long id;
+	@Column(unique=true)
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL)

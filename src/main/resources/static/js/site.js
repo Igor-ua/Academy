@@ -1069,7 +1069,7 @@ var Module = (function () {
         $('#schedule-btn').attr('href', '/db/schedule');
         $('#specialization-btn').attr('href', '/db/specialization');
         $('#subject-btn').attr('href', '/db/subject');
-        $('#authentication-btn').attr('href', '/db/authentication');
+        //$('#authentication-btn').attr('href', '/db/authentication');
         //____________________________________END OF THE SECTION______________________________________
 
         

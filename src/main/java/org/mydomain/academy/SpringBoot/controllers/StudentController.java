@@ -115,7 +115,7 @@ public class StudentController {
 	public boolean saveStudentById(
 			@RequestParam(value = "id", required = false, defaultValue = "") String id,
 			@RequestParam(value = "person_id") String personId,
-			@RequestParam(value = "group_id") String group_id,
+			@RequestParam(value = "group_id") String groupId,
 			@RequestParam(value = "start") String start,
 			@RequestParam(value = "finish") String finish) {
 		Student student = new Student();
@@ -123,13 +123,13 @@ public class StudentController {
 			student.setId(Long.parseLong(id));
 		}
 		student.setPerson(jpaPersonService.findPersonByIdService(Long.parseLong(personId)));
+		student.setGroup(jpaGroupService.findGroupByIdService(Long.parseLong(groupId)));
 		try {
 			student.setStart(sdf.parseToDate(start));
 			student.setFinish(sdf.parseToDate(finish));
 		} catch (ParseException e) {
 			//supposed to be sent into logs
 		}
-		student.setGroup(jpaGroupService.findGroupByIdService(Long.parseLong(group_id)));
 		return jpaStudentService.saveService(student);
 	}
 
