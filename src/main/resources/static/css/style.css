@@ -19,7 +19,7 @@ body {
 }
 
 .brd {
-    border: 1px solid; /* Параметры границы */
+    border: 0px solid; /* Параметры границы */
     background: #ffffff; /* Цвет фона */
 }
 

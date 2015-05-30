@@ -14,6 +14,7 @@ var Module = (function () {
             privateLinkBinding();
             privateForms();
             privatePaginationHrefs();
+            privateMenuButtonColors();
         });
     };
 
@@ -1508,6 +1509,42 @@ var Module = (function () {
             });
         });
         //____________________________________END OF THE SECTION______________________________________
+    };
+
+    var privateMenuButtonColors = function () {
+        if ($("#div-edit-form").length > 0) {
+            $("#form-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-group").length > 0) {
+            $("#group-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-mark").length > 0) {
+            $("#mark-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-marktype").length > 0) {
+            $("#marktype-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-person").length > 0) {
+            $("#person-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-schedule").length > 0) {
+            $("#schedule-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-specialization").length > 0) {
+            $("#specialization-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-student").length > 0) {
+            $("#student-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-subject").length > 0) {
+            $("#subject-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-teacher").length > 0) {
+            $("#teacher-btn").removeClass("btn-default").addClass("btn-warning");
+        }
+        if ($("#div-edit-authentication").length > 0) {
+            $("#authentication-btn").removeClass("btn-default").addClass("btn-warning");
+        }
     };
 
     myModule.publicFunction = function () {
