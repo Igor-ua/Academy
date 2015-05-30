@@ -14,20 +14,18 @@ public class Subject implements AcademyEntity {
 	@Id
 	@GeneratedValue
 	private long id;
-	@Column(unique=true)
+	@Column(unique = true)
 	private String name;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
+	private Set<Mark> markSet;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "subject")
+	private Set<Schedule> scheduleSet;
 
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Specialization specialization;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "subject_id")
-	private Set<Mark> markSet;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "subject_id")
-	private Set<Schedule> scheduleSet;
 
 	@ManyToMany(mappedBy = "subjectSet")
 	private Set<Teacher> teacherSet;

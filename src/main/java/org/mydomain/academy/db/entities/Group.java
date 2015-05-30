@@ -26,16 +26,13 @@ public class Group implements AcademyEntity {
 	@JoinColumn(nullable = false)
 	private Specialization specialization;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "group_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
 	private Set<Schedule> scheduleSet;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "group_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
 	private Set<Mark> markSet;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "group_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
 	private Set<Student> studentSet;
 
 	@Transient

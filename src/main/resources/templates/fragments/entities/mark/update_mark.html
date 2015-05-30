@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Delete Person</title>
+    <title>Update Mark</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -16,29 +16,36 @@
 <div class="container" id="root-container">
     <div id="inside-container">
         <div class="text-center" th:if="${page} != null">
-            <div class="row" id="div-personlist">
+            <div class="row" id="div-marklist">
                 <div class="col-md-12 text-center">
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
                             <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">BIRTHDAY</th>
-                            <th class="text-center">PASSPORT</th>
+                            <th class="text-center">MARK TYPE</th>
+                            <th class="text-center">TEACHER</th>
+                            <th class="text-center">STUDENT</th>
+                            <th class="text-center">GROUP</th>
+                            <th class="text-center">SUBJECT</th>
+                            <th class="text-center">FORM</th>
+                            <th class="text-center">DATE</th>
                             <th class="text-center"></th>
                         </tr>
                         </thead>
                         <tbody id="update-body">
                         <tr th:id="(${iterationStatus.index} % 2 == 0) ? 'a-row' : 'b-row'"
-                            th:each="person,iterationStatus  : ${page.getContent()}">
-                            <td th:text="${person.id}">id</td>
-                            <td th:text="${person.name}">Name</td>
-                            <td th:text="${#dates.format(person.birthday, #messages.msg('app.dateformat'))}">Birthday
-                            </td>
-                            <td th:text="${person.passport}">Passport</td>
+                            th:each="mark,iterationStatus  : ${page.getContent()}">
+                            <td th:text="${mark.id}">id</td>
+                            <td th:text="${mark.markType.name}">MarkType_name</td>
+                            <td th:text="${mark.teacher.person.name}">Teacher_name</td>
+                            <td th:text="${mark.student.person.name}">Student_name</td>
+                            <td th:text="${mark.group.name}">Group_name</td>
+                            <td th:text="${mark.subject.name}">Subject_name</td>
+                            <td th:text="${mark.form.name}">Form_name</td>
+                            <td th:text="${#dates.format(mark.date, #messages.msg('app.dateformat'))}">Date</td>
                             <td>
                                 <div class="btn-group">
-                                    <a th:href="@{'/db/person/save'(id=${person.id})}"
+                                    <a th:href="@{'/db/mark/save'(id=${mark.id})}"
                                        class="btn btn-forms btn-warning">
                                         update</a>
                                 </div>

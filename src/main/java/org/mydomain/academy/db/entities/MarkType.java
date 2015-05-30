@@ -18,8 +18,7 @@ public class MarkType implements AcademyEntity {
 	@Column(unique=true)
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "mark_type_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "markType")
 	private Set<Mark> markSet;
 
 	public MarkType() {

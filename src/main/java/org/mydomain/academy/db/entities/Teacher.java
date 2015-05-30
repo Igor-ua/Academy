@@ -21,17 +21,15 @@ public class Teacher implements AcademyEntity {
 	private Date start;
 	private Date finish;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+	private Set<Mark> markSet;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+	private Set<Schedule> scheduleSet;
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Person person;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "teacher_id")
-	private Set<Mark> markSet;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "teacher_id")
-	private Set<Schedule> scheduleSet;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "teacher_subject")

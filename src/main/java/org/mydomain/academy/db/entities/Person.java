@@ -29,12 +29,10 @@ public class Person implements AcademyEntity {
 	@Column(unique=true)
 	private String passport;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "person_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="person")
 	private Set<Student> studentSet;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "person_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="person")
 	private Set<Teacher> teacherSet;
 
 	@Transient

@@ -18,12 +18,10 @@ public class Form implements AcademyEntity {
 	@Column(unique=true)
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "form_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="form")
 	private Set<Group> groupSet;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "form_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="form")
 	private Set<Mark> markSet;
 
 	public Form() {

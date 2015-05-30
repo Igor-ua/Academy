@@ -29,8 +29,7 @@ public class Student implements AcademyEntity {
 	private Date start;
 	private Date finish;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "student_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
 	private Set<Mark> markSet;
 
 	@Transient

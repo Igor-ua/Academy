@@ -18,12 +18,10 @@ public class Specialization implements AcademyEntity {
 	@Column(unique=true)
 	private String name;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "specialization_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "specialization")
 	private Set<Group> groupSet;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "specialization_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "specialization")
 	private Set<Subject> subjectSet;
 
 	public Specialization() {
