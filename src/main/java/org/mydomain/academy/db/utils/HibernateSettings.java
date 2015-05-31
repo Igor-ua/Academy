@@ -19,7 +19,7 @@ public class HibernateSettings {
 	private static final String COLON = ":";
 	private static final String PORT = "64000";
 	private static final String SLASH = "/";
-	private static final String DB_NAME = "H2_hibernate";
+	private static final String DB_NAME = "H2_Hibernate";
 
 	private String hibernateConnectionURL;
 
