@@ -32,7 +32,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public LocaleResolver localeResolver() {
 		SessionLocaleResolver slr = new SessionLocaleResolver();
-		slr.setDefaultLocale(Locale.getDefault());
+		slr.setDefaultLocale(Locale.ENGLISH);
 		return slr;
 	}
 

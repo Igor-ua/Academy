@@ -25,8 +25,8 @@
                         <label for="input-1" class="col-lg-2 control-label">Form</label>
                         <input id="input-1" type="text" class="form-control" name="name" placeholder="FORM NAME"/>
                     </div>
-                    <button class="btn btn-forms btn-warning" type="reset" name="Reset">Reset</button>
-                    <button class="btn btn-forms btn-primary" type="submit" name="Save">Save</button>
+                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">Reset</button>
+                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.save}">Save</button>
                 </form>
                 <div id="result"></div>
             </div>

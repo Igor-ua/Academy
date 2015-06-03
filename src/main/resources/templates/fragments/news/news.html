@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>News</title>
+    <title th:text="#{news.title}">News</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -17,7 +17,7 @@
     <div class="container">
 
         <div class="row col-md-12">
-            <div class="text-right">Login/password: admin/123, user/123</div>
+            <div class="text-right" th:text="#{news.login.password.info}">Login/password</div>
             <div class=" text-center">
                 <div class="news-title"><h2>News placeholder</h2></div>
             </div>

@@ -36,7 +36,7 @@
                                     <a th:href="@{${page.url}(id=${form.id},
                                        page.page=${page.getNumber()},
                                        page.size=${page.size})}"
-                                       class="btn btn-forms btn-danger">
+                                       class="btn btn-forms btn-danger" th:text="#{button.delete}">
                                         delete</a>
                                 </div>
                             </td>

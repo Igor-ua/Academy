@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Footer</title>
+    <title th:text="#{footer.title}">Footer</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -15,7 +15,7 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="text-muted text-center">db Academy 2015 (c)</p>
+        <p class="text-muted text-center" th:text="#{db.footer.academy}">db Academy 2015 (c)</p>
     </div>
 </footer>
 

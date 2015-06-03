@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Delete Person</title>
+    <title th:text="#{form.delete.title}">Delete Person</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -41,7 +41,7 @@
                                     <a th:href="@{${page.url}(id=${person.id},
                                        page.page=${page.getNumber()},
                                        page.size=${page.size})}"
-                                       class="btn btn-forms btn-danger">
+                                       class="btn btn-forms btn-danger" th:text="#{button.delete}">
                                         delete</a>
                                 </div>
                             </td>

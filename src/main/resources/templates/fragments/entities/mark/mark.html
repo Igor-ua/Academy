@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Academy - Mark</title>
+    <title th:text="#{mark.title}">Academy - Mark</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -21,18 +21,18 @@
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-marks-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
-                    marks</a><br/><br/>
-                <a id="find-mark-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find mark
-                    by id</a><br/><br/>
-                <a id="find-marks-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find mark
-                    by any</a><br/><br/>
-                <a id="save-mark-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
-                    mark</a><br/><br/>
-                <a id="update-mark-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
-                    mark</a><br/><br/>
-                <a id="delete-mark-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
-                    mark</a><br/><br/>
+                <a id="print-all-marks-btn" href="javascript:void(0);" class="btn btn-marks btn-primary"
+                   th:text="#{mark.button.show.all}">Show all marks</a><br/><br/>
+                <a id="find-mark-by-id-btn" href="javascript:void(0);" class="btn btn-marks btn-primary"
+                   th:text="#{mark.button.find.by.id}">Find mark by id</a><br/><br/>
+                <a id="find-marks-by-any-btn" href="javascript:void(0);" class="btn btn-marks btn-primary"
+                   th:text="#{mark.button.find.by.any}">Find mark by any</a><br/><br/>
+                <a id="save-mark-btn" href="javascript:void(0);" class="btn btn-marks btn-warning"
+                   th:text="#{mark.button.save}">Save mark</a><br/><br/>
+                <a id="update-mark-btn" href="javascript:void(0);" class="btn btn-marks btn-warning"
+                   th:text="#{mark.button.update}">Update mark</a><br/><br/>
+                <a id="delete-mark-btn" href="javascript:void(0);" class="btn btn-marks btn-danger"
+                   th:text="#{mark.button.delete}">Delete mark</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">
                 <div id="mark-result"></div>

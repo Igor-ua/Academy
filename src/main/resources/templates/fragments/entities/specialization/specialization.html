@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Academy - Specialization</title>
+    <title th:text="#{specialization.title}">Academy - Specialization</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -21,18 +21,18 @@
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-specializations-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
-                    specializations</a><br/><br/>
-                <a id="find-specialization-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find specialization
-                    by id</a><br/><br/>
-                <a id="find-specializations-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find specialization
-                    by any</a><br/><br/>
-                <a id="save-specialization-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
-                    specialization</a><br/><br/>
-                <a id="update-specialization-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
-                    specialization</a><br/><br/>
-                <a id="delete-specialization-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
-                    specialization</a><br/><br/>
+                <a id="print-all-specializations-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{specialization.button.show.all}">Show all specializations</a><br/><br/>
+                <a id="find-specialization-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{specialization.button.find.by.id}">Find specialization by ID</a><br/><br/>
+                <a id="find-specializations-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{specialization.button.find.by.any}">Find specialization by ANY</a><br/><br/>
+                <a id="save-specialization-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{specialization.button.save}">Save specialization</a><br/><br/>
+                <a id="update-specialization-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{specialization.button.update}">Update specialization</a><br/><br/>
+                <a id="delete-specialization-btn" href="javascript:void(0);" class="btn btn-forms btn-danger"
+                   th:text="#{specialization.button.delete}">Delete specialization</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">
                 <div id="specialization-result"></div>

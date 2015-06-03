@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Academy - Group</title>
+    <title th:text="#{group.title}">Academy - Group</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -18,21 +18,22 @@
     <div class="container" id="root-container">
         <div th:replace="fragments/db/db-body :: buttons">Buttons section</div>
         <br/>
+
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-groups-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
-                    groups</a><br/><br/>
-                <a id="find-group-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find group
-                    by id</a><br/><br/>
-                <a id="find-groups-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find group
-                    by any</a><br/><br/>
-                <a id="save-group-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
-                    group</a><br/><br/>
-                <a id="update-group-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
-                    group</a><br/><br/>
-                <a id="delete-group-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
-                    group</a><br/><br/>
+                <a id="print-all-groups-btn" href="javascript:void(0);" class="btn btn-groups btn-primary"
+                   th:text="#{group.button.show.all}">Show all groups</a><br/><br/>
+                <a id="find-group-by-id-btn" href="javascript:void(0);" class="btn btn-groups btn-primary"
+                   th:text="#{group.button.find.by.id}">Find group by id</a><br/><br/>
+                <a id="find-groups-by-any-btn" href="javascript:void(0);" class="btn btn-groups btn-primary"
+                   th:text="#{group.button.find.by.any}">Find group by any</a><br/><br/>
+                <a id="save-group-btn" href="javascript:void(0);" class="btn btn-groups btn-warning"
+                   th:text="#{group.button.save}">Save group</a><br/><br/>
+                <a id="update-group-btn" href="javascript:void(0);" class="btn btn-groups btn-warning"
+                   th:text="#{group.button.update}">Update group</a><br/><br/>
+                <a id="delete-group-btn" href="javascript:void(0);" class="btn btn-groups btn-danger"
+                   th:text="#{group.button.delete}">Delete group</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">
                 <div id="group-result"></div>

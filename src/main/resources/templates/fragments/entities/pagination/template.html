@@ -10,15 +10,15 @@
     <div class='pagination pagination-centered'>
         <ul class="pagination" id="pagination">
             <li th:class="${page.firstPage}? 'disabled' : ''">
-                <span th:if="${page.firstPage}">← First</span>
+                <span th:if="${page.firstPage}" th:text="#{pagination.first.page}">← First</span>
                 <a th:if='${not page.firstPage}'
-                   th:href='@{${page.url}(page.page=1,page.size=${page.size})}'>←
+                   th:href='@{${page.url}(page.page=1,page.size=${page.size})}' th:text="#{pagination.first.page}">←
                     First</a>
             </li>
             <li th:class="${page.hasPreviousPage}? '' : 'disabled'">
                 <span th:if='${not page.hasPreviousPage}'>«</span>
                 <a th:if='${page.hasPreviousPage}'
-                   th:href='@{${page.url}(page.page=${page.number-1},page.size=${page.size})}'
+                   th:href='@{${page.url}(page.page=${page.number-1},page.size=${page.size})}' th:title="#{pagination.goto.prev.page}"
                    title='Go to previous page'>«</a>
             </li>
             <li th:each='item : ${page.items}' th:class="${item.current}? 'active' : ''">
@@ -30,13 +30,13 @@
             <li th:class="${page.hasNextPage}? '' : 'disabled'">
                 <span th:if='${not page.hasNextPage}'>»</span>
                 <a th:if='${page.hasNextPage}'
-                   th:href='@{${page.url}(page.page=${page.number+1},page.size=${page.size})}'
+                   th:href='@{${page.url}(page.page=${page.number+1},page.size=${page.size})}' th:title="#{pagination.goto.next.page}"
                    title='Go to next page'>»</a>
             </li>
             <li th:class="${page.lastPage}? 'disabled' : ''">
-                <span th:if='${page.lastPage}'>Last →</span>
+                <span th:if='${page.lastPage}' th:text="#{pagination.last.page}">Last →</span>
                 <a th:if='${not page.lastPage}'
-                   th:href='@{${page.url}(page.page=${page.totalPages},page.size=${page.size})}'>Last
+                   th:href='@{${page.url}(page.page=${page.totalPages},page.size=${page.size})}' th:text="#{pagination.last.page}">Last
                     →</a>
             </li>
         </ul>

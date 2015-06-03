@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Academy - Schedule</title>
+    <title th:text="#{schedule.title}">Academy - Schedule</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -21,18 +21,18 @@
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-schedules-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
-                    schedules</a><br/><br/>
-                <a id="find-schedule-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find schedule
-                    by id</a><br/><br/>
-                <a id="find-schedules-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find schedule
-                    by any</a><br/><br/>
-                <a id="save-schedule-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
-                    schedule</a><br/><br/>
-                <a id="update-schedule-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
-                    schedule</a><br/><br/>
-                <a id="delete-schedule-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
-                    schedule</a><br/><br/>
+                <a id="print-all-schedules-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{schedule.button.show.all}">Show all schedules</a><br/><br/>
+                <a id="find-schedule-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{schedule.button.find.by.id}">Find schedule by ID</a><br/><br/>
+                <a id="find-schedules-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{schedule.button.find.by.any}">Find schedule by ANY</a><br/><br/>
+                <a id="save-schedule-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{schedule.button.save}">Save schedule</a><br/><br/>
+                <a id="update-schedule-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{schedule.button.update}">Update schedule</a><br/><br/>
+                <a id="delete-schedule-btn" href="javascript:void(0);" class="btn btn-forms btn-danger"
+                   th:text="#{schedule.button.delete}">Delete schedule</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">
                 <div id="schedule-result"></div>

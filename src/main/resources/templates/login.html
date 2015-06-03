@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <title>Spring Security Example </title>
+    <title th:text="#{login.title}">Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -20,30 +20,30 @@
         <div class="row">
             <div class="center-block" style="width:300px;">
 
-                <div class="text-center" th:if="${param.error}">
+                <div class="text-center" th:if="${param.error}" th:text="#{login.error}">
                     Invalid username and password.
                 </div>
-                <div class="text-center" th:if="${param.logout}">
+                <div class="text-center" th:if="${param.logout}" th:text="#{login.logout}">
                     You have been logged out.
                 </div>
 
                 <form class="form-signin" th:action="@{/login}" method="post">
-                    <h2 class="form-signin-heading text-center">Please sign in</h2><br/>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                    <h2 class="form-signin-heading text-center" th:text="#{login.sign.in}">Please sign in</h2><br/>
+                    <input type="text" id="username" name="username" class="form-control" th:placeholder="#{login.username}"
                            required="required" autofocus="autofocus"/>
                     <br/>
                     <label for="password" class="sr-only">Password</label>
                     <br/>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Password"
+                    <input type="password" name="password" id="password" class="form-control" th:placeholder="#{login.password}"
                            required="required"/>
 
                     <div class="checkbox">
                         <label>
-                            <input id="remember-me" type="checkbox" value="remember-me"/> Remember me
+                            <input id="remember-me" type="checkbox" value="remember-me" th:text="#{login.remember.me}"/>
                         </label>
                         <br/>
                     </div>
-                    <button id="loginButton" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    <button id="loginButton" class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.button.sign.in}">Sign in</button>
                 </form>
             </div>
         </div>

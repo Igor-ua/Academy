@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Academy - MarkType</title>
+    <title th:text="#{marktype.title}">Academy - MarkType</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -21,18 +21,18 @@
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-marktypes-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
-                    marktypes</a><br/><br/>
-                <a id="find-marktype-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find marktype
-                    by id</a><br/><br/>
-                <a id="find-marktypes-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find marktype
-                    by any</a><br/><br/>
-                <a id="save-marktype-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
-                    marktype</a><br/><br/>
-                <a id="update-marktype-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
-                    marktype</a><br/><br/>
-                <a id="delete-marktype-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
-                    marktype</a><br/><br/>
+                <a id="print-all-marktypes-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{marktype.button.show.all}">Show allmarktypes</a><br/><br/>
+                <a id="find-marktype-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{marktype.button.find.by.id}">Find marktype by id</a><br/><br/>
+                <a id="find-marktypes-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{marktype.button.find.by.any}">Find marktype by any</a><br/><br/>
+                <a id="save-marktype-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{marktype.button.save}">Save marktype</a><br/><br/>
+                <a id="update-marktype-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{marktype.button.update}">Update marktype</a><br/><br/>
+                <a id="delete-marktype-btn" href="javascript:void(0);" class="btn btn-forms btn-danger"
+                   th:text="#{marktype.button.delete}">Delete marktype</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">
                 <div id="marktype-result"></div>

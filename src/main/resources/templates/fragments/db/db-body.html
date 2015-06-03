@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>db</title>
+    <title th:text="#{db.body.title}">db</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -17,18 +17,18 @@
     <div class="container" th:if="(${#httpServletRequest.getRemoteUser()} != null )">
         <div class="row" th:fragment="buttons">
             <div class="col-md-12 text-center">
-                <a id="person-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Persons</a>
-                <a id="teacher-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Teachers</a>
-                <a id="student-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Students</a>
-                <a id="form-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Forms</a>
-                <a id="group-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Groups</a>
-                <a id="mark-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Marks</a>
-                <a id="marktype-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Mark types</a>
-                <a id="schedule-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Schedules</a>
-                <a id="specialization-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Specializations</a>
-                <a id="subject-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top">Subjects</a>
+                <a id="person-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.persons}">Persons</a>
+                <a id="teacher-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.teachers}">Teachers</a>
+                <a id="student-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.students}">Students</a>
+                <a id="form-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.forms}">Forms</a>
+                <a id="group-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.groups}">Groups</a>
+                <a id="mark-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.marks}">Marks</a>
+                <a id="marktype-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.marktypes}">Mark types</a>
+                <a id="schedule-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.schedules}">Schedules</a>
+                <a id="specialization-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.specializations}">Specializations</a>
+                <a id="subject-btn" href="javascript:void(0);" class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.subjects}">Subjects</a>
                 <a id="authentication-btn" href="javascript:void(0);"
-                   class="btn db-btn btn-default btn-sm btn-mrg-top">Authentication</a>
+                   class="btn db-btn btn-default btn-sm btn-mrg-top" th:text="#{db.body.button.auth}">Authentication</a>
             </div>
         </div>
     </div>

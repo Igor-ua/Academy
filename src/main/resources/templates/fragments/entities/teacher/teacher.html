@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Academy - Teacher</title>
+    <title th:text="#{teacher.title}">Academy - Teacher</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -21,18 +21,18 @@
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-teachers-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
-                    teachers</a><br/><br/>
-                <a id="find-teacher-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find teacher
-                    by id</a><br/><br/>
-                <a id="find-teachers-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find teachers
-                    by any</a><br/><br/>
-                <a id="save-teacher-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
-                    teacher</a><br/><br/>
-                <a id="update-teacher-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
-                    teacher</a><br/><br/>
-                <a id="delete-teacher-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
-                    teacher</a><br/><br/>
+                <a id="print-all-teachers-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{teacher.button.show.all}">Show all teachers</a><br/><br/>
+                <a id="find-teacher-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{teacher.button.find.by.id}">Find teacher by ID</a><br/><br/>
+                <a id="find-teachers-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{teacher.button.find.by.any}">Find teacher by ANY</a><br/><br/>
+                <a id="save-teacher-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{teacher.button.save}">Save teacher</a><br/><br/>
+                <a id="update-teacher-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{teacher.button.update}">Update teacher</a><br/><br/>
+                <a id="delete-teacher-btn" href="javascript:void(0);" class="btn btn-forms btn-danger"
+                   th:text="#{teacher.button.delete}">Delete teacher</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">
                 <div id="teacher-result"></div>

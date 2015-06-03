@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Save Person</title>
+    <title th:text="#{person.save.title}">Save Person</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -34,8 +34,8 @@
                         <label for="input-3" class="col-lg-2 control-label">Passport</label>
                         <input id="input-3" type="text" class="form-control" name="passport" placeholder="PERSON PASSPORT"/>
                     </div>
-                    <button class="btn btn-forms btn-warning" type="reset" name="Reset">Reset</button>
-                    <button class="btn btn-forms btn-primary" type="submit" name="Save">Save</button>
+                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">Reset</button>
+                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.save}">Save</button>
                 </form>
                 <div id="result"></div>
             </div>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 <head>
-    <title>Academy - Form</title>
+    <title th:text="#{form.title}">Academy - Form</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -18,21 +18,22 @@
     <div class="container" id="root-container">
         <div th:replace="fragments/db/db-body :: buttons">Buttons section</div>
         <br/>
+
         <div class="row">
             <div class="col-md-3 brd">
                 <br/>
-                <a id="print-all-forms-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Show all
-                    forms</a><br/><br/>
-                <a id="find-form-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find form
-                    by id</a><br/><br/>
-                <a id="find-forms-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary">Find form
-                    by any</a><br/><br/>
-                <a id="save-form-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Save
-                    form</a><br/><br/>
-                <a id="update-form-btn" href="javascript:void(0);" class="btn btn-forms btn-warning">Update
-                    form</a><br/><br/>
-                <a id="delete-form-btn" href="javascript:void(0);" class="btn btn-forms btn-danger">Delete
-                    form</a><br/><br/>
+                <a id="print-all-forms-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{form.button.show.all}">Show all forms</a><br/><br/>
+                <a id="find-form-by-id-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{form.button.find.by.id}">Find form by id</a><br/><br/>
+                <a id="find-forms-by-any-btn" href="javascript:void(0);" class="btn btn-forms btn-primary"
+                   th:text="#{form.button.find.by.any}">Find form by any</a><br/><br/>
+                <a id="save-form-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{form.button.save}">Save form</a><br/><br/>
+                <a id="update-form-btn" href="javascript:void(0);" class="btn btn-forms btn-warning"
+                   th:text="#{form.button.update}">Update form</a><br/><br/>
+                <a id="delete-form-btn" href="javascript:void(0);" class="btn btn-forms btn-danger"
+                   th:text="#{form.button.delete}">Delete form</a><br/><br/>
             </div>
             <div class="col-md-9 text-center brd">
                 <div id="form-result"></div>

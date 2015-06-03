@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Find Schedule by ID</title>
+    <title th:text="#{schedule.find.title}">Find Schedule by ID</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
@@ -45,8 +45,8 @@
                         <label for="input-1" class="col-lg-2 control-label">Group</label>
                         <input id="input-1" type="text" class="form-control" name="groupName" placeholder="GROUP NAME"/>
                     </div>
-                    <button class="btn btn-forms btn-warning" type="reset" name="Reset">Reset</button>
-                    <button class="btn btn-forms btn-primary" type="submit" name="Save">Search</button>
+                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">Reset</button>
+                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.search}">Search</button>
                 </form>
             </div>
         </div>
