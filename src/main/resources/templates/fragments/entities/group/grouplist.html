@@ -21,10 +21,12 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">GROUP NAME</th>
-                            <th class="text-center">FORM</th>
-                            <th class="text-center">SPECIALIZATION</th>
+                            <th:block th:fragment="group-list-title">
+                                <th class="text-center" th:text="#{group.field.id}">ID</th>
+                                <th class="text-center" th:text="#{group.field.name}">GROUP NAME</th>
+                                <th class="text-center" th:text="#{group.field.form}">FORM</th>
+                                <th class="text-center" th:text="#{group.field.specialization}">SPECIALIZATION</th>
+                            </th:block>
                         </tr>
                         </thead>
                         <tbody>
@@ -46,10 +48,7 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">GROUP NAME</th>
-                            <th class="text-center">FORM</th>
-                            <th class="text-center">SPECIALIZATION</th>
+                            <th:block th:include="this :: group-list-title">Table title</th:block>
                         </tr>
                         </thead>
                         <tbody>

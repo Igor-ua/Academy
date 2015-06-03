@@ -21,11 +21,7 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">GROUP</th>
-                            <th class="text-center">START</th>
-                            <th class="text-center">FINISH</th>
+                            <th:block th:include="fragments/entities/student/studentlist :: student-list-title">Table title</th:block>
                             <th class="text-center"></th>
                         </tr>
                         </thead>

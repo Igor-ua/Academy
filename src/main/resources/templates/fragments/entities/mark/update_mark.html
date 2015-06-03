@@ -21,14 +21,7 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">MARK TYPE</th>
-                            <th class="text-center">TEACHER</th>
-                            <th class="text-center">STUDENT</th>
-                            <th class="text-center">GROUP</th>
-                            <th class="text-center">SUBJECT</th>
-                            <th class="text-center">FORM</th>
-                            <th class="text-center">DATE</th>
+                            <th:block th:include="fragments/entities/mark/marklist :: mark-list-title">Table title</th:block>
                             <th class="text-center"></th>
                         </tr>
                         </thead>

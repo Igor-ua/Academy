@@ -25,7 +25,8 @@
                             <span class="input-group-addon">GROUP ID</span>
                             <input type="text" class="form-control" name="id"/>
                             <span class="input-group-btn">
-                                <button class="btn btn-forms btn-default" type="submit">Find</button>
+                                <button class="btn btn-forms btn-default" type="submit" th:text="#{button.find}">Find
+                                </button>
                             </span>
                         </div>
                     </div>
@@ -43,18 +44,25 @@
                 <form id="findGroupForm" method="post" class="form-horizontal">
                     <div class="form-group">
                         <label for="input-1" class="col-lg-2 control-label">Group</label>
-                        <input id="input-1" type="text" class="form-control" name="groupName" placeholder="GROUP NAME"/>
+                        <input id="input-1" type="text" class="form-control" name="groupName"
+                               th:placeholder="#{group.field.name}" placeholder="GROUP NAME"/>
                     </div>
                     <div class="form-group">
                         <label for="input-2" class="col-lg-2 control-label">Form</label>
-                        <input id="input-2" type="text" class="form-control" name="formName" placeholder="FORM NAME"/>
+                        <input id="input-2" type="text" class="form-control" name="formName"
+                               th:placeholder="#{group.field.form}" placeholder="FORM NAME"/>
                     </div>
                     <div class="form-group">
                         <label for="input-3" class="col-lg-2 control-label">Specialization</label>
-                        <input id="input-3" type="text" class="form-control" name="specializationName" placeholder="SPECIALIZATION NAME"/>
+                        <input id="input-3" type="text" class="form-control" name="specializationName"
+                               th:placeholder="#{group.field.specialization}" placeholder="SPECIALIZATION NAME"/>
                     </div>
-                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">Reset</button>
-                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.search}">Search</button>
+                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">
+                        Reset
+                    </button>
+                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.search}">
+                        Search
+                    </button>
                 </form>
             </div>
         </div>

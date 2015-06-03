@@ -21,10 +21,12 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">BIRTHDAY</th>
-                            <th class="text-center">PASSPORT</th>
+                            <th:block th:fragment="person-list-title">
+                                <th class="text-center" th:text="#{person.field.id}">ID</th>
+                                <th class="text-center" th:text="#{person.field.name}">NAME</th>
+                                <th class="text-center" th:text="#{person.field.birthday}">BIRTHDAY</th>
+                                <th class="text-center" th:text="#{person.field.passport}">PASSPORT</th>
+                            </th:block>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,10 +49,7 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">BIRTHDAY</th>
-                            <th class="text-center">PASSPORT</th>
+                            <th:block th:include="this :: person-list-title">Table title</th:block>
                         </tr>
                         </thead>
                         <tbody>

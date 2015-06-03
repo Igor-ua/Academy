@@ -21,13 +21,7 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">SUBJECT</th>
-                            <th class="text-center">TEACHER</th>
-                            <th class="text-center">GROUP</th>
-                            <th class="text-center">DAY</th>
-                            <th class="text-center">CHIS-ZNAM</th>
-                            <th class="text-center">LENTA</th>
+                            <th:block th:include="fragments/entities/schedule/schedulelist :: schedule-list-title">Table title</th:block>
                             <th class="text-center"></th>
                         </tr>
                         </thead>

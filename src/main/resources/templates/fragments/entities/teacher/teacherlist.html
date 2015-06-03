@@ -21,10 +21,12 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">START</th>
-                            <th class="text-center">FINISH</th>
+                            <th:block th:fragment="teacher-list-title">
+                                <th class="text-center" th:text="#{teacher.field.id}">ID</th>
+                                <th class="text-center" th:text="#{teacher.field.name}">NAME</th>
+                                <th class="text-center" th:text="#{teacher.field.start}">START</th>
+                                <th class="text-center" th:text="#{teacher.field.finish}">FINISH</th>
+                            </th:block>
                         </tr>
                         </thead>
                         <tbody>
@@ -48,10 +50,7 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">START</th>
-                            <th class="text-center">FINISH</th>
+                            <th:block th:include="this :: teacher-list-title">Table title</th:block>
                         </tr>
                         </thead>
                         <tbody>

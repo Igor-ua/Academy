@@ -25,7 +25,8 @@
                             <span class="input-group-addon">TEACHER ID</span>
                             <input type="text" class="form-control" name="id"/>
                             <span class="input-group-btn">
-                                <button class="btn btn-forms btn-default" type="submit">Find</button>
+                                <button class="btn btn-forms btn-default" type="submit" th:text="#{button.find}">Find
+                                </button>
                             </span>
                         </div>
                     </div>
@@ -42,18 +43,25 @@
 
                 <form id="findTeacherForm" method="post" class="form-horizontal">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="TEACHER NAME"/>
+                        <input type="text" class="form-control" name="name" th:placeholder="#{teacher.field.name}"
+                               placeholder="TEACHER NAME"/>
                     </div>
                     <div class="form-group">
-                        <input type="date" class="form-control" name="start" placeholder="TEACHER START DATE"
+                        <input type="date" class="form-control" name="start" th:placeholder="#{teacher.field.start}"
+                               placeholder="TEACHER START DATE"
                                min="1900-01-01"/>
                     </div>
                     <div class="form-group">
-                        <input type="date" class="form-control" name="finish" placeholder="TEACHER FINISH DATE"
+                        <input type="date" class="form-control" name="finish" th:placeholder="#{teacher.field.finish}"
+                               placeholder="TEACHER FINISH DATE"
                                min="1900-01-01"/>
                     </div>
-                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">Reset</button>
-                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.search}">Search</button>
+                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">
+                        Reset
+                    </button>
+                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.search}">
+                        Search
+                    </button>
                 </form>
             </div>
         </div>

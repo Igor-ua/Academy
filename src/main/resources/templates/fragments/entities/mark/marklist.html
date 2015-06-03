@@ -21,14 +21,16 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">MARK TYPE</th>
-                            <th class="text-center">TEACHER</th>
-                            <th class="text-center">STUDENT</th>
-                            <th class="text-center">GROUP</th>
-                            <th class="text-center">SUBJECT</th>
-                            <th class="text-center">FORM</th>
-                            <th class="text-center">DATE</th>
+                            <th:block th:fragment="mark-list-title">
+                                <th class="text-center" th:text="#{mark.field.id}">ID</th>
+                                <th class="text-center" th:text="#{mark.field.marktype}">MARK TYPE</th>
+                                <th class="text-center" th:text="#{mark.field.teacher}">TEACHER</th>
+                                <th class="text-center" th:text="#{mark.field.student}">STUDENT</th>
+                                <th class="text-center" th:text="#{mark.field.group}">GROUP</th>
+                                <th class="text-center" th:text="#{mark.field.subject}">SUBJECT</th>
+                                <th class="text-center" th:text="#{mark.field.form}">FORM</th>
+                                <th class="text-center" th:text="#{mark.field.date}">DATE</th>
+                            </th:block>
                         </tr>
                         </thead>
                         <tbody>
@@ -54,14 +56,7 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">MARK TYPE</th>
-                            <th class="text-center">TEACHER</th>
-                            <th class="text-center">STUDENT</th>
-                            <th class="text-center">GROUP</th>
-                            <th class="text-center">SUBJECT</th>
-                            <th class="text-center">FORM</th>
-                            <th class="text-center">DATE</th>
+                            <th:block th:include="this :: mark-list-title">Table title</th:block>
                         </tr>
                         </thead>
                         <tbody>

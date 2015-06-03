@@ -21,9 +21,11 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">SPECIALIZATION</th>
+                            <th:block th:fragment="subject-list-title">
+                                <th class="text-center" th:text="#{subject.field.id}">ID</th>
+                                <th class="text-center" th:text="#{subject.field.name}">NAME</th>
+                                <th class="text-center" th:text="#{subject.field.specialization}">SPECIALIZATION</th>
+                            </th:block>
                         </tr>
                         </thead>
                         <tbody>
@@ -44,9 +46,7 @@
                     <table class="table table-bordered">
                         <thead class="table-title">
                         <tr>
-                            <th class="text-center">ID</th>
-                            <th class="text-center">NAME</th>
-                            <th class="text-center">SPECIALIZATION</th>
+                            <th:block th:include="this :: subject-list-title">Table title</th:block>
                         </tr>
                         </thead>
                         <tbody>
