@@ -22,7 +22,7 @@
                 <form id="formFindByIdForm">
                     <div class="form-group">
                         <div class="input-group">
-                            <span class="input-group-addon">FORM ID</span>
+                            <span class="input-group-addon" th:text="#{form.find.id.label}">FORM ID</span>
                             <input type="text" class="form-control" name="id"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-forms btn-default" type="submit" th:text="#{button.find}">Find
@@ -43,7 +43,7 @@
 
                 <form id="findFormForm" method="post" class="form-horizontal">
                     <div class="form-group">
-                        <label for="input-1" class="col-lg-2 control-label">Name</label>
+                        <label for="input-1" class="col-lg-2" th:text="#{form.field.name}">Name</label>
                         <input id="input-1" type="text" class="form-control" name="name"
                                th:placeholder="#{form.field.name}" placeholder="FORM NAME"/>
                     </div>

@@ -23,7 +23,7 @@
                     <input type="hidden" name="id" th:value="${id}"/>
 
                     <div class="form-group">
-                        <label for="select1" class="col-lg-2 control-label">MarkType</label>
+                        <label for="select1" class="col-lg-12" th:text="#{mark.field.marktype}">MarkType</label>
                         <select class="form-control" id="select1" name="marktype_id">
                             <option
                                     th:each="marktype : ${marktypes}"
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="select2" class="col-lg-2 control-label">Teacher</label>
+                        <label for="select2" class="col-lg-12" th:text="#{mark.field.teacher}">Teacher</label>
                         <select class="form-control" id="select2" name="teacher_id">
                             <option
                                     th:each="teacher : ${teachers}"
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="select3" class="col-lg-2 control-label">Student</label>
+                        <label for="select3" class="col-lg-12" th:text="#{mark.field.student}">Student</label>
                         <select class="form-control" id="select3" name="student_id">
                             <option
                                     th:each="student : ${students}"
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="select4" class="col-lg-2 control-label">Group</label>
+                        <label for="select4" class="col-lg-12" th:text="#{mark.field.group}">Group</label>
                         <select class="form-control" id="select4" name="group_id">
                             <option
                                     th:each="group : ${groups}"
@@ -71,7 +71,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="select5" class="col-lg-2 control-label">Subject</label>
+                        <label for="select5" class="col-lg-12" th:text="#{mark.field.subject}">Subject</label>
                         <select class="form-control" id="select5" name="subject_id">
                             <option
                                     th:each="subject : ${subjects}"
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="select6" class="col-lg-2 control-label">Form</label>
+                        <label for="select6" class="col-lg-12" th:text="#{mark.field.form}">Form</label>
                         <select class="form-control" id="select6" name="form_id">
                             <option
                                     th:each="form : ${forms}"
@@ -95,13 +95,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="input-1" class="col-lg-2 control-label">Date</label>
-                        <input id="input-1" type="date" class="form-control" name="date" placeholder="MARK DATE"
+                        <label for="input-1" class="col-lg-12" th:text="#{mark.field.date}">Date</label>
+                        <input id="input-1" type="date" class="form-control" name="date"
+                               th:placeholder="#{mark.field.date}" placeholder="MARK DATE"
                                min="1900-01-01"/>
                     </div>
 
-                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">Reset</button>
-                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.save}">Save</button>
+                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">
+                        Reset
+                    </button>
+                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.save}">Save
+                    </button>
                 </form>
                 <div id="result"></div>
             </div>

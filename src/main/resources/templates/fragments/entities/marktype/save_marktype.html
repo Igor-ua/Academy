@@ -21,12 +21,17 @@
 
                 <form id="saveMarkTypeForm" method="post" class="form-horizontal">
                     <input type="hidden" name="id" th:value="${id}"/>
+
                     <div class="form-group">
-                        <label for="input-1" class="col-lg-2 control-label">MarkType</label>
-                        <input id="input-1" type="text" class="form-control" name="name" placeholder="MARK TYPE NAME"/>
+                        <label for="input-1" class="col-lg-12" th:text="#{marktype.field.name}">MarkType</label>
+                        <input id="input-1" type="text" class="form-control" name="name"
+                               th:placeholder="#{marktype.field.name}" placeholder="MARK TYPE NAME"/>
                     </div>
-                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">Reset</button>
-                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.save}">Save</button>
+                    <button class="btn btn-forms btn-warning" type="reset" name="Reset" th:text="#{button.reset}">
+                        Reset
+                    </button>
+                    <button class="btn btn-forms btn-primary" type="submit" name="Save" th:text="#{button.save}">Save
+                    </button>
                 </form>
                 <div id="result"></div>
             </div>

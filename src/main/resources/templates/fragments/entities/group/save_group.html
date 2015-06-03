@@ -22,12 +22,13 @@
                 <form id="saveGroupForm" method="post" class="form-horizontal">
                     <input type="hidden" name="id" th:value="${id}"/>
                     <div class="form-group">
-                        <label for="input-1" class="col-lg-2 control-label">Name</label>
-                        <input id="input-1" type="text" class="form-control" name="name" placeholder="GROUP NAME"/>
+                        <label for="input-1" class="col-lg-12" th:text="#{group.field.name}">Name</label>
+                        <input id="input-1" type="text" class="form-control" name="name"
+                               th:placeholder="#{group.field.name}" placeholder="GROUP NAME"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="select1" class="col-lg-2 control-label">Forms</label>
+                        <label for="select1" class="col-lg-12" th:text="#{group.field.form}">Forms</label>
                         <select class="form-control" id="select1" name="form_id">
                             <option
                                     th:each="form : ${forms}"
@@ -39,7 +40,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="select2" class="col-lg-2 control-label">Specializations</label>
+                        <label for="select2" class="col-lg-12" th:text="#{group.field.specialization}">Specializations</label>
                         <select class="form-control" id="select2" name="specialization_id">
                             <option
                                     th:each="specialization : ${specializations}"

@@ -22,7 +22,7 @@
                 <form id="specializationFindByIdForm">
                     <div class="form-group">
                         <div class="input-group">
-                            <span class="input-group-addon">SPECIALIZATION ID</span>
+                            <span class="input-group-addon" th:text="#{specialization.find.id.label}">SPECIALIZATION ID</span>
                             <input type="text" class="form-control" name="id"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-forms btn-default" type="submit" th:text="#{button.find}">Find
@@ -43,7 +43,7 @@
 
                 <form id="findSpecializationForm" method="post" class="form-horizontal">
                     <div class="form-group">
-                        <label for="input-1" class="col-lg-2 control-label">Name</label>
+                        <label for="input-1" class="col-lg-12" th:text="#{specialization.field.name}">Name</label>
                         <input id="input-1" type="text" class="form-control" name="name"
                                th:placeholder="#{specialization.field.name}" placeholder="SPECIALIZATION NAME"/>
                     </div>

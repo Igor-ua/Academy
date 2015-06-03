@@ -22,7 +22,7 @@
                 <form id="personFindByIdForm">
                     <div class="form-group">
                         <div class="input-group">
-                            <span class="input-group-addon">PERSON ID</span>
+                            <span class="input-group-addon" th:text="#{person.find.id.label}">PERSON ID</span>
                             <input type="text" class="form-control" name="id"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-forms btn-default" type="submit" th:text="#{button.find}">Find
@@ -43,18 +43,18 @@
 
                 <form id="findPersonForm" method="post" class="form-horizontal">
                     <div class="form-group">
-                        <label for="input-1" class="col-lg-2 control-label">Name</label>
+                        <label for="input-1" class="col-lg-12" th:text="#{person.field.name}">Name</label>
                         <input id="input-1" type="text" class="form-control" name="name"
                                th:placeholder="#{person.field.name}" placeholder="PERSON NAME"/>
                     </div>
                     <div class="form-group">
-                        <label for="input-2" class="col-lg-2 control-label">Birthday</label>
+                        <label for="input-2" class="col-lg-12" th:text="#{person.field.birthday}">Birthday</label>
                         <input id="input-2" type="date" class="form-control" name="birthday"
                                th:placeholder="#{person.field.birthday}" placeholder="PERSON BIRTHDAY"
                                min="1900-01-01" max="2016-01-01"/>
                     </div>
                     <div class="form-group">
-                        <label for="input-3" class="col-lg-2 control-label">Passport</label>
+                        <label for="input-3" class="col-lg-12" th:text="#{person.field.passport}">Passport</label>
                         <input id="input-3" type="text" class="form-control" name="passport"
                                th:placeholder="#{person.field.passport}" placeholder="PERSON PASSPORT"/>
                     </div>

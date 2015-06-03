@@ -22,7 +22,7 @@
                 <form id="teacherFindByIdForm">
                     <div class="form-group">
                         <div class="input-group">
-                            <span class="input-group-addon">TEACHER ID</span>
+                            <span class="input-group-addon" th:text="#{teacher.find.id.label}">TEACHER ID</span>
                             <input type="text" class="form-control" name="id"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-forms btn-default" type="submit" th:text="#{button.find}">Find
@@ -43,16 +43,19 @@
 
                 <form id="findTeacherForm" method="post" class="form-horizontal">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="name" th:placeholder="#{teacher.field.name}"
+                        <label for="input-1" class="col-lg-12" th:text="#{teacher.field.name}">Name</label>
+                        <input id="input-1" type="text" class="form-control" name="name" th:placeholder="#{teacher.field.name}"
                                placeholder="TEACHER NAME"/>
                     </div>
                     <div class="form-group">
-                        <input type="date" class="form-control" name="start" th:placeholder="#{teacher.field.start}"
+                        <label for="input-2" class="col-lg-12" th:text="#{teacher.field.start}">Start</label>
+                        <input id="input-2" type="date" class="form-control" name="start" th:placeholder="#{teacher.field.start}"
                                placeholder="TEACHER START DATE"
                                min="1900-01-01"/>
                     </div>
                     <div class="form-group">
-                        <input type="date" class="form-control" name="finish" th:placeholder="#{teacher.field.finish}"
+                        <label for="input-3" class="col-lg-12" th:text="#{teacher.field.finish}">Name</label>
+                        <input id="input-3" type="date" class="form-control" name="finish" th:placeholder="#{teacher.field.finish}"
                                placeholder="TEACHER FINISH DATE"
                                min="1900-01-01"/>
                     </div>
