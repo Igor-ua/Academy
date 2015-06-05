@@ -1,10 +1,10 @@
 Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](https://github.com/Igor-ua/Academy/blob/master/README_RU.md)
 
-# Academy (readme is not finished yet)
+# Academy
 
 Проект "Академия" был разработан мной в ходе обучения языку **Java**.
 "Академия" является системой учёта данных для учебного заведения (база данных с интерфейсом доступа).
-<br>Данная система предоставляет ведение учёта по таким критериям, как: студенты, группы, учители, оценки, расписание и др. 
+<br>Данная система предоставляет ведение учёта (CRUD - create/read/update/delete + search) по таким критериям, как: студенты, группы, учители, оценки, расписание и др. 
 <br>Реализация данного проекта содержит в себе такие технологии как:
 
 <p><strong>DB connectivity / ORM</strong></p>
@@ -69,11 +69,23 @@ Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](h
   <li>Spring DATA MongoDB</li>
 </ul>
 
-##Запуск
+##Запуск Getting Started
 
 Проект разделён на 3 части: **JDBC**, **Hibernate**, **Spring**. Каждая его часть запускается отдельно через свой `main` класс, каждый из которых находится в пакете `org.mydomain.academy.main`
-<ul>
-  <li>AcademyJDBCConsole.class</li>
-  <li>AcademyHibernateConsole.class</li>
-  <li>AcademySpringBootWeb.class</li>
-</ul>
+ 
+ + `AcademyJDBCConsole.class`
+ + `AcademyHibernateConsole.class`
+ + `AcademySpringBootWeb.class`
+ 
+Для каждой из частей существует возможность настройки параметров запуска через соответствующий property / class файл: 
+
+ + `JDBC.properties` - JDBC settings
+ + `HibernateSettings.class (package org.mydomain.academy.db.utils)` - Hibernate settings
+ + `Application.properties` - SpringBoot settings
+
+**JDBC** реализация зависит от внешней базы данных. Настройки для подключения к базе данных необходимо перед запуском прописать(поменять) в файле `jdbc.properties`.<br>
+**Hibernate** и **SpringBoot** реализации самостоятельно при своём старте запускают TCP сервер `org.mydomain.academy.db.H2Server` базы данных H2. Настройки подключения к базе данных и другие внутренние настройки находятся в соответствующих файлах.<br>
+**JDBC** и **Hibernate** реализации используют консольный интерфейс, в то время как **SpringBoot** использует WEB-интерфейс, который по умолчанию будет доступен по адресу [http://localhost:8181/](http://localhost:8181/) или [http://127.0.0.1:8181/](http://127.0.0.1:8181/)
+
+##Диаграмма базы данных
+![DB diagram](https://raw.githubusercontent.com/Igor-ua/Academy/master/Academy_diagram.png "Academy db diagram")
