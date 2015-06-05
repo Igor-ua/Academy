@@ -2,10 +2,10 @@ Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](h
 
 # Academy
 
-Проект "Академия" был разработан мной в ходе обучения языку **Java**.
-"Академия" является системой учёта данных для учебного заведения (база данных с интерфейсом доступа).
-<br>Данная система предоставляет ведение учёта (CRUD - create/read/update/delete + search) по таким критериям, как: студенты, группы, учители, оценки, расписание и др. 
-<br>Реализация данного проекта содержит в себе такие технологии как:
+Project "Academy" has been developed by me in the course of learning **Java** language.
+"Academy" is an accounting data system for the educational institutions (database with an access interface).
+<br>This system provides management (CRUD - create/read/update/delete + search) on such criteria as: students, groups, teachers, marks, schedules, etc.
+<br>This project contains such technologies as:
 
 <p><strong>DB connectivity / ORM</strong></p>
 <ul>
@@ -60,8 +60,7 @@ Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](h
   <li>Apache commons</li>
 </ul>
 
-
-Части проекта, которые <i>были реализованы</i>, но по различным причинам <i>не были включены</i> в данную сборку:
+Parts of the project that <i>have been implemented</i>, but for various reasons were <i>not included</i> in this assembly:
 
 <ul>
   <li>Swing interface</li>
@@ -69,23 +68,23 @@ Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](h
   <li>Spring DATA MongoDB</li>
 </ul>
 
-##Запуск Getting Started
+##Getting Started
 
-Проект разделён на 3 части: **JDBC**, **Hibernate**, **Spring**. Каждая его часть запускается отдельно через свой `main` класс, каждый из которых находится в пакете `org.mydomain.academy.main`
+This project is divided into 3 parts: **JDBC**, **Hibernate**, **Spring**. Each part of the project is being launched separately through it's own `main` class that is in `org.mydomain.academy.main` package
  
  + `AcademyJDBCConsole.class`
  + `AcademyHibernateConsole.class`
  + `AcademySpringBootWeb.class`
  
-Для каждой из частей существует возможность настройки параметров запуска через соответствующий property / class файл: 
+Each of the parts has it's own configuration that is in it's own property / class file:
 
  + `JDBC.properties` - JDBC settings
  + `HibernateSettings.class (package org.mydomain.academy.db.utils)` - Hibernate settings
  + `Application.properties` - SpringBoot settings
 
-**JDBC** реализация зависит от внешней базы данных. Настройки для подключения к базе данных необходимо перед запуском прописать(поменять) в файле `jdbc.properties`.<br>
-**Hibernate** и **SpringBoot** реализации самостоятельно при своём старте запускают TCP сервер `org.mydomain.academy.db.H2Server` базы данных H2. Настройки подключения к базе данных и другие внутренние настройки находятся в соответствующих файлах.<br>
-**JDBC** и **Hibernate** реализации используют консольный интерфейс, в то время как **SpringBoot** использует WEB-интерфейс, который по умолчанию будет доступен по адресу [http://localhost:8181/](http://localhost:8181/) или [http://127.0.0.1:8181/](http://127.0.0.1:8181/)
+**JDBC** implementation depends on an external database. Database connection settings should be changed(updated) before launching an application in `jdbc.properties` file.<br>
+**Hibernate** and **SpringBoot** implementations run H2 database TCP server `org.mydomain.academy.db.H2Server` independently at start. Database connection settings and the other internal settings are in the corresponding files.<br>
+**JDBC** and **Hibernate** implementations use console interface when **SpringBoot** uses WEB-interface that is available on [http://localhost:8181/](http://localhost:8181/) или [http://127.0.0.1:8181/](http://127.0.0.1:8181/) by default.
 
-##Диаграмма базы данных
+##Database diagram
 ![DB diagram](https://raw.githubusercontent.com/Igor-ua/Academy/master/Academy_diagram.png "Academy db diagram")

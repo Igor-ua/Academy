@@ -1,38 +1,38 @@
-Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](https://github.com/Igor-ua/Academy/blob/master/README_RU.md)
+Доступно: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](https://github.com/Igor-ua/Academy/blob/master/README_RU.md)
 
-# Academy (readme is not finished yet)
+# Академия
 
 Проект "Академия" был разработан мной в ходе обучения языку **Java**.
 "Академия" является системой учёта данных для учебного заведения (база данных с интерфейсом доступа).
-<br>Данная система предоставляет ведение учёта по таким критериям, как: студенты, группы, учители, оценки, расписание и др. 
+<br>Данная система предоставляет ведение учёта (CRUD - создание/чтение/обновление/удаление + поиск) по таким критериям, как: студенты, группы, учители, оценки, расписание и др. 
 <br>Реализация данного проекта содержит в себе такие технологии как:
 
-<p><strong>DB connectivity / ORM</strong></p>
+<p><strong>Взаимодействие с БД / ORM</strong></p>
 <ul>
   <li>JDBC</li>
   <li>Hibernate</li>
   <li>Spring DATA JPA</li>
 </ul>
 
-<p><strong>Build management tools</strong></p>
+<p><strong>Сборщики проектов</strong></p>
 <ul>
   <li>Maven</li>
 </ul>
 
-<p><strong>Databases</strong></p>
+<p><strong>Базы данных</strong></p>
 <ul>
   <li>MySQL</li>
   <li>H2</li>
 </ul>
 
-<p><strong>Logging</strong></p>
+<p><strong>Логирование</strong></p>
 <ul>
   <li>Log4j</li>
   <li>Log4j2</li>
   <li>Slf4j</li>
 </ul>
 
-<p><strong>Spring technologies</strong></p>
+<p><strong>Технологии Spring</strong></p>
 <ul>
   <li>Spring Boot</li>
   <li>Spring MVC</li>
@@ -40,7 +40,7 @@ Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](h
   <li>Spring DATA REST</li>
 </ul>
 
-<p><strong>User interfaces</strong></p>
+<p><strong>Пользовательские интерфейсы</strong></p>
 <ul>
   <li>Console interface</li>
   <li>WEB interface</li>
@@ -54,7 +54,7 @@ Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](h
   </ul>
 </ul>
 
-<p><strong>Additional libraries</strong></p>
+<p><strong>Дополнительные библиотеки</strong></p>
 <ul>
   <li>Google guava</li>
   <li>Apache commons</li>
@@ -72,8 +72,20 @@ Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](h
 ##Запуск
 
 Проект разделён на 3 части: **JDBC**, **Hibernate**, **Spring**. Каждая его часть запускается отдельно через свой `main` класс, каждый из которых находится в пакете `org.mydomain.academy.main`
-<ul>
-  <li>AcademyJDBCConsole.class</li>
-  <li>AcademyHibernateConsole.class</li>
-  <li>AcademySpringBootWeb.class</li>
-</ul>
+ 
+ + `AcademyJDBCConsole.class`
+ + `AcademyHibernateConsole.class`
+ + `AcademySpringBootWeb.class`
+ 
+Для каждой из частей существует возможность настройки параметров запуска через соответствующий property / class файл: 
+
+ + `JDBC.properties` - JDBC settings
+ + `HibernateSettings.class (package org.mydomain.academy.db.utils)` - Hibernate settings
+ + `Application.properties` - SpringBoot settings
+
+**JDBC** реализация зависит от внешней базы данных. Настройки для подключения к базе данных необходимо перед запуском прописать(поменять) в файле `jdbc.properties`.<br>
+**Hibernate** и **SpringBoot** реализации самостоятельно при своём старте запускают TCP сервер `org.mydomain.academy.db.H2Server` базы данных H2. Настройки подключения к базе данных и другие внутренние настройки находятся в соответствующих файлах.<br>
+**JDBC** и **Hibernate** реализации используют консольный интерфейс, в то время как **SpringBoot** использует WEB-интерфейс, который по умолчанию будет доступен по адресу [http://localhost:8181/](http://localhost:8181/) или [http://127.0.0.1:8181/](http://127.0.0.1:8181/)
+
+##Диаграмма базы данных
+![DB diagram](https://raw.githubusercontent.com/Igor-ua/Academy/master/Academy_diagram.png "Academy db diagram")
