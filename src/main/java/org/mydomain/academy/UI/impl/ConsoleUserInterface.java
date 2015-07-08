@@ -57,9 +57,9 @@ public class ConsoleUserInterface implements UserInterface {
 		System.out.println();
 		log.info(LOG_CONSOLE_INTERFACE_INIT);
 		System.out.println(MSG_GREETING);
-		label_Main:
 		try {
-			while (true) {
+			boolean flag = true;
+			while (flag) {
 				try {
 					switchTitle();
 					String usersChoice = scanner.nextLine();
@@ -95,7 +95,8 @@ public class ConsoleUserInterface implements UserInterface {
 							caseTeacher();
 							break;
 						case "0":
-							break label_Main;
+							flag = false;
+							break;
 						default:
 							System.out.println(MSG_INPUT_ERROR);
 							break;
@@ -134,8 +135,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseForm() {
 		String usersChoice;
-		label_Form:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_FORM_ACTION);
 			System.out.println(MSG_FORM_SHOW_ALL_FORMS);
 			System.out.println(MSG_FORM_FIND_FORM_BY_ID);
@@ -166,7 +167,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleForm.updateForm();
 					break;
 				case "0":
-					break label_Form;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -176,8 +178,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseGroup() {
 		String usersChoice;
-		label_Group:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_GROUP_ACTION);
 			System.out.println(MSG_GROUP_SHOW_ALL_GROUPS);
 			System.out.println(MSG_GROUP_FIND_GROUP_BY_ID);
@@ -216,7 +218,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleGroup.updateGroup();
 					break;
 				case "0":
-					break label_Group;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -226,8 +229,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseMark() {
 		String usersChoice;
-		label_Mark:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_MARK_ACTION);
 			System.out.println(MSG_MARK_SHOW_ALL_MARKS);
 			System.out.println(MSG_MARK_FIND_MARK_BY_ID);
@@ -282,7 +285,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleMark.updateMark();
 					break;
 				case "0":
-					break label_Mark;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -292,8 +296,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseMarkType() {
 		String usersChoice;
-		label_MarkType:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_MARKTYPE_ACTION);
 			System.out.println(MSG_MARKTYPE_SHOW_ALL_MARKTYPES);
 			System.out.println(MSG_MARKTYPE_FIND_MARKTYPES_BY_ID);
@@ -324,7 +328,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleMarkType.updateMarkType();
 					break;
 				case "0":
-					break label_MarkType;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -334,8 +339,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void casePerson() {
 		String usersChoice;
-		label_Person:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_PERSON_ACTION);
 			System.out.println(MSG_PERSON_SHOW_ALL_PERSONS);
 			System.out.println(MSG_PERSON_FIND_PERSON_BY_ID);
@@ -374,7 +379,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consolePerson.updatePerson();
 					break;
 				case "0":
-					break label_Person;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -384,8 +390,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseSchedule() {
 		String usersChoice;
-		label_Schedule:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_SCHEDULE_ACTION);
 			System.out.println(MSG_SCHEDULE_SHOW_ALL_SCHEDULES);
 			System.out.println(MSG_SCHEDULE_FIND_SCHEDULE_BY_ID);
@@ -436,7 +442,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleSchedule.updateSchedule();
 					break;
 				case "0":
-					break label_Schedule;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -446,8 +453,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseSpecialization() {
 		String usersChoice;
-		label_Specialization:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_SPECIALIZATION_ACTION);
 			System.out.println(MSG_SPECIALIZATION_SHOW_ALL_SPECS);
 			System.out.println(MSG_SPECIALIZATION_FIND_SPEC_BY_ID);
@@ -478,7 +485,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleSpecialization.updateSpecialization();
 					break;
 				case "0":
-					break label_Specialization;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -488,8 +496,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseStudent() {
 		String usersChoice;
-		label_Student:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_STUDENT_ACTION);
 			System.out.println(MSG_STUDENT_SHOW_ALL_STUDENTS);
 			System.out.println(MSG_STUDENT_FIND_STUDENT_BY_ID);
@@ -532,7 +540,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleStudent.updateStudent();
 					break;
 				case "0":
-					break label_Student;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -542,8 +551,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseSubject() {
 		String usersChoice;
-		label_Subject:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_SUBJECT_ACTION);
 			System.out.println(MSG_SUBJECT_SHOW_ALL_SUBJECTS);
 			System.out.println(MSG_SUBJECT_FIND_SUBJECT_BY_ID);
@@ -578,7 +587,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleSubject.updateSubject();
 					break;
 				case "0":
-					break label_Subject;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;
@@ -588,8 +598,8 @@ public class ConsoleUserInterface implements UserInterface {
 
 	public void caseTeacher() {
 		String usersChoice;
-		label_Teacher:
-		while (true) {
+		boolean flag = true;
+		while (flag) {
 			System.out.println(MSG_TEACHER_ACTION);
 			System.out.println(MSG_TEACHER_SHOW_ALL_TEACHERS);
 			System.out.println(MSG_TEACHER_FIND_TEACHER_BY_ID);
@@ -628,7 +638,8 @@ public class ConsoleUserInterface implements UserInterface {
 					consoleTeacher.updateTeacher();
 					break;
 				case "0":
-					break label_Teacher;
+					flag = false;
+					break;
 				default:
 					System.out.println(MSG_INPUT_ERROR);
 					break;

@@ -31,16 +31,16 @@ public class H2ConsoleServer {
 	public static void main(String[] args) {
 		try {
 			System.out.println(H2ServerMessages.H2_WELCOME_MESSAGE + "\n");
-			label_Main:
-			while (true) {
+			boolean cycle = true;
+			while (cycle) {
 				System.out.println(H2ServerMessages.H2_START_MESSAGE);
 				System.out.println(H2ServerMessages.H2_EXIT_MESSAGE);
 				String usersChoice = scanner.nextLine();
 				switch (usersChoice) {
 					case "1":
-						label_Start:
+						boolean flag = true;
 						if (startServer(DEFAULT_PORT)) {
-							while (true) {
+							while (flag) {
 								System.out.println(H2ServerMessages.H2_STOP_MESSAGE);
 								usersChoice = scanner.nextLine();
 								switch (usersChoice) {
@@ -50,7 +50,8 @@ public class H2ConsoleServer {
 										} else {
 											System.err.println(H2ServerMessages.H2_ERROR_STOP_MESSAGE);
 										}
-										break label_Start;
+										flag = false;
+										break;
 									default:
 										System.out.println(H2ServerMessages.H2_ERROR_MESSAGE);
 								}
@@ -58,7 +59,8 @@ public class H2ConsoleServer {
 						}
 						break;
 					case "0":
-						break label_Main;
+						cycle = false;
+						break;
 				}
 			}
 		} catch (NoSuchElementException e) {
