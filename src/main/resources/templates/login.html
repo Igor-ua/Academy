@@ -15,6 +15,7 @@
 <div th:replace="fragments/header :: page">Header section</div>
 
 <br/><br/>
+
 <div id="div-login">
     <div class="container">
         <div class="row">
@@ -29,22 +30,27 @@
 
                 <form class="form-signin" th:action="@{/login}" method="post">
                     <h2 class="form-signin-heading text-center" th:text="#{login.sign.in}">Please sign in</h2><br/>
-                    <input type="text" id="username" name="username" class="form-control" th:placeholder="#{login.username}"
+                    <input type="text" name="username" class="form-control" th:placeholder="#{login.username}"
                            required="required" autofocus="autofocus"/>
                     <br/>
-                    <label for="password" class="sr-only">Password</label>
                     <br/>
-                    <input type="password" name="password" id="password" class="form-control" th:placeholder="#{login.password}"
+                    <input type="password" name="password" class="form-control" th:placeholder="#{login.password}"
                            required="required"/>
 
                     <div class="checkbox">
-                        <label>
-                            <input id="remember-me" type="checkbox" value="remember-me" th:text="#{login.remember.me}"/>
-                        </label>
-                        <br/>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="remember-me" th:text="#{login.remember.me}"/>
+                            </label>
+                            <br/>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit"
+                                th:text="#{login.button.sign.in}">Sign in
+                        </button>
                     </div>
-                    <button id="loginButton" class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.button.sign.in}">Sign in</button>
+
                 </form>
+
             </div>
         </div>
     </div>

@@ -49,7 +49,7 @@ public class PersonController {
 			method = RequestMethod.POST)
 	public String showPersonById(@RequestParam(value = "id") long id, Model model) {
 		model.addAttribute("person", jpaPersonService.findPersonByIdService(id));
-		return "/fragments/entities/person/personlist";
+		return PERSON_ROUTE + "/personlist";
 	}
 
 	@RequestMapping(value = "/find")

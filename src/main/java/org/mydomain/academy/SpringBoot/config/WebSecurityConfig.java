@@ -58,15 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.rememberMe();
 	}
 
-//	@Autowired
-//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		auth
-//				.inMemoryAuthentication()
-//				.withUser("user").password("123").roles("USER")
-//				.and()
-//				.withUser("admin").password("123").roles("ADMIN");
-//	}
-
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
