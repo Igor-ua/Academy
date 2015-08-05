@@ -32,8 +32,6 @@ public class AcademySpringBootWeb extends WebMvcConfigurerAdapter implements Com
 
 		//fills db with temp content
 		contentManager.addContent();
-
-		System.out.println("[!]   Spring Boot is ready");
 	}
 
 	@Autowired
