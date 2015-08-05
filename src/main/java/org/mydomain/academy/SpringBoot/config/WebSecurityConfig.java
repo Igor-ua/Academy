@@ -2,6 +2,7 @@ package org.mydomain.academy.SpringBoot.config;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.ArrayList;
@@ -22,14 +25,18 @@ import java.util.List;
 @EnableWebMvcSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private DataSource datasource;
+	@Autowired
+	DataSource dataSource;
 
 	@Autowired
-	protected void setDatasource(DataSource datasource) {
-		this.datasource = datasource;
+	PersistentTokenRepository persistentTokenRepository;
+
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+		db.setDataSource(dataSource);
+		return db;
 	}
-//    @Autowired
-//    private HttpServletRequest httpServletRequest;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -39,7 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/img/*").permitAll()
 				.antMatchers("/css/*").permitAll()
 				.antMatchers("/js/*").permitAll()
-//				.antMatchers("/edit*").hasAuthority("ADMIN")
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
@@ -54,19 +60,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/")
 				.permitAll()
 				.and()
-				.csrf().disable()
-				.rememberMe();
+				//.csrf().disable()
+				.rememberMe().tokenRepository(persistentTokenRepository).tokenValiditySeconds(86400);
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager();
-		userDetailsService.setDataSource(datasource);
+		userDetailsService.setDataSource(dataSource);
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 
 		auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-		auth.jdbcAuthentication().dataSource(datasource);
+		auth.jdbcAuthentication().dataSource(dataSource);
 
 		if (!userDetailsService.userExists("user")) {
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();

@@ -29,6 +29,9 @@
                 </div>
 
                 <form class="form-signin" th:action="@{/login}" method="post">
+
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
                     <h2 class="form-signin-heading text-center" th:text="#{login.sign.in}">Please sign in</h2><br/>
                     <input type="text" name="username" class="form-control" th:placeholder="#{login.username}"
                            required="required" autofocus="autofocus"/>
