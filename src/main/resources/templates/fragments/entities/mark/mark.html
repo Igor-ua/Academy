@@ -2,12 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:fragment="page">
 
-<head>
-    <object th:include="fragments/entities/includes :: head-section"></object>
-</head>
+<head th:include="includes :: head-section"></head>
 
 <body>
-<div th:replace="fragments/header :: page">Header section</div>
+
+<div th:include="fragments/header :: body-section">Header section</div>
 
 <div id="div-edit-mark">
     <div class="container" id="root-container">
