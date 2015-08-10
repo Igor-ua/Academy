@@ -3,18 +3,13 @@
       th:fragment="page">
 <head>
     <title th:text="#{body.title}">Body</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}"/>
-    <script th:src="@{js/jquery-2.1.4.min.js}"></script>
-    <script th:src="@{js/jquery.validate.min.js}"></script>
-    <script th:src="@{js/site.js}"></script>
+    <object th:include="includes :: head-section"></object>
 </head>
 
 <body>
 
 <div id="div-body">
-    <div th:replace="fragments/news/news :: page">News section</div>
+    <div th:include="fragments/news/news :: page">News section</div>
 </div>
 </body>
 </html>

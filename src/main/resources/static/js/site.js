@@ -16,12 +16,7 @@ var Module = (function () {
             privatePaginationHrefs();
             privateMenuButtonColors();
             privateAjaxSetup();
-            privateHeaderBar();
         });
-    };
-
-    var privateHeaderBar = function () {
-        $('#get-into-db-href').attr('href', 'db');
     };
 
     var privateAjaxSetup = function () {

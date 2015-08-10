@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 				.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/**/logout"))
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.deleteCookies("remember-me")
 				.logoutSuccessUrl("/")
 				.permitAll()

@@ -11,8 +11,8 @@ public class IndexController {
 		return "index";
 	}
 
-	@RequestMapping(value = {"**/home"})
-	String home() {
-		return "redirect:/";
-	}
+//	@RequestMapping(value = {"**/home"})
+//	String home() {
+//		return "redirect:/";
+//	}
 }

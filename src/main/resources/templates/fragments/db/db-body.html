@@ -3,14 +3,8 @@
       th:fragment="page">
 <head>
     <title th:text="#{db.body.title}">db</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}"/>
-    <script th:src="@{js/jquery-2.1.4.min.js}"></script>
-    <script th:src="@{js/jquery.validate.min.js}"></script>
-    <script th:src="@{js/site.js}"></script>
-
-    <base href="db/" />
+    <object th:include="includes :: head-section"></object>
+    <base th:href="@{/db/}" />
 </head>
 
 <body>
@@ -35,6 +29,6 @@
         </div>
     </div>
 </div>
-<div th:replace="fragments/footer :: page">Footer section</div>
+<div th:include="fragments/footer :: page">Footer section</div>
 </body>
 </html>
