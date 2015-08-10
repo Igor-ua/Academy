@@ -5,7 +5,7 @@ var Module = (function () {
     var myModule = {};
 
     myModule.publicMain = function () {
-        console.log("JS publicMain() Entry Point");
+        //console.log("JS publicMain() Entry Point");
         privateEntryPoint();
     };
 
@@ -15,8 +15,25 @@ var Module = (function () {
             privateForms();
             privatePaginationHrefs();
             privateMenuButtonColors();
+            privateAjaxSetup();
+            privateHeaderBar();
         });
     };
+
+    var privateHeaderBar = function () {
+        $('#get-into-db-href').attr('href', 'db');
+    };
+
+    var privateAjaxSetup = function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token)
+            }
+        });
+    };
+
 
     var privatePaginationHrefs = function () {
         $('#pagination').find('a').each(function (e) {
@@ -58,18 +75,16 @@ var Module = (function () {
             return value.match(new RegExp("^" + param + "$"));
         });
 
-
         //############################################################################################
         //Forms FIND BY ID block
         //############################################################################################
         $('#personFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/person/show',
+                url: 'person/show',
                 type: 'post',
                 data: $('#personFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -82,11 +97,11 @@ var Module = (function () {
         $('#teacherFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/teacher/show',
+                url: 'teacher/show',
                 type: 'post',
+                beforeSend: function(xhr) {xhr.setRequestHeader(header, token)},
                 data: $('#teacherFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -99,11 +114,10 @@ var Module = (function () {
         $('#formFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/form/show',
+                url: 'form/show',
                 type: 'post',
                 data: $('#formFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -116,11 +130,10 @@ var Module = (function () {
         $('#groupFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/group/show',
+                url: 'group/show',
                 type: 'post',
                 data: $('#groupFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -133,11 +146,10 @@ var Module = (function () {
         $('#markFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/mark/show',
+                url: 'mark/show',
                 type: 'post',
                 data: $('#markFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -150,11 +162,10 @@ var Module = (function () {
         $('#markTypeFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/marktype/show',
+                url: 'marktype/show',
                 type: 'post',
                 data: $('#markTypeFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -167,11 +178,10 @@ var Module = (function () {
         $('#scheduleFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/schedule/show',
+                url: 'schedule/show',
                 type: 'post',
                 data: $('#scheduleFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -184,11 +194,10 @@ var Module = (function () {
         $('#specializationFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/specialization/show',
+                url: 'specialization/show',
                 type: 'post',
                 data: $('#specializationFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -201,11 +210,10 @@ var Module = (function () {
         $('#studentFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/student/show',
+                url: 'student/show',
                 type: 'post',
                 data: $('#studentFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -218,11 +226,10 @@ var Module = (function () {
         $('#subjectFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/subject/show',
+                url: 'subject/show',
                 type: 'post',
                 data: $('#subjectFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -235,11 +242,10 @@ var Module = (function () {
         $('#authenticationFindByIdForm').submit(function (event) {
             event.preventDefault();
             $.ajax({
-                url: '/db/authentication/show',
+                url: 'authentication/show',
                 type: 'post',
                 data: $('#authenticationFindByIdForm').serialize(),
                 success: function (response, textStatus, jqXHR) {
-                    console.log("ajax success.");
                     var res = $(response).find('#inside-container')[0];
                     $('#find-result').html(res);
                 },
@@ -249,8 +255,6 @@ var Module = (function () {
             });
         });
         //____________________________________END OF THE SECTION______________________________________
-
-
 
 
         //############################################################################################
@@ -281,12 +285,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/person/find',
+                    url: 'person/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findPersonForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -322,12 +325,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/teacher/find',
+                    url: 'teacher/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findTeacherForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -355,12 +357,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/form/find',
+                    url: 'form/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findFormForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -396,12 +397,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/group/find',
+                    url: 'group/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findGroupForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -433,12 +433,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/mark/find',
+                    url: 'mark/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findMarkForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -466,12 +465,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/marktype/find',
+                    url: 'marktype/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findMarkTypeForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -499,12 +497,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/schedule/find',
+                    url: 'schedule/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findScheduleForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -532,12 +529,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/specialization/find',
+                    url: 'specialization/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findSpecializationForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -569,12 +565,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/student/find',
+                    url: 'student/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findStudentForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -606,12 +601,11 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/subject/find',
+                    url: 'subject/find',
                     type: 'GET',
                     //dataType: 'json',
                     data: $('#findSubjectForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         var res = $(response).find('#inside-container')[0];
                         $('#find-2-result').html(res);
                         privatePaginationHrefs();
@@ -625,9 +619,6 @@ var Module = (function () {
 
 
         //____________________________________END OF THE SECTION______________________________________
-
-
-
 
 
         //############################################################################################
@@ -661,11 +652,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/person/save',
+                    url: 'person/save',
                     type: 'post',
                     data: $('#savePersonForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#person-result').html('<span class="text-success">' +
                                 '<strong>New person was saved successfully</strong></span>');
@@ -702,11 +692,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/teacher/save',
+                    url: 'teacher/save',
                     type: 'post',
                     data: $('#saveTeacherForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#teacher-result').html('<span class="text-success">' +
                                 '<strong>New teacher was saved successfully</strong></span>');
@@ -741,11 +730,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/form/save',
+                    url: 'form/save',
                     type: 'post',
                     data: $('#saveFormForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#form-result').html('<span class="text-success">' +
                                 '<strong>New form was saved successfully</strong></span>');
@@ -782,11 +770,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/student/save',
+                    url: 'student/save',
                     type: 'post',
                     data: $('#saveStudentForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#student-result').html('<span class="text-success">' +
                                 '<strong>New student was saved successfully</strong></span>');
@@ -821,11 +808,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/group/save',
+                    url: 'group/save',
                     type: 'post',
                     data: $('#saveGroupForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#group-result').html('<span class="text-success">' +
                                 '<strong>New group was saved successfully</strong></span>');
@@ -860,11 +846,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/marktype/save',
+                    url: 'marktype/save',
                     type: 'post',
                     data: $('#saveMarkTypeForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#marktype-result').html('<span class="text-success">' +
                                 '<strong>New markType was saved successfully</strong></span>');
@@ -897,11 +882,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/mark/save',
+                    url: 'mark/save',
                     type: 'post',
                     data: $('#saveMarkForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#mark-result').html('<span class="text-success">' +
                                 '<strong>New mark was saved successfully</strong></span>');
@@ -936,11 +920,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/schedule/save',
+                    url: 'schedule/save',
                     type: 'post',
                     data: $('#saveScheduleForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#schedule-result').html('<span class="text-success">' +
                                 '<strong>New schedule was saved successfully</strong></span>');
@@ -975,11 +958,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/specialization/save',
+                    url: 'specialization/save',
                     type: 'post',
                     data: $('#saveSpecializationForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#specialization-result').html('<span class="text-success">' +
                                 '<strong>New specialization was saved successfully</strong></span>');
@@ -1014,11 +996,10 @@ var Module = (function () {
             },
             submitHandler: function (form) {
                 $.ajax({
-                    url: '/db/subject/save',
+                    url: 'subject/save',
                     type: 'post',
                     data: $('#saveSubjectForm').serialize(),
                     success: function (response, textStatus, jqXHR) {
-                        console.log("ajax success");
                         if (response == true) {
                             $('#subject-result').html('<span class="text-success">' +
                                 '<strong>New subject was saved successfully</strong></span>');
@@ -1047,464 +1028,453 @@ var Module = (function () {
         //$('#hrefLogin').attr('onclick', 'Module.publicBindLogin();');
 
         //myModule.publicBindLogin = function () {
-        //    $('#div-body').load('/login #div-login');
+        //    $('#div-body').load('login #div-login');
         //    return false;
         //};
         //--------------------------------------------------------------
 
         $('#get-into-db-href').click(function () {
-            $("#div-body").load('/db #div-db');
+            $("#div-body").load('db #div-db');
         });
 
 
         //############################################################################################
         //DB buttons
         //############################################################################################
-        $('#person-btn').attr('href', '/db/person');
-        $('#teacher-btn').attr('href', '/db/teacher');
-        $('#student-btn').attr('href', '/db/student');
-        $('#group-btn').attr('href', '/db/group');
-        $('#form-btn').attr('href', '/db/form');
-        $('#mark-btn').attr('href', '/db/mark');
-        $('#marktype-btn').attr('href', '/db/marktype');
-        $('#schedule-btn').attr('href', '/db/schedule');
-        $('#specialization-btn').attr('href', '/db/specialization');
-        $('#subject-btn').attr('href', '/db/subject');
-        //$('#authentication-btn').attr('href', '/db/authentication');
+        $('#person-btn').attr('href', 'person');
+        $('#teacher-btn').attr('href', 'teacher');
+        $('#student-btn').attr('href', 'student');
+        $('#group-btn').attr('href', 'group');
+        $('#form-btn').attr('href', 'form');
+        $('#mark-btn').attr('href', 'mark');
+        $('#marktype-btn').attr('href', 'marktype');
+        $('#schedule-btn').attr('href', 'schedule');
+        $('#specialization-btn').attr('href', 'specialization');
+        $('#subject-btn').attr('href', 'subject');
+        //$('#authentication-btn').attr('href', 'authentication');
         //____________________________________END OF THE SECTION______________________________________
 
-        
 
         //############################################################################################
         //Buttons SHOW ALL
         //############################################################################################
         $('#print-all-persons-btn').click(function () {
-            $("#person-result").load('/db/person/show_all #inside-container', function () {
+            $("#person-result").load('person/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-teachers-btn').click(function () {
-            $("#teacher-result").load('/db/teacher/show_all #inside-container', function () {
+            $("#teacher-result").load('teacher/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-students-btn').click(function () {
-            $("#student-result").load('/db/student/show_all #inside-container', function () {
+            $("#student-result").load('student/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-groups-btn').click(function () {
-            $("#group-result").load('/db/group/show_all #inside-container', function () {
+            $("#group-result").load('group/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-forms-btn').click(function () {
-            $("#form-result").load('/db/form/show_all #inside-container', function () {
+            $("#form-result").load('form/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-marks-btn').click(function () {
-            $("#mark-result").load('/db/mark/show_all #inside-container', function () {
+            $("#mark-result").load('mark/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-marktypes-btn').click(function () {
-            $("#marktype-result").load('/db/marktype/show_all #inside-container', function () {
+            $("#marktype-result").load('marktype/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-schedules-btn').click(function () {
-            $("#schedule-result").load('/db/schedule/show_all #inside-container', function () {
+            $("#schedule-result").load('schedule/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-specializations-btn').click(function () {
-            $("#specialization-result").load('/db/specialization/show_all #inside-container', function () {
+            $("#specialization-result").load('specialization/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-subjects-btn').click(function () {
-            $("#subject-result").load('/db/subject/show_all #inside-container', function () {
+            $("#subject-result").load('subject/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#print-all-authentications-btn').click(function () {
-            $("#authentication-result").load('/db/authentication/show_all #inside-container', function () {
+            $("#authentication-result").load('authentication/show_all #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
         //____________________________________END OF THE SECTION______________________________________
-
-
 
 
         //############################################################################################
         //Buttons FIND BY ID
         //############################################################################################
         $('#find-person-by-id-btn').click(function () {
-            $("#person-result").load('/db/person/find #inside-container', function () {
+            $("#person-result").load('person/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-teacher-by-id-btn').click(function () {
-            $("#teacher-result").load('/db/teacher/find #inside-container', function () {
+            $("#teacher-result").load('teacher/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-student-by-id-btn').click(function () {
-            $("#student-result").load('/db/student/find #inside-container', function () {
+            $("#student-result").load('student/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-group-by-id-btn').click(function () {
-            $("#group-result").load('/db/group/find #inside-container', function () {
+            $("#group-result").load('group/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-form-by-id-btn').click(function () {
-            $("#form-result").load('/db/form/find #inside-container', function () {
+            $("#form-result").load('form/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-mark-by-id-btn').click(function () {
-            $("#mark-result").load('/db/mark/find #inside-container', function () {
+            $("#mark-result").load('mark/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-marktype-by-id-btn').click(function () {
-            $("#marktype-result").load('/db/marktype/find #inside-container', function () {
+            $("#marktype-result").load('marktype/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-schedule-by-id-btn').click(function () {
-            $("#schedule-result").load('/db/schedule/find #inside-container', function () {
+            $("#schedule-result").load('schedule/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-specialization-by-id-btn').click(function () {
-            $("#specialization-result").load('/db/specialization/find #inside-container', function () {
+            $("#specialization-result").load('specialization/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-subject-by-id-btn').click(function () {
-            $("#subject-result").load('/db/subject/find #inside-container', function () {
+            $("#subject-result").load('subject/find #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#find-authentication-by-id-btn').click(function () {
-            $("#authentication-result").load('/db/authentication/find #inside-container', function () {
+            $("#authentication-result").load('authentication/find #inside-container', function () {
                 privateForms();
             });
         });
         //____________________________________END OF THE SECTION______________________________________
-
-
 
 
         //############################################################################################
         //Buttons FIND BY ANY
         //############################################################################################
         $('#find-persons-by-any-btn').click(function () {
-            $("#person-result").load('/db/person/find #inside-container-2', function () {
+            $("#person-result").load('person/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-teachers-by-any-btn').click(function () {
-            $("#teacher-result").load('/db/teacher/find #inside-container-2', function () {
+            $("#teacher-result").load('teacher/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-students-by-any-btn').click(function () {
-            $("#student-result").load('/db/student/find #inside-container-2', function () {
+            $("#student-result").load('student/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-groups-by-any-btn').click(function () {
-            $("#group-result").load('/db/group/find #inside-container-2', function () {
+            $("#group-result").load('group/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-forms-by-any-btn').click(function () {
-            $("#form-result").load('/db/form/find #inside-container-2', function () {
+            $("#form-result").load('form/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-marks-by-any-btn').click(function () {
-            $("#mark-result").load('/db/mark/find #inside-container-2', function () {
+            $("#mark-result").load('mark/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-marktypes-by-any-btn').click(function () {
-            $("#marktype-result").load('/db/marktype/find #inside-container-2', function () {
+            $("#marktype-result").load('marktype/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-schedules-by-any-btn').click(function () {
-            $("#schedule-result").load('/db/schedule/find #inside-container-2', function () {
+            $("#schedule-result").load('schedule/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-specializations-by-any-btn').click(function () {
-            $("#specialization-result").load('/db/specialization/find #inside-container-2', function () {
+            $("#specialization-result").load('specialization/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-subjects-by-any-btn').click(function () {
-            $("#subject-result").load('/db/subject/find #inside-container-2', function () {
+            $("#subject-result").load('subject/find #inside-container-2', function () {
                 privateForms();
             });
         });
 
         $('#find-authentications-by-any-btn').click(function () {
-            $("#authentication-result").load('/db/authentication/find #inside-container-2', function () {
+            $("#authentication-result").load('authentication/find #inside-container-2', function () {
                 privateForms();
             });
         });
         //____________________________________END OF THE SECTION______________________________________
-
-
 
 
         //############################################################################################
         //Buttons SAVE
         //############################################################################################
         $('#save-person-btn').click(function () {
-            $("#person-result").load('/db/person/save?id= #inside-container', function () {
+            $("#person-result").load('person/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-teacher-btn').click(function () {
-            $("#teacher-result").load('/db/teacher/save?id= #inside-container', function () {
+            $("#teacher-result").load('teacher/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-student-btn').click(function () {
-            $("#student-result").load('/db/student/save?id= #inside-container', function () {
+            $("#student-result").load('student/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-group-btn').click(function () {
-            $("#group-result").load('/db/group/save?id= #inside-container', function () {
+            $("#group-result").load('group/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-form-btn').click(function () {
-            $("#form-result").load('/db/form/save?id= #inside-container', function () {
+            $("#form-result").load('form/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-mark-btn').click(function () {
-            $("#mark-result").load('/db/mark/save?id= #inside-container', function () {
+            $("#mark-result").load('mark/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-marktype-btn').click(function () {
-            $("#marktype-result").load('/db/marktype/save?id= #inside-container', function () {
+            $("#marktype-result").load('marktype/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-schedule-btn').click(function () {
-            $("#schedule-result").load('/db/schedule/save?id= #inside-container', function () {
+            $("#schedule-result").load('schedule/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-specialization-btn').click(function () {
-            $("#specialization-result").load('/db/specialization/save?id= #inside-container', function () {
+            $("#specialization-result").load('specialization/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-subject-btn').click(function () {
-            $("#subject-result").load('/db/subject/save?id= #inside-container', function () {
+            $("#subject-result").load('subject/save?id= #inside-container', function () {
                 privateForms();
             });
         });
 
         $('#save-authentication-btn').click(function () {
-            $("#authentication-result").load('/db/authentication/save?id= #inside-container', function () {
+            $("#authentication-result").load('authentication/save?id= #inside-container', function () {
                 privateForms();
             });
         });
         //____________________________________END OF THE SECTION______________________________________
-
 
 
         //############################################################################################
         //Buttons UPDATE
         //############################################################################################
         $('#update-person-btn').click(function () {
-            $("#person-result").load('/db/person/update #inside-container', function () {
+            $("#person-result").load('person/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-teacher-btn').click(function () {
-            $("#teacher-result").load('/db/teacher/update #inside-container', function () {
+            $("#teacher-result").load('teacher/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-student-btn').click(function () {
-            $("#student-result").load('/db/student/update #inside-container', function () {
+            $("#student-result").load('student/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-group-btn').click(function () {
-            $("#group-result").load('/db/group/update #inside-container', function () {
+            $("#group-result").load('group/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-form-btn').click(function () {
-            $("#form-result").load('/db/form/update #inside-container', function () {
+            $("#form-result").load('form/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-mark-btn').click(function () {
-            $("#mark-result").load('/db/mark/update #inside-container', function () {
+            $("#mark-result").load('mark/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-marktype-btn').click(function () {
-            $("#marktype-result").load('/db/marktype/update #inside-container', function () {
+            $("#marktype-result").load('marktype/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-schedule-btn').click(function () {
-            $("#schedule-result").load('/db/schedule/update #inside-container', function () {
+            $("#schedule-result").load('schedule/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-specialization-btn').click(function () {
-            $("#specialization-result").load('/db/specialization/update #inside-container', function () {
+            $("#specialization-result").load('specialization/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-subject-btn').click(function () {
-            $("#subject-result").load('/db/subject/update #inside-container', function () {
+            $("#subject-result").load('subject/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#update-authentication-btn').click(function () {
-            $("#authentication-result").load('/db/authentication/update #inside-container', function () {
+            $("#authentication-result").load('authentication/update #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
         //____________________________________END OF THE SECTION______________________________________
 
-        
-        
-        
-        
+
         //############################################################################################
         //Buttons DELETE
         //############################################################################################
         $('#delete-person-btn').click(function () {
-            $("#person-result").load('/db/person/delete #inside-container', function () {
+            $("#person-result").load('person/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-teacher-btn').click(function () {
-            $("#teacher-result").load('/db/teacher/delete #inside-container', function () {
+            $("#teacher-result").load('teacher/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-student-btn').click(function () {
-            $("#student-result").load('/db/student/delete #inside-container', function () {
+            $("#student-result").load('student/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-group-btn').click(function () {
-            $("#group-result").load('/db/group/delete #inside-container', function () {
+            $("#group-result").load('group/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-form-btn').click(function () {
-            $("#form-result").load('/db/form/delete #inside-container', function () {
+            $("#form-result").load('form/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-mark-btn').click(function () {
-            $("#mark-result").load('/db/mark/delete #inside-container', function () {
+            $("#mark-result").load('mark/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-marktype-btn').click(function () {
-            $("#marktype-result").load('/db/marktype/delete #inside-container', function () {
+            $("#marktype-result").load('marktype/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-schedule-btn').click(function () {
-            $("#schedule-result").load('/db/schedule/delete #inside-container', function () {
+            $("#schedule-result").load('schedule/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-specialization-btn').click(function () {
-            $("#specialization-result").load('/db/specialization/delete #inside-container', function () {
+            $("#specialization-result").load('specialization/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-subject-btn').click(function () {
-            $("#subject-result").load('/db/subject/delete #inside-container', function () {
+            $("#subject-result").load('subject/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });
 
         $('#delete-authentication-btn').click(function () {
-            $("#authentication-result").load('/db/authentication/delete #inside-container', function () {
+            $("#authentication-result").load('authentication/delete #inside-container', function () {
                 privatePaginationHrefs();
             });
         });

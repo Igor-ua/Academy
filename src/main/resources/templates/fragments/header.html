@@ -4,13 +4,13 @@
 <head>
     <title th:text="#{header.title}">Header</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
-    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
-    <script th:src="@{../../js/bootstrap.min.js}"></script>
-    <script th:src="@{../../js/jquery.validate.min.js}"></script>
-    <script th:src="@{../../js/additional-methods.min.js}"></script>
-    <script th:src="@{../../js/site.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}"/>
+    <script th:src="@{js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+    <script th:src="@{js/jquery.validate.min.js}"></script>
+    <script th:src="@{js/additional-methods.min.js}"></script>
+    <script th:src="@{js/site.js}"></script>
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/" th:text="#{header.logo.name}">Academy</a>
+                <a class="navbar-brand" href="home" th:text="#{header.logo.name}">Academy</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
@@ -43,7 +43,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right" th:switch="${#httpServletRequest.remoteUser}">
-                    <li th:case="null"><a id="hrefLogin" href="/login" title="Login" th:text="#{header.login}">Log in</a>
+                    <li th:case="null"><a id="hrefLogin" href="login" title="Login" th:text="#{header.login}">Log in</a>
                     </li>
                     <li class="active user" th:case="*"><a href="javascript:void(0);" th:text="${#httpServletRequest.remoteUser}"></a>
                     </li>
@@ -52,9 +52,9 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li id="enter-db-header-href" th:if="${#httpServletRequest.remoteUser} != null">
-                        <a id="get-into-db-href" href="/db" th:text="#{header.get.into.db}">Start working with DB</a></li>
+                        <a id="get-into-db-href" href="javascript:void(0);" th:text="#{header.get.into.db}">Start working with DB</a></li>
                     <li th:if="${#httpServletRequest.remoteUser} != null">
-                        <a id="hrefLogout" href="/logout" title="logout" th:text="#{header.logout}">Log out</a></li>
+                        <a id="hrefLogout" href="logout" title="logout" th:text="#{header.logout}">Log out</a></li>
                 </ul>
 
             </div>

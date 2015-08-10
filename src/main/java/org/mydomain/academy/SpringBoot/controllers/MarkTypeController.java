@@ -46,7 +46,7 @@ public class MarkTypeController {
 
 	@RequestMapping(value = "/find")
 	public String findMarkType() {
-		return MARK_TYPE_ROUTE + "/find_markType";
+		return MARK_TYPE_ROUTE + "/find_marktype";
 	}
 
 	@RequestMapping(

@@ -43,9 +43,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 				.authorizeRequests()
 				.antMatchers("/").permitAll()
-				.antMatchers("/img/*").permitAll()
-				.antMatchers("/css/*").permitAll()
-				.antMatchers("/js/*").permitAll()
+				.antMatchers("/img/**").permitAll()
+				.antMatchers("/css/**").permitAll()
+				.antMatchers("/js/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
@@ -55,12 +55,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 				.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutRequestMatcher(new AntPathRequestMatcher("/**/logout"))
 				.deleteCookies("remember-me")
 				.logoutSuccessUrl("/")
 				.permitAll()
 				.and()
-				//.csrf().disable()
+//				.csrf().disable()
 				.rememberMe().tokenRepository(persistentTokenRepository).tokenValiditySeconds(86400);
 	}
 

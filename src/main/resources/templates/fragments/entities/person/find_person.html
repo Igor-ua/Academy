@@ -2,15 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title th:text="#{person.find.title}">Find Person by ID</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
-    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
-    <script th:src="@{../../js/jquery.validate.min.js}"></script>
-    <script th:src="@{../../js/additional-methods.min.js}"></script>
-    <script th:src="@{../../js/site.js}"></script>
+    <object th:include="fragments/entities/includes :: head-section"></object>
 </head>
+
 <body>
 
 <div class="container">
@@ -20,6 +14,7 @@
                 <br/>
 
                 <form id="personFindByIdForm">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon" th:text="#{person.find.id.label}">PERSON ID</span>

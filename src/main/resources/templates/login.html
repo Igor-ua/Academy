@@ -4,11 +4,11 @@
 <head>
     <title th:text="#{login.title}">Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../css/style.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{../../css/bootstrap.css}"/>
-    <script th:src="@{../../js/jquery-2.1.4.min.js}"></script>
-    <script th:src="@{../../js/jquery.validate.min.js}"></script>
-    <script th:src="@{../../js/site.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/bootstrap.css}"/>
+    <script th:src="@{js/jquery-2.1.4.min.js}"></script>
+    <script th:src="@{js/jquery.validate.min.js}"></script>
+    <script th:src="@{js/site.js}"></script>
 </head>
 <body>
 
@@ -28,9 +28,9 @@
                     You have been logged out.
                 </div>
 
-                <form class="form-signin" th:action="@{/login}" method="post">
+                <form class="form-signin" th:action="@{login}" method="post">
 
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
                     <h2 class="form-signin-heading text-center" th:text="#{login.sign.in}">Please sign in</h2><br/>
                     <input type="text" name="username" class="form-control" th:placeholder="#{login.username}"
