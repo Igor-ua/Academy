@@ -25,9 +25,8 @@ public class AcademySpringBootWeb extends SpringBootServletInitializer implement
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//		PropertyManager pm = new PropertyManager();
-//		startServer(pm.getPort());
-		startServer(64000);
+		PropertyManager pm = new PropertyManager();
+		startServer(pm.getPort());
 		return application.sources(AcademySpringBootWeb.class);
 	}
 
@@ -40,7 +39,6 @@ public class AcademySpringBootWeb extends SpringBootServletInitializer implement
 
 	@Override
 	public void run(String... strings) throws Exception {
-
 		//fills db with temp content
 		contentManager.addContent();
 	}

@@ -2,16 +2,14 @@ package org.mydomain.academy.SpringBoot.config;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PropertyManager {
 
-	private static final String PROPERTIES_PATH = "src/main/resources/application.properties";
+	private static final String PROPERTIES_PATH = "/application.properties";
 	private String url;
 	private int port;
 	private Properties properties;
@@ -30,7 +28,7 @@ public class PropertyManager {
 	private void loadPropertyFile(String path) {
 		properties = new Properties();
 		try {
-			properties.load(new FileInputStream(new File(path)));
+			properties.load(new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(path))));
 		} catch (IOException e) {
 			System.err.println("Error loading properties from path: " + path);
 		}
