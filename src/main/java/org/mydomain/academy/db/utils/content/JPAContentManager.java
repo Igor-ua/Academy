@@ -65,34 +65,55 @@ public class JPAContentManager {
 		if (personService.findAllPersonsService().isEmpty()) {
 
 			addPersons();
-			persons.forEach(personService::saveService);
+			for (Person person : persons) {
+				personService.saveService(person);
+			}
 
 			addTeachers();
-			teachers.forEach(teacherService::saveService);
+			for (Teacher teacher : teachers) {
+				teacherService.saveService(teacher);
+			}
 
 			addForms();
-			forms.forEach(formService::saveService);
+			for (Form form : forms) {
+				formService.saveService(form);
+			}
 
 			addSpecializations();
-			specializations.forEach(specializationService::saveService);
+			for (Specialization specialization : specializations) {
+				specializationService.saveService(specialization);
+			}
 
 			addGroups();
-			groups.forEach(groupService::saveService);
+			for (Group group : groups) {
+				groupService.saveService(group);
+			}
 
 			addMarkTypes();
-			markTypes.forEach(markTypeService::saveService);
+			for (MarkType markType : markTypes) {
+				markTypeService.saveService(markType);
+			}
 
 			addStudents();
-			students.forEach(studentService::saveService);
+			for (Student student : students) {
+				studentService.saveService(student);
+			}
 
 			addSubjects();
-			subjects.forEach(subjectService::saveService);
+			for (Subject subject : subjects) {
+				subjectService.saveService(subject);
+			}
 
 			addSchedules();
-			schedules.forEach(scheduleService::saveService);
+			for (Schedule schedule : schedules) {
+				scheduleService.saveService(schedule);
+			}
 
 			addMarks();
-			marks.forEach(markService::saveService);
+			for (Mark mark : marks) {
+				personService.saveService(mark);
+			}
+
 		}
 	}
 

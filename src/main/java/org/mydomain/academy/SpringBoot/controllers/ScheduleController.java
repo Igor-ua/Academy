@@ -104,15 +104,20 @@ public class ScheduleController {
 		List<Group> groups = jpaGroupService.findAllGroupsService();
 		modelMap.addAttribute("groups", groups);
 
-		Object days [] = Arrays.stream(TableNames.ScheduleColumns.DAY_ENUM.values())
-				.map(Enum::name)
-				.collect(Collectors.toList())
-				.toArray();
+		//todo FIX this temp 1.8 -> 1.7 downgrade
+//		Object days [] = Arrays.stream(TableNames.ScheduleColumns.DAY_ENUM.values())
+//				.map(Enum::name)
+//				.collect(Collectors.toList())
+//				.toArray();
+//
+//		Object chisznam [] = Arrays.stream(TableNames.ScheduleColumns.CHIS_ZNAM_ENUM.values())
+//				.map(Enum::name)
+//				.collect(Collectors.toList())
+//				.toArray();
 
-		Object chisznam [] = Arrays.stream(TableNames.ScheduleColumns.CHIS_ZNAM_ENUM.values())
-				.map(Enum::name)
-				.collect(Collectors.toList())
-				.toArray();
+		String days [] = {"Sunday", "Monday", "Tuesday", "Wednesday",
+				"Thursday", "Friday", "Saturday"};
+		String chisznam [] = {"CH", "ZN"};
 
 		modelMap.addAttribute("days", days);
 		modelMap.addAttribute("chisznams", chisznam);

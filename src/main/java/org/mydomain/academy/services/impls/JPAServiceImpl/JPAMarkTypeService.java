@@ -31,7 +31,7 @@ public class JPAMarkTypeService implements MarkTypeService {
 	}
 
 	private boolean validateMarkType(MarkType mark_type) {
-		if (!mark_type.getName().matches("[ 0-9A-Za-z¿-ﬂ‡-ˇ\\-]{0,}")) {
+		if (!mark_type.getName().matches("[ 0-9A-Za-z–ê-–Ø–∞-—è\\-]{0,}")) {
 			log.error("MarkType validation error.");
 			return false;
 		}

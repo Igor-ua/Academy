@@ -32,7 +32,7 @@ public class JPASubjectService implements SubjectService {
 	}
 
 	private boolean validateSubject(Subject subject) {
-		if (!subject.getName().matches("[ 0-9A-Za-z¿-ﬂ‡-ˇ\\-]{0,}")) {
+		if (!subject.getName().matches("[ 0-9A-Za-z–ê-–Ø–∞-—è\\-]{0,}")) {
 			log.error("Subject validation error.");
 			return false;
 		}
