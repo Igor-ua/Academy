@@ -10,9 +10,4 @@ public class IndexController {
 	String index() {
 		return "index";
 	}
-
-//	@RequestMapping(value = {"**/home"})
-//	String home() {
-//		return "redirect:/";
-//	}
 }

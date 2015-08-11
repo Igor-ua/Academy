@@ -60,7 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/")
 				.permitAll()
 				.and()
-//				.csrf().disable()
 				.rememberMe().tokenRepository(persistentTokenRepository).tokenValiditySeconds(86400);
 	}
 

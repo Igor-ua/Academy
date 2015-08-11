@@ -5,7 +5,9 @@ import org.mydomain.academy.db.utils.content.JPAContentManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.orm.jpa.EntityScan;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import static org.mydomain.academy.db.H2Server.H2ConsoleServer.startServer;
 
 @SpringBootApplication
+@EnableAutoConfiguration(exclude=ErrorMvcAutoConfiguration.class)
 @EntityScan(basePackages = "org.mydomain.academy/db/entities")
 @EnableJpaRepositories(basePackages = "org.mydomain.academy/db/DAO/JPAInterface")
 @ComponentScan(basePackages = "org.mydomain.academy")

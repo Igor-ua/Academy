@@ -59,6 +59,7 @@ $RECYCLE.BIN/
 /out/
 /target/
 /logs/
+/H2db/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
