@@ -31,7 +31,7 @@ public class JPAFormService implements FormService {
 	}
 
 	private boolean validateForm(Form form) {
-		if (!form.getName().matches("[ 0-9A-Za-zА-Яа-я\\-]{0,}")) {
+		if (!form.getName().matches("[ 0-9A-Za-z\\-]{0,}")) {
 			log.error("Form validation error.");
 			return false;
 		}

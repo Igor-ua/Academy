@@ -32,7 +32,7 @@ public class JPAPersonService implements PersonService {
 	}
 
 	private boolean validatePerson(Person person) {
-		if (!person.getName().matches("[ A-Za-zА-Яа-я\\-]{0,}")) {
+		if (!person.getName().matches("[ A-Za-z\\-]{0,}")) {
 			log.error("Person validation error.");
 			return false;
 		}
@@ -40,7 +40,7 @@ public class JPAPersonService implements PersonService {
 			log.error("Person validation error.");
 			return false;
 		}
-		if (!person.getPassport().matches("[A-ZА-Яа-я0-9]{8,8}")) {
+		if (!person.getPassport().matches("[A-Za-z0-9]{8,8}")) {
 			log.error("Person validation error.");
 			return false;
 		}

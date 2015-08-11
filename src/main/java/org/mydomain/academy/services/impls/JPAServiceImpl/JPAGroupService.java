@@ -33,7 +33,7 @@ public class JPAGroupService implements GroupService {
 	}
 
 	private boolean validateGroup(Group group) {
-		if (!group.getName().matches("[ A-Za-zА-Яа-я0-9\\-]{0,}")) {
+		if (!group.getName().matches("[ A-Za-z0-9\\-]{0,}")) {
 			log.error("Group validation error.");
 			return false;
 		}
