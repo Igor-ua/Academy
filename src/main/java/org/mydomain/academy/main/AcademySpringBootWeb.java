@@ -1,6 +1,5 @@
 package org.mydomain.academy.main;
 
-import org.mydomain.academy.db.h2.H2ConsoleServer;
 import org.mydomain.academy.db.utils.content.JPAContentManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -24,10 +23,6 @@ public class AcademySpringBootWeb extends SpringBootServletInitializer implement
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-//		System.setProperty("h2.bindAddress", System.getenv("OPENSHIFT_JBOSSEWS_IP"));
-//		new H2ConsoleServer(15081, 15080,
-//				System.getenv("OPENSHIFT_JBOSSEWS_IP"),
-//				System.getenv("H2_DIR")).startServer();
 		return application.sources(AcademySpringBootWeb.class);
 	}
 

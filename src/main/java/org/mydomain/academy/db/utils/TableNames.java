@@ -2,6 +2,8 @@ package org.mydomain.academy.db.utils;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 /**
  * {@link TableNames} contains table and column names for using them in SQL syntax
  *
@@ -140,5 +142,13 @@ public final class TableNames {
 		public static final String ID = "id";
 		public static final String TEACHER_ID = "teacher_id";
 		public static final String SUBJECT_ID = "subject_id";
+	}
+
+	public static String [] days(){
+		return Arrays.toString(ScheduleColumns.DAY_ENUM.values()).replaceAll("^.|.$", "").split(", ");
+	}
+
+	public static String [] chzn(){
+		return Arrays.toString(ScheduleColumns.CHIS_ZNAM_ENUM.values()).replaceAll("^.|.$", "").split(", ");
 	}
 }
