@@ -6,9 +6,8 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: page">Header section</div>
-<div th:replace="fragments/body :: page">Body section</div>
-<div th:replace="fragments/footer :: page">Footer section</div>
+<div th:include="fragments/header :: page">Header section</div>
+<div th:include="fragments/body :: page">Body section</div>
 
 </body>
 </html>
