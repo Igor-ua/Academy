@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div th:replace="fragments/header :: page">Header section</div>
+<div th:include="fragments/header :: page">Header section</div>
 
 <br/><br/>
 
@@ -53,8 +53,6 @@
         </div>
     </div>
 </div>
-
-<div th:replace="fragments/footer :: page">Footer section</div>
 
 </body>
 </html>
