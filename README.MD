@@ -1,0 +1,1 @@
+Spring-branch of this [project](https://github.com/Igor-ua/Academy) is deployed (openshift.com VPS/Linux) and available here: [http://academy-spring.ddns.net/](http://academy-spring.ddns.net/)
