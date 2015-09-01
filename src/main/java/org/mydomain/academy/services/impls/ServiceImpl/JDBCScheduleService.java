@@ -20,7 +20,7 @@ public class JDBCScheduleService implements ScheduleService {
 	}
 
 	private boolean validateSchedule(Schedule schedule) {
-		if (!schedule.getChisZnam().matches("[A-Za-zР-пр-џ]{0,10}")) {
+		if (!schedule.getChisZnam().matches("[A-Za-z]{0,10}")) {
 			log.error("Schedule validation error.");
 			return false;
 		}

@@ -20,7 +20,7 @@ public class JDBCPersonService implements PersonService {
 	}
 
 	private boolean validatePerson(Person person) {
-		if (!person.getName().matches("[ A-Za-zР-пр-џ\\-]{0,}")) {
+		if (!person.getName().matches("[ A-Za-z\\-]{0,}")) {
 			log.error("Person validation error.");
 			return false;
 		}
@@ -28,7 +28,7 @@ public class JDBCPersonService implements PersonService {
 			log.error("Person validation error.");
 			return false;
 		}
-		if (!person.getPassport().matches("[A-ZР-пр-џ0-9]{0,8}")) {
+		if (!person.getPassport().matches("[A-Z0-9]{0,8}")) {
 			log.error("Person validation error.");
 			return false;
 		}

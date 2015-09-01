@@ -53,7 +53,7 @@ public enum ConsoleResultsMessages {
 	RS_PERSON_ID("\nEnter Person id: "),
 	RS_PERSON_NAME("\nEnter Person name: "),
 	RS_PERSON_BIRTHDAY("\nEnter Person birthday (in yyyy-MM-dd format): "),
-	RS_PERSON_SELECT_PASSPORT("\nSelect Person passport (in ¿¡123456 format): "),
+	RS_PERSON_SELECT_PASSPORT("\nSelect Person passport (in AB123456 format): "),
 	RS_PERSON_DELETE_BY_ID("\nEnter Person id to delete from the list: "),
 	RS_PERSON_UPDATE_BY_ID("\nSelect Person id to update from the list: "),
 

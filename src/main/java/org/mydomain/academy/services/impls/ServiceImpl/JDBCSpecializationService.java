@@ -20,7 +20,7 @@ public class JDBCSpecializationService implements SpecializationService {
 	}
 
 	private boolean validateSpecialization(Specialization specialization) {
-		if (!specialization.getName().matches("[ A-Za-zР-пр-џ\\-]{0,}")) {
+		if (!specialization.getName().matches("[ A-Za-z\\-]{0,}")) {
 			log.error("Specialization validation error.");
 			return false;
 		}

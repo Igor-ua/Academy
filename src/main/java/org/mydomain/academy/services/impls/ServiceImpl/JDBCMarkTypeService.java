@@ -19,7 +19,7 @@ public class JDBCMarkTypeService implements MarkTypeService {
 	}
 
 	private boolean validateMarkType(MarkType mark_type) {
-		if (!mark_type.getName().matches("[ 0-9A-Za-zР-пр-џ\\-]{0,}")) {
+		if (!mark_type.getName().matches("[ 0-9A-Za-z\\-]{0,}")) {
 			log.error("MarkType validation error.");
 			return false;
 		}
