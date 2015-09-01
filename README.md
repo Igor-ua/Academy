@@ -5,6 +5,7 @@ Available: [EN](https://github.com/Igor-ua/Academy/blob/master/README.md) [RU](h
 The Project "Academy" has been developed by me in the course of learning the **Java** language.
 The "Academy" is an accounting data system for the educational institutions (database with an access interface).
 <br>This system provides management (CRUD - create/read/update/delete + search) on such criteria as: students, groups, teachers, marks, schedules, etc.
+<br>Spring-branch of this project is deployed (openshift.com VPS/Linux) and available here: [http://academy-spring.ddns.net/](http://academy-spring.ddns.net/)
 <br>This project contains such technologies as:
 
 <p><strong>DB connectivity / ORM</strong></p>
