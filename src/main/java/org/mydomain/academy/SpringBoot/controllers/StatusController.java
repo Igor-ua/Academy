@@ -31,7 +31,7 @@ public class StatusController {
         Status status = jpaStatusService.findLast();
         if (status != null) {
             DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
-            formatter.setTimeZone(TimeZone.getTimeZone("UA"));
+            formatter.setTimeZone(TimeZone.getTimeZone("Europe/Kiev"));
             String response = "Connection info<br><br>IP address: " + status.getIpAddress() + "<br>Last update: " +
                     formatter.format(status.getLastUpdate());
             return response;
