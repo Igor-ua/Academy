@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 @Controller
 @RequestMapping("/status")
@@ -27,8 +30,10 @@ public class StatusController {
     public String findLast() {
         Status status = jpaStatusService.findLast();
         if (status != null) {
+            DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("UA"));
             String response = "Connection info<br><br>IP address: " + status.getIpAddress() + "<br>Last update: " +
-                    status.getLastUpdate();
+                    formatter.format(status.getLastUpdate());
             return response;
         }
         return "Nothing to show";
