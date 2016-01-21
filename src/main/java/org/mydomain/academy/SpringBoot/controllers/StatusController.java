@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.TimeZone;
 
 @Controller
@@ -30,7 +31,7 @@ public class StatusController {
     public String findLast() {
         Status status = jpaStatusService.findLast();
         if (status != null) {
-            DateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             formatter.setTimeZone(TimeZone.getTimeZone("Europe/Kiev"));
             String response = "Connection info<br><br>IP address: " + status.getIpAddress() + "<br>Last update: " +
                     formatter.format(status.getLastUpdate());
@@ -47,7 +48,10 @@ public class StatusController {
         if ("change-this".equals(msg)) {
             String ip = request.getRemoteAddr();
             Status status = new Status(ip);
-            System.out.println("Updating latest ip address: " + ip);
+            Date d = new Date();
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            formatter.setTimeZone(TimeZone.getTimeZone("Europe/Kiev"));
+            System.out.println("Updating ip address: " + ip + ", Time: " + formatter.format(d));
             return jpaStatusService.saveService(status);
         }
         return false;
